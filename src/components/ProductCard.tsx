@@ -39,7 +39,7 @@ export function ProductCard({ product, onEnquire }: {
             ⭐ Featured
           </span>
         )}
-        <div className="flex h-36 items-center justify-center p-2">
+        <div className="flex h-28 items-center justify-center p-2">
           <img
             src={product.image}
             alt={product.name}

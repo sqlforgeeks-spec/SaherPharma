@@ -132,7 +132,7 @@ export function Catalogue({ onEnquire }: { onEnquire: (p: Product) => void }) {
       {/* ── Grid ── */}
       <div
         key={`${activeTab}-${showAll}`}
-        className="mt-6 grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 animate-fade"
+        className="mt-6 grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 animate-fade"
       >
         {displayed.map((p) => (
           <ProductCard key={p.id} product={p} onEnquire={onEnquire} />

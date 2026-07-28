@@ -36,8 +36,9 @@ export default function App() {
     }, 200);
   }, []);
 
-  const scrollTo = (target: "products" | "contact" | "top") => {
+  const scrollTo = (target: "products" | "contact" | "top" | "why") => {
     if (target === "top") { window.scrollTo({ top: 0, behavior: "smooth" }); return; }
+    if (target === "why") { document.getElementById("why")?.scrollIntoView({ behavior: "smooth", block: "start" }); return; }
     const el = target === "products" ? productsRef.current : contactRef.current;
     el?.scrollIntoView({ behavior: "smooth", block: "start" });
   };

@@ -72,7 +72,7 @@ export function Footer({ onEnquire }: { onEnquire?: (items: CartItem[]) => void 
       <div className="mx-auto max-w-6xl">
 
         {/* ── WHY SAHERPHARMA — redesigned ── */}
-        <div className="mb-12">
+        <div id="why" className="mb-12">
           {/* Section header */}
           <div className="mb-8 text-center">
             <span className="inline-flex items-center gap-2 rounded-full bg-blue-500/10 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">

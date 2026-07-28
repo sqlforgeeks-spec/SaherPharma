@@ -200,6 +200,18 @@ export const products: Product[] = [
 
   /* ── Sildenafil Citrate / Cenforce ── */
   {
+    id: "cenforce-25",
+    name: "Cenforce 25",
+    brand: "Cenforce",
+    compound: "Sildenafil Citrate",
+    strengths: ["25mg"],
+    category: "Tablets",
+    image: "/images/cenforce-25.jpg",
+    description:
+      "Cenforce 25mg Sildenafil Citrate tablets — low-dose entry option in the Cenforce range. Blue film-coated tablets packed for bulk B2B export by Centurion Remedies.",
+    featured: true,
+  },
+  {
     id: "cenforce-50",
     name: "Cenforce 50",
     brand: "Cenforce",
@@ -211,6 +223,18 @@ export const products: Product[] = [
       "Cenforce 50mg Sildenafil Citrate tablets — an entry-strength option in the Cenforce range. Blue film-coated tablets packed for bulk B2B export by Centurion Remedies.",
   },
   {
+    id: "cenforce-100",
+    name: "Cenforce 100",
+    brand: "Cenforce",
+    compound: "Sildenafil Citrate",
+    strengths: ["100mg"],
+    category: "Tablets",
+    image: "/images/cenforce-100.jpg",
+    description:
+      "Cenforce 100mg — the most widely distributed strength in the Cenforce range. Blue film-coated tablets in export-ready 10×10 blister cartons by Centurion Remedies.",
+    featured: true,
+  },
+  {
     id: "cenforce-150",
     name: "Cenforce 150",
     brand: "Cenforce",
@@ -220,7 +244,17 @@ export const products: Product[] = [
     image: "/images/cenforce-150.jpg",
     description:
       "Cenforce 150mg — high-strength Sildenafil Citrate tablets popular across global generic markets. Packed in secure 10×10 blister cartons for international distribution.",
-    featured: true,
+  },
+  {
+    id: "cenforce-200",
+    name: "Cenforce 200",
+    brand: "Cenforce",
+    compound: "Sildenafil Citrate",
+    strengths: ["200mg"],
+    category: "Tablets",
+    image: "/images/cenforce-200.jpg",
+    description:
+      "Cenforce 200mg — maximum-strength Sildenafil Citrate tablets for markets requiring the highest dose. Supplied in secure 10×10 blister cartons for international distribution.",
   },
   {
     id: "cenforce-soft-100",

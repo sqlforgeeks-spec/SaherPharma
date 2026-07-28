@@ -1,30 +1,53 @@
 import { useMemo, useState } from "react";
-import { products, categories, CONTACT } from "../data";
+import { products, CONTACT } from "../data";
 import type { Product } from "../data";
 import { ProductCard } from "./ProductCard";
 import { SectionTag } from "./Bits";
+
+/* ── Brands to show as filter tabs ── */
+const BRANDS = ["Vidalista", "Fildena", "Vilitra", "Cenforce"] as const;
+type FilterTab = "Featured" | typeof BRANDS[number];
+
+/* ── Pick up to 2 featured products per brand for the default view ── */
+function getFeaturedProducts(): Product[] {
+  const result: Product[] = [];
+  for (const brand of BRANDS) {
+    const brandProds = products.filter((p) => p.brand === brand);
+    // prefer explicitly featured, else take the first 2
+    const featured = brandProds.filter((p) => p.featured);
+    const picks = featured.length >= 2 ? featured.slice(0, 2) : brandProds.slice(0, 2);
+    result.push(...picks);
+  }
+  return result;
+}
+
+const featuredProducts = getFeaturedProducts();
 
 export function Catalogue({
   onEnquire,
 }: {
   onEnquire: (p: Product) => void;
 }) {
-  const [activeCategory, setActiveCategory] = useState("All");
-  const [activeName, setActiveName] = useState("All");
+  const [activeTab, setActiveTab] = useState<FilterTab>("Featured");
+  const [showAll, setShowAll] = useState(false);
 
-  const filtered = useMemo(() => {
-    return products.filter((p) => {
-      const matchCat = activeCategory === "All" || p.category === activeCategory;
-      const matchName = activeName === "All" || p.id === activeName;
-      return matchCat && matchName;
-    });
-  }, [activeCategory, activeName]);
+  const displayProducts = useMemo(() => {
+    if (activeTab === "Featured") {
+      return showAll ? products : featuredProducts;
+    }
+    return products.filter((p) => p.brand === activeTab);
+  }, [activeTab, showAll]);
+
+  const handleTabChange = (tab: FilterTab) => {
+    setActiveTab(tab);
+    setShowAll(false);
+  };
 
   const downloadCatalogue = () => {
-    const byCategory: Record<string, Product[]> = {};
+    const byBrand: Record<string, Product[]> = {};
     for (const p of products) {
-      if (!byCategory[p.category]) byCategory[p.category] = [];
-      byCategory[p.category].push(p);
+      if (!byBrand[p.brand]) byBrand[p.brand] = [];
+      byBrand[p.brand].push(p);
     }
 
     const lines = [
@@ -41,9 +64,9 @@ export function Catalogue({
       "",
       "PRODUCTS",
       "────────────────────────────────────────────",
-      ...Object.entries(byCategory).flatMap(([cat, prods]) => [
+      ...Object.entries(byBrand).flatMap(([brand, prods]) => [
         "",
-        `▸ ${cat.toUpperCase()}`,
+        `▸ ${brand.toUpperCase()}`,
         ...prods.map((p) =>
           `  • ${p.name.padEnd(26)} ${p.compound.padEnd(30)} ${p.strengths.join(" / ")}`
         ),
@@ -72,74 +95,72 @@ export function Catalogue({
         <SectionTag>📦 Product Catalogue</SectionTag>
         <h1 className="mt-4 font-display text-5xl font-bold text-[var(--text)]">Explore our range</h1>
         <p className="mx-auto mt-4 max-w-xl text-sm text-muted">
-          {products.length} products available for international B2B export. Filter by category or product name.
+          {products.length} products available for international B2B export.
         </p>
       </div>
 
-      {/* ── Filter row ── */}
-      <div className="reveal mt-8 space-y-3">
-        {/* Category chips */}
+      {/* ── Filter tabs + Download ── */}
+      <div className="reveal mt-8 flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap gap-2">
-          {["All", ...categories].map((cat) => (
+          {(["Featured", ...BRANDS] as FilterTab[]).map((tab) => (
             <button
-              key={cat}
-              onClick={() => { setActiveCategory(cat); setActiveName("All"); }}
+              key={tab}
+              onClick={() => handleTabChange(tab)}
               className={`rounded-xl px-4 py-2 text-xs font-semibold transition ${
-                activeCategory === cat
+                activeTab === tab
                   ? "bg-blue-600 text-white shadow-sm"
                   : "glass text-muted hover:text-[var(--text)] hover:border-blue-400/40"
               }`}
             >
-              {cat}
-              <span className="ml-1.5 opacity-60">
-                {cat === "All" ? products.length : products.filter((p) => p.category === cat).length}
-              </span>
+              {tab}
             </button>
           ))}
         </div>
 
-        {/* Product name selector + Download */}
-        <div className="flex flex-wrap items-center gap-2">
-          <select
-            value={activeName}
-            onChange={(e) => setActiveName(e.target.value)}
-            className="flex-1 min-w-[200px] rounded-xl glass px-3 py-2.5 text-sm text-[var(--text)] outline-none transition focus:border-blue-400/60 cursor-pointer"
-          >
-            <option value="All">All Products</option>
-            {(activeCategory === "All" ? products : products.filter((p) => p.category === activeCategory)).map((p) => (
-              <option key={p.id} value={p.id}>{p.name} — {p.category} ({p.strengths.join(" / ")})</option>
-            ))}
-          </select>
+        <button
+          onClick={downloadCatalogue}
+          className="flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 shrink-0"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download Catalogue
+        </button>
+      </div>
 
+      {/* ── Product grid ── */}
+      <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {displayProducts.map((p) => (
+          <div key={p.id} className="reveal">
+            <ProductCard product={p} onEnquire={onEnquire} />
+          </div>
+        ))}
+      </div>
+
+      {/* ── Show More (Featured tab only) ── */}
+      {activeTab === "Featured" && !showAll && products.length > featuredProducts.length && (
+        <div className="mt-8 text-center reveal">
           <button
-            onClick={downloadCatalogue}
-            className="flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 shrink-0"
+            onClick={() => setShowAll(true)}
+            className="inline-flex items-center gap-2 rounded-xl glass px-6 py-3 text-sm font-semibold text-[var(--text)] transition hover:border-blue-400/40 hover:text-blue-600"
           >
+            Show all {products.length} products
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+              <path d="m6 9 6 6 6-6"/>
             </svg>
-            Download Catalogue
           </button>
         </div>
-      </div>
-
-      <div className="reveal mt-4 text-xs text-muted">
-        Showing {filtered.length} of {products.length} products
-      </div>
-
-      {filtered.length ? (
-        <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((p) => (
-            <div key={p.id} className="reveal">
-              <ProductCard product={p} onEnquire={onEnquire} />
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="mt-16 rounded-3xl glass p-16 text-center text-muted">
-          No products match.{" "}
-          <button onClick={() => { setActiveCategory("All"); setActiveName("All"); }} className="text-blue-600 dark:text-blue-300 underline">
-            Show all
+      )}
+      {activeTab === "Featured" && showAll && (
+        <div className="mt-8 text-center reveal">
+          <button
+            onClick={() => setShowAll(false)}
+            className="inline-flex items-center gap-2 rounded-xl glass px-6 py-3 text-sm font-semibold text-[var(--text)] transition hover:border-blue-400/40 hover:text-blue-600"
+          >
+            Show less
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="m18 15-6-6-6 6"/>
+            </svg>
           </button>
         </div>
       )}

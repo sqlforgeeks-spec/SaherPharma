@@ -38,7 +38,6 @@ export function ProductCard({
             </span>
           ))}
         </div>
-        <p className="line-clamp-2 text-sm text-muted">{product.description}</p>
         <button
           onClick={() => onEnquire(product)}
           className="mt-auto rounded-xl bg-gradient-to-r from-blue-600 to-sky-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:brightness-110"

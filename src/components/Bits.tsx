@@ -98,12 +98,22 @@ export function Logo({ className = "h-8 w-8" }: { className?: string }) {
     <svg className={className} viewBox="0 0 48 48" fill="none" aria-hidden>
       <defs>
         <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#93c5fd" />
-          <stop offset="1" stopColor="#2563eb" />
+          <stop offset="0" stopColor="#1e3a8a" />
+          <stop offset="1" stopColor="#3b82f6" />
+        </linearGradient>
+        <linearGradient id="lg2" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#60a5fa" />
+          <stop offset="1" stopColor="#93c5fd" />
         </linearGradient>
       </defs>
-      <path d="M24 3l17 6v11c0 11-7.5 18.5-17 22-9.5-3.5-17-11-17-22V9l17-6z" fill="url(#lg)" opacity="0.18" stroke="url(#lg)" strokeWidth="1.6" />
-      <path d="M24 14v20M14 24h20" stroke="url(#lg)" strokeWidth="3.2" strokeLinecap="round" />
+      {/* Bold hexagon base */}
+      <path d="M24 3l18.5 10.5v21L24 45 5.5 34.5v-21z" fill="url(#lg)" />
+      {/* Inner highlight ring */}
+      <path d="M24 7l15 8.5v17L24 41 9 32.5v-17z" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+      {/* Bold cross symbol */}
+      <path d="M24 15v18M15 24h18" stroke="white" strokeWidth="4" strokeLinecap="round" />
+      {/* Small accent dot */}
+      <circle cx="24" cy="24" r="2.5" fill="url(#lg2)" opacity="0.9" />
     </svg>
   );
 }

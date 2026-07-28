@@ -102,7 +102,7 @@ export function Navbar({
   scrolled, onNav, onEnquire, darkMode, setDarkMode,
 }: {
   scrolled: boolean;
-  onNav: (target: "products" | "contact" | "top") => void;
+  onNav: (target: "products" | "contact" | "top" | "why") => void;
   onEnquire: () => void;
   darkMode: boolean;
   setDarkMode: (v: boolean) => void;
@@ -112,7 +112,7 @@ export function Navbar({
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const nav = (id: "products" | "contact") => { onNav(id); setOpen(false); };
+  const nav = (id: "products" | "contact" | "why") => { onNav(id); setOpen(false); };
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -155,6 +155,9 @@ export function Navbar({
               </button>
               {productsOpen && <ProductsDropdown onClose={() => setProductsOpen(false)} />}
             </div>
+            <button onClick={() => nav("why")} className="rounded-xl px-3.5 py-2 text-sm font-medium text-muted transition hover:text-[var(--text)]">
+              Standards
+            </button>
             <button onClick={() => nav("contact")} className="rounded-xl px-3.5 py-2 text-sm font-medium text-muted transition hover:text-[var(--text)]">
               Contact
             </button>
@@ -225,6 +228,12 @@ export function Navbar({
               </div>
             )}
 
+            <button
+              onClick={() => nav("why")}
+              className="rounded-xl px-4 py-3 text-left text-sm font-medium text-muted transition hover:bg-black/5 dark:hover:bg-white/5"
+            >
+              Standards
+            </button>
             <button
               onClick={() => nav("contact")}
               className="rounded-xl px-4 py-3 text-left text-sm font-medium text-muted transition hover:bg-black/5 dark:hover:bg-white/5"

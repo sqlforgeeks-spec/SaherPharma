@@ -91,6 +91,60 @@ function ChevronIcon({ open }: { open: boolean }) {
   );
 }
 
+/* ── "All" mega dropdown — all brands as columns ── */
+function AllDropdown({ onClose }: { onClose: () => void }) {
+  const scrollToProducts = () => {
+    onClose();
+    document.getElementById("products")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  return (
+    <div className="dropdown-enter absolute left-0 top-full mt-3 w-[860px] rounded-2xl glass-strong shadow-xl shadow-black/10 dark:shadow-black/40 p-4 z-50">
+      <div className="grid grid-cols-5 gap-3">
+        {BRANDS.map((brand) => {
+          const prods = byBrand[brand] ?? [];
+          const color = brandColor[brand];
+          return (
+            <div key={brand}>
+              <div className="mb-2 flex items-center gap-1.5 px-1">
+                {BrandIcons[brand]({ color, size: 11 })}
+                <span className="text-[9px] font-bold uppercase tracking-[0.18em]" style={{ color }}>{brand}</span>
+              </div>
+              <div className="flex flex-col gap-0.5">
+                {prods.slice(0, 7).map((p) => (
+                  <button
+                    key={p.id}
+                    onClick={scrollToProducts}
+                    className="flex items-center gap-2 rounded-xl px-1.5 py-1.5 text-left transition hover:bg-blue-500/8 group"
+                  >
+                    <span className="shrink-0 h-7 w-7 rounded-lg bg-white ring-1 ring-[var(--border)] flex items-center justify-center overflow-hidden">
+                      <img src={p.image} alt={p.name} className="h-6 w-6 object-contain" />
+                    </span>
+                    <div className="min-w-0">
+                      <p className="truncate text-[10px] font-semibold text-[var(--text)] group-hover:text-blue-600 dark:group-hover:text-blue-300 transition">{p.name}</p>
+                      <p className="text-[9px] text-muted">{p.strengths[0]}</p>
+                    </div>
+                  </button>
+                ))}
+                {prods.length > 7 && (
+                  <button onClick={scrollToProducts} className="px-1.5 py-1 text-[9px] hover:underline text-left" style={{ color }}>
+                    +{prods.length - 7} more →
+                  </button>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div className="mt-3 border-t border-[var(--border)] pt-2.5 flex items-center justify-between px-1">
+        <p className="text-[10px] text-muted">📦 {products.length} products available for export</p>
+        <button onClick={scrollToProducts} className="text-[10px] font-semibold text-blue-600 dark:text-blue-400 hover:underline">
+          View full catalogue →
+        </button>
+      </div>
+    </div>
+  );
+}
+
 /* ── Per-brand dropdown ── */
 function BrandDropdown({ brand, onClose }: { brand: Brand; onClose: () => void }) {
   const prods = byBrand[brand] ?? [];
@@ -183,21 +237,33 @@ export function Navbar({
 }) {
   const [open, setOpen] = useState(false);
   const [openBrand, setOpenBrand] = useState<Brand | null>(null);
+  const [openAll, setOpenAll] = useState(false);
   const [mobileOpenBrand, setMobileOpenBrand] = useState<Brand | null>(null);
+  const [mobileOpenAll, setMobileOpenAll] = useState(false);
   const brandsRef = useRef<HTMLDivElement>(null);
+  const allRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (brandsRef.current && !brandsRef.current.contains(e.target as Node)) {
         setOpenBrand(null);
       }
+      if (allRef.current && !allRef.current.contains(e.target as Node)) {
+        setOpenAll(false);
+      }
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
-  const toggleBrand = (brand: Brand) =>
+  const toggleBrand = (brand: Brand) => {
+    setOpenAll(false);
     setOpenBrand((prev) => (prev === brand ? null : brand));
+  };
+  const toggleAll = () => {
+    setOpenBrand(null);
+    setOpenAll((v) => !v);
+  };
 
   return (
     <>
@@ -211,28 +277,47 @@ export function Navbar({
             </span>
           </button>
 
-          {/* Desktop nav — 5 brand dropdowns */}
-          <div className="hidden items-center gap-0.5 lg:flex" ref={brandsRef}>
-            {BRANDS.map((brand) => {
-              const isOpen = openBrand === brand;
-              const color = brandColor[brand];
-              return (
-                <div key={brand} className="relative">
-                  <button
-                    onClick={() => toggleBrand(brand)}
-                    className="flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-medium text-muted transition hover:text-[var(--text)]"
-                    style={isOpen ? { color } : {}}
-                  >
-                    {BrandIcons[brand]({ color: isOpen ? color : "currentColor", size: 13 })}
-                    {brand}
-                    <ChevronIcon open={isOpen} />
-                  </button>
-                  {isOpen && (
-                    <BrandDropdown brand={brand} onClose={() => setOpenBrand(null)} />
-                  )}
-                </div>
-              );
-            })}
+          {/* Desktop nav — All + 5 brand dropdowns */}
+          <div className="hidden items-center gap-0.5 lg:flex">
+            {/* All mega dropdown */}
+            <div className="relative" ref={allRef}>
+              <button
+                onClick={toggleAll}
+                className="flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-medium transition hover:text-[var(--text)]"
+                style={openAll ? { color: "#3b82f6" } : { color: "var(--muted)" }}
+              >
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                </svg>
+                All
+                <ChevronIcon open={openAll} />
+              </button>
+              {openAll && <AllDropdown onClose={() => setOpenAll(false)} />}
+            </div>
+
+            {/* Per-brand dropdowns */}
+            <div className="flex items-center gap-0.5" ref={brandsRef}>
+              {BRANDS.map((brand) => {
+                const isOpen = openBrand === brand;
+                const color = brandColor[brand];
+                return (
+                  <div key={brand} className="relative">
+                    <button
+                      onClick={() => toggleBrand(brand)}
+                      className="flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-medium text-muted transition hover:text-[var(--text)]"
+                      style={isOpen ? { color } : {}}
+                    >
+                      {BrandIcons[brand]({ color: isOpen ? color : "currentColor", size: 13 })}
+                      {brand}
+                      <ChevronIcon open={isOpen} />
+                    </button>
+                    {isOpen && (
+                      <BrandDropdown brand={brand} onClose={() => setOpenBrand(null)} />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           <div className="flex items-center gap-1.5">
@@ -267,6 +352,45 @@ export function Navbar({
         {/* Mobile menu */}
         {open && (
           <div className="absolute inset-x-3 top-[58px] flex flex-col gap-1 rounded-2xl glass-strong p-3 lg:hidden animate-fade">
+            {/* All — expands all brands */}
+            <div>
+              <button
+                onClick={() => setMobileOpenAll((v) => !v)}
+                className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-sm font-medium transition hover:bg-black/5 dark:hover:bg-white/5"
+                style={mobileOpenAll ? { color: "#3b82f6" } : { color: "var(--muted)" }}
+              >
+                <span className="flex items-center gap-2.5">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                  </svg>
+                  All Products
+                </span>
+                <ChevronIcon open={mobileOpenAll} />
+              </button>
+              {mobileOpenAll && (
+                <div className="mb-1 max-h-72 overflow-y-auto rounded-xl bg-black/5 dark:bg-white/5 p-2 flex flex-col gap-2">
+                  {BRANDS.map((brand) => (
+                    <div key={brand}>
+                      <p className="px-2 py-1 text-[9px] font-bold uppercase tracking-[0.18em]" style={{ color: brandColor[brand] }}>
+                        {brand}
+                      </p>
+                      {(byBrand[brand] ?? []).slice(0, 4).map((p) => (
+                        <button
+                          key={p.id}
+                          onClick={() => { setOpen(false); onNav("products"); }}
+                          className="flex w-full items-center gap-2.5 rounded-xl px-3 py-1.5 text-left transition hover:bg-blue-500/8"
+                        >
+                          <img src={p.image} alt={p.name} className="h-6 w-6 rounded-md object-contain bg-white shrink-0" />
+                          <span className="text-sm font-medium text-[var(--text)] truncate">{p.name}</span>
+                          <span className="ml-auto text-[9px] text-muted shrink-0">{p.strengths[0]}</span>
+                        </button>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
             {BRANDS.map((brand) => {
               const color = brandColor[brand];
               const isOpen = mobileOpenBrand === brand;

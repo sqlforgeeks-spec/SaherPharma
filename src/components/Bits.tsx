@@ -15,7 +15,7 @@ export function ScrollProgress() {
   }, []);
   return (
     <div className="fixed left-0 top-0 z-[60] h-[2px] w-full bg-transparent">
-      <div className="h-full bg-gradient-to-r from-blue-500 via-sky-400 to-blue-600 transition-[width] duration-75" style={{ width: p + "%" }} />
+      <div className="h-full bg-gradient-to-r from-teal-600 via-teal-400 to-teal-500 transition-[width] duration-75" style={{ width: p + "%" }} />
     </div>
   );
 }
@@ -32,7 +32,7 @@ export function BackToTop() {
     <button
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       aria-label="Back to top"
-      className={`fixed bottom-5 left-5 z-40 grid h-11 w-11 place-items-center rounded-full glass transition-all duration-300 hover:border-blue-400/40 ${
+      className={`fixed bottom-5 left-5 z-40 grid h-11 w-11 place-items-center rounded-full bg-white dark:bg-slate-800 shadow-lg shadow-black/10 border border-[var(--border)] text-[var(--muted)] transition-all duration-300 hover:border-teal-400/50 hover:text-teal-600 dark:hover:text-teal-400 ${
         show ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0 pointer-events-none"
       }`}
     >
@@ -43,7 +43,7 @@ export function BackToTop() {
   );
 }
 
-/* ---------- Particle background canvas ---------- */
+/* ---------- Subtle particle background ---------- */
 export function Particles() {
   const ref = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
@@ -51,11 +51,11 @@ export function Particles() {
     const c = canvas.getContext("2d")!;
     let w = (canvas.width = window.innerWidth);
     let h = (canvas.height = window.innerHeight);
-    const N = Math.min(50, Math.floor(w / 28));
+    const N = Math.min(35, Math.floor(w / 38));
     const pts = Array.from({ length: N }, () => ({
       x: Math.random() * w, y: Math.random() * h,
-      vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
-      r: Math.random() * 1.4 + 0.4,
+      vx: (Math.random() - 0.5) * 0.25, vy: (Math.random() - 0.5) * 0.25,
+      r: Math.random() * 1.2 + 0.4,
     }));
     let raf = 0;
     const draw = () => {
@@ -66,7 +66,7 @@ export function Particles() {
         if (p.y < 0 || p.y > h) p.vy *= -1;
         c.beginPath();
         c.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        c.fillStyle = "rgba(96,165,250,0.4)";
+        c.fillStyle = "rgba(13,148,136,0.25)";
         c.fill();
       }
       for (let i = 0; i < N; i++)
@@ -77,7 +77,7 @@ export function Particles() {
             c.beginPath();
             c.moveTo(pts[i].x, pts[i].y);
             c.lineTo(pts[j].x, pts[j].y);
-            c.strokeStyle = `rgba(59,130,246,${0.08 * (1 - d / 130)})`;
+            c.strokeStyle = `rgba(13,148,136,${0.06 * (1 - d / 130)})`;
             c.lineWidth = 0.5;
             c.stroke();
           }
@@ -89,13 +89,11 @@ export function Particles() {
     window.addEventListener("resize", onResize);
     return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", onResize); };
   }, []);
-  return <canvas ref={ref} className="pointer-events-none fixed inset-0 -z-10 opacity-60" aria-hidden />;
+  return <canvas ref={ref} className="pointer-events-none fixed inset-0 -z-10 opacity-50" aria-hidden />;
 }
 
 /**
- * SaherPharma Logo — custom SVG mark
- * A rounded square badge with a globe (meridians + equator) and an
- * upward-right export arrow, representing global pharma trade.
+ * SaherPharma Logo — teal palette
  */
 export function Logo({ className = "h-8 w-8" }: { className?: string }) {
   return (
@@ -108,8 +106,8 @@ export function Logo({ className = "h-8 w-8" }: { className?: string }) {
     >
       <defs>
         <linearGradient id="sp-bg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#1d4ed8" />
-          <stop offset="100%" stopColor="#0ea5e9" />
+          <stop offset="0%" stopColor="#0f766e" />
+          <stop offset="100%" stopColor="#0d9488" />
         </linearGradient>
       </defs>
 
@@ -125,7 +123,7 @@ export function Logo({ className = "h-8 w-8" }: { className?: string }) {
       {/* Vertical meridian */}
       <ellipse cx="18" cy="20" rx="3.5" ry="9.5" stroke="white" strokeWidth="1.2" strokeOpacity="0.6" fill="none" />
 
-      {/* Export arrow — top-right corner, punchy white */}
+      {/* Export arrow */}
       <polyline
         points="27,8 33,8 33,14"
         stroke="white"
@@ -146,8 +144,8 @@ export function Logo({ className = "h-8 w-8" }: { className?: string }) {
 
 export function SectionTag({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-300">
-      <span className="h-1.5 w-1.5 rounded-full bg-blue-500 dark:bg-blue-400 shadow-[0_0_8px_2px_rgba(59,130,246,0.8)]" />
+    <span className="inline-flex items-center gap-2 rounded-full border border-teal-200 dark:border-teal-800/60 bg-teal-50 dark:bg-teal-900/20 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-teal-700 dark:text-teal-300">
+      <span className="h-1.5 w-1.5 rounded-full bg-teal-500 dark:bg-teal-400 shadow-[0_0_8px_2px_rgba(13,148,136,0.7)]" />
       {children}
     </span>
   );

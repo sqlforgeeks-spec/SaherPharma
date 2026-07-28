@@ -12,18 +12,17 @@ for (const p of products) {
 const BRANDS = ["Vidalista", "Fildena", "Vilitra", "Cenforce", "Kamagra"] as const;
 type Brand = typeof BRANDS[number];
 
-/* Brand accent colours (Tailwind arbitrary used inline via style) */
+/* Brand accent colours */
 const brandColor: Record<Brand, string> = {
-  Vidalista: "#0ea5e9",  // sky-500
-  Fildena:   "#f43f5e",  // rose-500
-  Vilitra:   "#8b5cf6",  // violet-500
-  Cenforce:  "#3b82f6",  // blue-500
-  Kamagra:   "#10b981",  // emerald-500
+  Vidalista: "#0ea5e9",
+  Fildena:   "#f43f5e",
+  Vilitra:   "#8b5cf6",
+  Cenforce:  "#0d9488",
+  Kamagra:   "#10b981",
 };
 
 /* ── Per-brand premium SVG icons ── */
 const BrandIcons: Record<Brand, (props: { color: string; size: number }) => JSX.Element> = {
-  // Vidalista — hexagon (structured, premium)
   Vidalista: ({ color, size }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
       stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -31,28 +30,24 @@ const BrandIcons: Record<Brand, (props: { color: string; size: number }) => JSX.
       <circle cx="12" cy="12" r="3"/>
     </svg>
   ),
-  // Fildena — heart pulse (rose, Sildenafil)
   Fildena: ({ color, size }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
       stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
     </svg>
   ),
-  // Vilitra — zap / lightning (violet, Vardenafil — energy)
   Vilitra: ({ color, size }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
       stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
       <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
     </svg>
   ),
-  // Cenforce — shield (blue, trust & protection)
   Cenforce: ({ color, size }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
       stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
     </svg>
   ),
-  // Kamagra — flame (emerald, jelly / fun range)
   Kamagra: ({ color, size }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
       stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -81,7 +76,6 @@ function MoonIcon() {
   );
 }
 
-/* ── Chevron ── */
 function ChevronIcon({ open }: { open: boolean }) {
   return (
     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
@@ -91,14 +85,14 @@ function ChevronIcon({ open }: { open: boolean }) {
   );
 }
 
-/* ── "All" mega dropdown — all brands as columns ── */
+/* ── "All" mega dropdown ── */
 function AllDropdown({ onClose }: { onClose: () => void }) {
   const scrollToProducts = () => {
     onClose();
     document.getElementById("products")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
   return (
-    <div className="dropdown-enter absolute left-0 top-full mt-3 w-[860px] rounded-2xl glass-strong shadow-xl shadow-black/10 dark:shadow-black/40 p-4 z-50">
+    <div className="dropdown-enter absolute left-0 top-full mt-3 w-[860px] rounded-2xl glass-strong shadow-2xl shadow-black/8 dark:shadow-black/40 p-4 z-50">
       <div className="grid grid-cols-5 gap-3">
         {BRANDS.map((brand) => {
           const prods = byBrand[brand] ?? [];
@@ -114,13 +108,13 @@ function AllDropdown({ onClose }: { onClose: () => void }) {
                   <button
                     key={p.id}
                     onClick={scrollToProducts}
-                    className="flex items-center gap-2 rounded-xl px-1.5 py-1.5 text-left transition hover:bg-blue-500/8 group"
+                    className="flex items-center gap-2 rounded-xl px-1.5 py-1.5 text-left transition hover:bg-teal-500/8 group"
                   >
                     <span className="shrink-0 h-7 w-7 rounded-lg bg-white ring-1 ring-[var(--border)] flex items-center justify-center overflow-hidden">
                       <img src={p.image} alt={p.name} className="h-6 w-6 object-contain" />
                     </span>
                     <div className="min-w-0">
-                      <p className="truncate text-[10px] font-semibold text-[var(--text)] group-hover:text-blue-600 dark:group-hover:text-blue-300 transition">{p.name}</p>
+                      <p className="truncate text-[10px] font-semibold text-[var(--text)] group-hover:text-teal-600 dark:group-hover:text-teal-300 transition">{p.name}</p>
                       <p className="text-[9px] text-muted">{p.strengths[0]}</p>
                     </div>
                   </button>
@@ -137,7 +131,7 @@ function AllDropdown({ onClose }: { onClose: () => void }) {
       </div>
       <div className="mt-3 border-t border-[var(--border)] pt-2.5 flex items-center justify-between px-1">
         <p className="text-[10px] text-muted">📦 {products.length} products available for export</p>
-        <button onClick={scrollToProducts} className="text-[10px] font-semibold text-blue-600 dark:text-blue-400 hover:underline">
+        <button onClick={scrollToProducts} className="text-[10px] font-semibold text-teal-600 dark:text-teal-400 hover:underline">
           View full catalogue →
         </button>
       </div>
@@ -156,8 +150,7 @@ function BrandDropdown({ brand, onClose }: { brand: Brand; onClose: () => void }
   };
 
   return (
-    <div className="dropdown-enter absolute left-1/2 top-full mt-3 w-56 -translate-x-1/2 rounded-2xl glass-strong shadow-xl shadow-black/10 dark:shadow-black/40 p-3 z-50">
-      {/* Header */}
+    <div className="dropdown-enter absolute left-1/2 top-full mt-3 w-56 -translate-x-1/2 rounded-2xl glass-strong shadow-2xl shadow-black/8 dark:shadow-black/40 p-3 z-50">
       <div className="mb-2.5 flex items-center gap-2 px-1">
         {BrandIcons[brand]({ color, size: 13 })}
         <span className="text-[10px] font-bold uppercase tracking-[0.18em]" style={{ color }}>
@@ -165,19 +158,18 @@ function BrandDropdown({ brand, onClose }: { brand: Brand; onClose: () => void }
         </span>
       </div>
 
-      {/* Product rows */}
       <div className="flex flex-col gap-0.5">
         {prods.slice(0, 7).map((p) => (
           <button
             key={p.id}
             onClick={scrollToProducts}
-            className="flex items-center gap-2.5 rounded-xl px-2 py-1.5 text-left transition hover:bg-blue-500/8 group"
+            className="flex items-center gap-2.5 rounded-xl px-2 py-1.5 text-left transition hover:bg-teal-500/8 group"
           >
             <span className="shrink-0 h-8 w-8 rounded-lg bg-white ring-1 ring-[var(--border)] flex items-center justify-center overflow-hidden">
               <img src={p.image} alt={p.name} className="h-7 w-7 object-contain" />
             </span>
             <div className="min-w-0">
-              <p className="truncate text-[11px] font-semibold text-[var(--text)] group-hover:text-blue-600 dark:group-hover:text-blue-300 transition">
+              <p className="truncate text-[11px] font-semibold text-[var(--text)] group-hover:text-teal-600 dark:group-hover:text-teal-300 transition">
                 {p.name}
               </p>
               <p className="text-[9px] text-muted truncate">{p.strengths.slice(0, 3).join(" · ")}</p>
@@ -185,15 +177,14 @@ function BrandDropdown({ brand, onClose }: { brand: Brand; onClose: () => void }
           </button>
         ))}
         {prods.length > 7 && (
-          <button onClick={scrollToProducts} className="px-2 py-1 text-[9px] text-blue-500 dark:text-blue-400 hover:underline text-left">
+          <button onClick={scrollToProducts} className="px-2 py-1 text-[9px] hover:underline text-left" style={{ color: "#0d9488" }}>
             +{prods.length - 7} more →
           </button>
         )}
       </div>
 
-      {/* Footer link */}
       <div className="mt-2.5 border-t border-[var(--border)] pt-2 px-1">
-        <button onClick={scrollToProducts} className="text-[10px] font-semibold hover:underline" style={{ color }}>
+        <button onClick={scrollToProducts} className="text-[10px] font-semibold text-teal-600 dark:text-teal-400 hover:underline">
           View all {brand} →
         </button>
       </div>
@@ -217,8 +208,8 @@ function CatalogueBanner() {
             <span className="hidden text-muted sm:inline">{p.compound}</span>
             <span className="text-muted hidden md:inline">·</span>
             <span className="hidden text-muted md:inline">{p.strengths.join(" / ")}</span>
-            <span className="ml-2 rounded-full bg-blue-500/15 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-300">✈️ Export Ready</span>
-            <span className="ml-4 text-[var(--border-hi)]">◆</span>
+            <span className="ml-2 rounded-full bg-teal-500/12 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-teal-700 dark:text-teal-300">✈️ Export Ready</span>
+            <span className="ml-4 text-teal-400/40">◆</span>
           </div>
         ))}
       </div>
@@ -269,7 +260,11 @@ export function Navbar({
     <>
       <CatalogueBanner />
       <header className="fixed inset-x-0 top-9 z-40 flex justify-center px-3 pt-3">
-        <nav className={`flex w-full max-w-6xl items-center justify-between rounded-2xl px-4 py-2.5 transition-all duration-500 ${scrolled ? "glass-strong" : "glass"}`}>
+        <nav className={`flex w-full max-w-6xl items-center justify-between rounded-2xl px-4 py-2.5 transition-all duration-500 ${
+          scrolled
+            ? "bg-white/95 dark:bg-[#0e1526]/95 border border-[var(--border)] shadow-lg shadow-black/5 backdrop-blur-xl"
+            : "bg-white/80 dark:bg-[#0e1526]/70 border border-[var(--border)] backdrop-blur-md"
+        }`}>
           <button onClick={() => onNav("top")} className="flex items-center gap-2.5">
             <Logo className="h-8 w-8" />
             <span className="font-display text-base font-bold tracking-tight text-[var(--text)]">
@@ -277,14 +272,14 @@ export function Navbar({
             </span>
           </button>
 
-          {/* Desktop nav — All + 5 brand dropdowns */}
+          {/* Desktop nav */}
           <div className="hidden items-center gap-0.5 lg:flex">
             {/* All mega dropdown */}
             <div className="relative" ref={allRef}>
               <button
                 onClick={toggleAll}
                 className="flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-medium transition hover:text-[var(--text)]"
-                style={openAll ? { color: "#3b82f6" } : { color: "var(--muted)" }}
+                style={openAll ? { color: "#0d9488" } : { color: "var(--muted)" }}
               >
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
@@ -324,12 +319,12 @@ export function Navbar({
             <button
               onClick={() => setDarkMode(!darkMode)}
               aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
-              className="grid h-9 w-9 place-items-center rounded-xl glass transition hover:border-blue-400/40 text-muted hover:text-[var(--text)]"
+              className="grid h-9 w-9 place-items-center rounded-xl border border-[var(--border)] bg-[var(--bg-2)] transition hover:border-teal-400/40 text-muted hover:text-[var(--text)]"
             >
               {darkMode ? <SunIcon /> : <MoonIcon />}
             </button>
 
-            <RippleButton onClick={onEnquire} className="hidden items-center gap-1.5 rounded-xl bg-blue-600 px-4 py-2.5 text-xs font-semibold text-white shadow-md shadow-blue-600/25 transition hover:bg-blue-500 sm:flex">
+            <RippleButton onClick={onEnquire} className="hidden items-center gap-1.5 rounded-full bg-teal-600 px-5 py-2.5 text-xs font-semibold text-white shadow-md shadow-teal-600/25 transition hover:bg-teal-500 sm:flex">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="22" y1="2" x2="11" y2="13"/>
                 <polygon points="22 2 15 22 11 13 2 9 22 2"/>
@@ -340,7 +335,7 @@ export function Navbar({
             <button
               onClick={() => setOpen((o) => !o)}
               aria-label="Menu"
-              className={`burger relative grid h-9 w-9 place-items-center rounded-xl glass lg:hidden ${open ? "active" : ""} text-[var(--text)]`}
+              className={`burger relative grid h-9 w-9 place-items-center rounded-xl border border-[var(--border)] bg-[var(--bg-2)] lg:hidden ${open ? "active" : ""} text-[var(--text)]`}
             >
               <div className="flex flex-col items-center gap-[5px]">
                 <span /><span /><span />
@@ -351,13 +346,13 @@ export function Navbar({
 
         {/* Mobile menu */}
         {open && (
-          <div className="absolute inset-x-3 top-[58px] flex flex-col gap-1 rounded-2xl glass-strong p-3 lg:hidden animate-fade">
+          <div className="absolute inset-x-3 top-[58px] flex flex-col gap-1 rounded-2xl bg-white dark:bg-[#0e1526] border border-[var(--border)] shadow-2xl shadow-black/10 p-3 lg:hidden animate-fade">
             {/* All — expands all brands */}
             <div>
               <button
                 onClick={() => setMobileOpenAll((v) => !v)}
-                className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-sm font-medium transition hover:bg-black/5 dark:hover:bg-white/5"
-                style={mobileOpenAll ? { color: "#3b82f6" } : { color: "var(--muted)" }}
+                className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-sm font-medium transition hover:bg-teal-50 dark:hover:bg-teal-900/20"
+                style={mobileOpenAll ? { color: "#0d9488" } : { color: "var(--muted)" }}
               >
                 <span className="flex items-center gap-2.5">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -368,7 +363,7 @@ export function Navbar({
                 <ChevronIcon open={mobileOpenAll} />
               </button>
               {mobileOpenAll && (
-                <div className="mb-1 max-h-72 overflow-y-auto rounded-xl bg-black/5 dark:bg-white/5 p-2 flex flex-col gap-2">
+                <div className="mb-1 max-h-72 overflow-y-auto rounded-xl bg-teal-50/60 dark:bg-teal-900/10 p-2 flex flex-col gap-2">
                   {BRANDS.map((brand) => (
                     <div key={brand}>
                       <p className="px-2 py-1 text-[9px] font-bold uppercase tracking-[0.18em]" style={{ color: brandColor[brand] }}>
@@ -378,7 +373,7 @@ export function Navbar({
                         <button
                           key={p.id}
                           onClick={() => { setOpen(false); onNav("products"); }}
-                          className="flex w-full items-center gap-2.5 rounded-xl px-3 py-1.5 text-left transition hover:bg-blue-500/8"
+                          className="flex w-full items-center gap-2.5 rounded-xl px-3 py-1.5 text-left transition hover:bg-teal-500/8"
                         >
                           <img src={p.image} alt={p.name} className="h-6 w-6 rounded-md object-contain bg-white shrink-0" />
                           <span className="text-sm font-medium text-[var(--text)] truncate">{p.name}</span>
@@ -398,7 +393,7 @@ export function Navbar({
                 <div key={brand}>
                   <button
                     onClick={() => setMobileOpenBrand((prev) => (prev === brand ? null : brand))}
-                    className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-sm font-medium text-muted transition hover:bg-black/5 dark:hover:bg-white/5"
+                    className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-sm font-medium text-muted transition hover:bg-teal-50 dark:hover:bg-teal-900/20"
                     style={isOpen ? { color } : {}}
                   >
                     <span className="flex items-center gap-2.5">
@@ -409,12 +404,12 @@ export function Navbar({
                   </button>
 
                   {isOpen && (
-                    <div className="mb-1 max-h-60 overflow-y-auto rounded-xl bg-black/5 dark:bg-white/5 p-2">
+                    <div className="mb-1 max-h-60 overflow-y-auto rounded-xl bg-teal-50/60 dark:bg-teal-900/10 p-2">
                       {(byBrand[brand] ?? []).slice(0, 6).map((p) => (
                         <button
                           key={p.id}
                           onClick={() => { setOpen(false); onNav("products"); }}
-                          className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-left transition hover:bg-blue-500/8"
+                          className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-left transition hover:bg-teal-500/8"
                         >
                           <img src={p.image} alt={p.name} className="h-7 w-7 rounded-md object-contain bg-white shrink-0" />
                           <div className="min-w-0">
@@ -434,7 +429,7 @@ export function Navbar({
 
             <button
               onClick={() => setDarkMode(!darkMode)}
-              className="flex items-center gap-2 rounded-xl px-4 py-3 text-left text-sm font-medium text-muted transition hover:bg-black/5 dark:hover:bg-white/5"
+              className="flex items-center gap-2 rounded-xl px-4 py-3 text-left text-sm font-medium text-muted transition hover:bg-teal-50 dark:hover:bg-teal-900/20"
             >
               {darkMode ? <SunIcon /> : <MoonIcon />}
               {darkMode ? "Light mode ☀️" : "Dark mode 🌙"}
@@ -442,7 +437,7 @@ export function Navbar({
 
             <button
               onClick={() => { onEnquire(); setOpen(false); }}
-              className="mt-1 flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
+              className="mt-1 flex items-center gap-2 rounded-full bg-teal-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-teal-500"
             >
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="22" y1="2" x2="11" y2="13"/>

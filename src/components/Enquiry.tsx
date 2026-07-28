@@ -60,19 +60,19 @@ export function EnquiryModal({
   const tg = `https://t.me/${CONTACT.telegram}?text=${encoded}`;
   const mail = `mailto:${CONTACT.email}?subject=${encodeURIComponent("New Enquiry — SaherPharma")}&body=${encoded}`;
 
-  const field = "w-full rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--border)] px-4 py-3 text-sm outline-none transition focus:border-blue-400/60 text-[var(--text)]";
+  const field = "w-full rounded-xl bg-[var(--bg-2)] border border-[var(--border)] px-4 py-3 text-sm outline-none transition focus:border-teal-400/60 text-[var(--text)]";
 
   return (
     <div className="fixed inset-0 z-[80] grid place-items-center p-4 animate-fade" role="dialog" aria-modal="true">
       <div className="absolute inset-0 bg-black/40 dark:bg-black/70 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full max-w-lg overflow-auto rounded-3xl glass-strong p-6 sm:p-8">
-        <button onClick={onClose} aria-label="Close" className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full glass text-[var(--text)]">
+      <div className="relative w-full max-w-lg overflow-auto rounded-3xl bg-white dark:bg-[#0e1526] border border-[var(--border)] shadow-2xl shadow-black/15 p-6 sm:p-8">
+        <button onClick={onClose} aria-label="Close" className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full border border-[var(--border)] bg-[var(--bg-2)] text-[var(--muted)] hover:text-[var(--text)] transition">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
         </button>
 
-        <div className="mb-5">
-          <span className="inline-flex items-center gap-2 rounded-full bg-blue-500/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-300">
-            <span className="h-1.5 w-1.5 rounded-full bg-blue-500 dark:bg-blue-400 shadow-[0_0_8px_2px_rgba(59,130,246,0.7)]" />
+        <div className="mb-6">
+          <span className="inline-flex items-center gap-2 rounded-full border border-teal-200 dark:border-teal-800/50 bg-teal-50 dark:bg-teal-900/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-teal-700 dark:text-teal-300">
+            <span className="h-1.5 w-1.5 rounded-full bg-teal-500 shadow-[0_0_8px_2px_rgba(13,148,136,0.7)]" />
             Quick Enquiry
           </span>
           <h2 className="mt-3 font-display text-2xl font-bold text-[var(--text)]">Tell us what you need</h2>
@@ -95,7 +95,7 @@ export function EnquiryModal({
                       <option key={s} value={s}>{s}</option>
                     ))}
                   </select>
-                  <button type="button" onClick={() => removeItem(idx)} className="hidden sm:flex h-10 w-10 shrink-0 items-center justify-center rounded-xl glass text-muted hover:text-red-500 transition">
+                  <button type="button" onClick={() => removeItem(idx)} className="hidden sm:flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--bg-2)] text-muted hover:text-red-500 transition">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
                   </button>
                   <input
@@ -108,7 +108,7 @@ export function EnquiryModal({
               );
             })}
 
-            <button type="button" onClick={addItem} className="w-full rounded-xl border border-dashed border-[var(--border)] py-2.5 text-sm text-muted transition hover:border-blue-400/40 hover:text-[var(--text)]">
+            <button type="button" onClick={addItem} className="w-full rounded-xl border border-dashed border-teal-300 dark:border-teal-700/50 py-2.5 text-sm text-muted transition hover:border-teal-500 hover:text-teal-600 dark:hover:text-teal-400">
               + Add another product
             </button>
 
@@ -120,7 +120,7 @@ export function EnquiryModal({
               onChange={(e) => setMsg(e.target.value)}
             />
 
-            <button type="submit" className="w-full rounded-xl bg-blue-600 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 glow">
+            <button type="submit" className="w-full rounded-full bg-teal-600 py-3 text-sm font-semibold text-white shadow-md shadow-teal-600/20 transition hover:bg-teal-500">
               Continue to send →
             </button>
           </form>
@@ -135,11 +135,11 @@ export function EnquiryModal({
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.6 20c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-4.9 9-8.1c.4-.3-.1-.5-.6-.2L6.1 13.2l-4.8-1.5c-1-.3-1-1 .2-1.5l18.7-7.2c.9-.3 1.6.2 1.7 1.3z"/></svg>
               Send via Telegram
             </a>
-            <a href={mail} className="flex items-center gap-3 rounded-xl bg-blue-500/10 border border-blue-500/20 px-4 py-3.5 text-sm font-semibold text-blue-700 dark:text-blue-300 transition hover:bg-blue-500/20">
+            <a href={mail} className="flex items-center gap-3 rounded-xl bg-teal-500/10 border border-teal-500/20 px-4 py-3.5 text-sm font-semibold text-teal-700 dark:text-teal-300 transition hover:bg-teal-500/20">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
               Send via Email
             </a>
-            <button onClick={() => setStep("form")} className="w-full rounded-xl border border-[var(--border)] py-2.5 text-sm text-muted transition hover:text-[var(--text)]">
+            <button onClick={() => setStep("form")} className="w-full rounded-xl border border-[var(--border)] py-2.5 text-sm text-muted transition hover:text-[var(--text)] hover:border-teal-400/40">
               ← Back to edit
             </button>
           </div>
@@ -163,24 +163,24 @@ export function ProductModal({
   return (
     <div className="fixed inset-0 z-[80] grid place-items-center p-4 animate-fade" role="dialog" aria-modal="true">
       <div className="absolute inset-0 bg-black/40 dark:bg-black/70 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative grid w-full max-w-2xl gap-6 overflow-auto rounded-3xl glass-strong p-6 sm:grid-cols-2 sm:p-8">
-        <button onClick={onClose} aria-label="Close" className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full glass text-[var(--text)]">
+      <div className="relative grid w-full max-w-2xl gap-6 overflow-auto rounded-3xl bg-white dark:bg-[#0e1526] border border-[var(--border)] shadow-2xl shadow-black/15 p-6 sm:grid-cols-2 sm:p-8">
+        <button onClick={onClose} aria-label="Close" className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full border border-[var(--border)] bg-[var(--bg-2)] text-[var(--muted)] hover:text-[var(--text)] transition">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
         </button>
         <div className="overflow-hidden rounded-2xl">
           <img src={product.image} alt={`${product.name} ${product.compound}`} className="h-full w-full object-cover" />
         </div>
         <div className="flex flex-col gap-4 pr-2">
-          <span className="w-fit rounded-full glass px-3 py-1 text-xs text-blue-600 dark:text-blue-300">{product.compound}</span>
+          <span className="w-fit rounded-full border border-teal-200 dark:border-teal-800/50 bg-teal-50 dark:bg-teal-900/20 px-3 py-1 text-xs text-teal-700 dark:text-teal-300">{product.compound}</span>
           <h2 className="font-display text-3xl font-bold text-[var(--text)]">{product.name}</h2>
           <div>
             <p className="text-xs uppercase tracking-wider text-muted">Available strengths</p>
             <div className="mt-2 flex flex-wrap gap-2">
-              {product.strengths.map((s) => <span key={s} className="rounded-lg border border-[var(--border)] px-3 py-1 text-sm text-[var(--text)]">{s}</span>)}
+              {product.strengths.map((s) => <span key={s} className="rounded-full border border-[var(--border)] bg-[var(--bg-2)] px-3 py-1 text-sm text-[var(--text)]">{s}</span>)}
             </div>
           </div>
           <p className="text-sm leading-relaxed text-muted">{product.description}</p>
-          <button onClick={() => onEnquire(product)} className="mt-auto rounded-xl bg-gradient-to-r from-blue-600 to-sky-500 px-6 py-3.5 text-sm font-semibold text-white glow transition hover:brightness-110">
+          <button onClick={() => onEnquire(product)} className="mt-auto rounded-full bg-teal-600 px-6 py-3.5 text-sm font-semibold text-white shadow-md shadow-teal-600/20 transition hover:bg-teal-500">
             Enquire about {product.name}
           </button>
         </div>

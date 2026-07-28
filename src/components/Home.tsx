@@ -4,7 +4,7 @@ import { SectionTag } from "./Bits";
 import { ProductCard } from "./ProductCard";
 import { useState, useEffect } from "react";
 
-/* ── Hero slides — each image + its own copy ── */
+/* ── Hero slides ── */
 const HERO_SLIDES = [
   {
     src: "/images/hero-1.jpg",
@@ -64,17 +64,17 @@ export function HeroCarousel({
         />
       ))}
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/20" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+      {/* Overlay — slightly warmer, cleaner */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#0a1628]/85 via-[#0a1628]/60 to-[#0a1628]/20" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0a1628]/60 via-transparent to-transparent" />
 
       {/* Content */}
       <div className="relative z-10 flex min-h-[80svh] flex-col items-start justify-center px-6 pt-28 pb-16 sm:px-10 lg:px-20">
         <div className="max-w-2xl">
           {/* Badge */}
           <div key={idx + "b"} className="animate-fade mb-6">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.22em] text-white backdrop-blur-md">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+            <span className="inline-flex items-center gap-2 rounded-full border border-teal-400/30 bg-teal-500/15 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.22em] text-teal-200 backdrop-blur-md">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-teal-400" />
               ✈️ Global Pharmaceutical Export
             </span>
           </div>
@@ -86,7 +86,7 @@ export function HeroCarousel({
           >
             {HERO_SLIDES[idx].headline}
             <br />
-            <span className="bg-gradient-to-r from-blue-400 to-sky-300 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-teal-300 to-teal-200 bg-clip-text text-transparent">
               {HERO_SLIDES[idx].highlight}
             </span>
           </h1>
@@ -103,13 +103,13 @@ export function HeroCarousel({
           <div className="animate-fade mt-8 flex flex-wrap gap-3">
             <button
               onClick={() => go("products")}
-              className="rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-700/30 transition hover:bg-blue-500"
+              className="rounded-full bg-teal-500 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-teal-700/30 transition hover:bg-teal-400"
             >
               View Catalogue ↓
             </button>
             <button
               onClick={onEnquireOpen}
-              className="rounded-xl border border-white/30 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/20"
+              className="rounded-full border border-white/30 bg-white/10 px-7 py-3 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/20"
             >
               Quick Enquiry →
             </button>
@@ -132,7 +132,7 @@ export function HeroCarousel({
         </div>
       </div>
 
-      {/* Dot navigation — no prev/next */}
+      {/* Dot navigation */}
       <div className="absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 gap-2">
         {HERO_SLIDES.map((_, i) => (
           <button
@@ -140,7 +140,7 @@ export function HeroCarousel({
             onClick={() => setIdx(i)}
             aria-label={`Slide ${i + 1}`}
             className={`h-1.5 rounded-full transition-all duration-300 ${
-              i === idx ? "w-8 bg-blue-400" : "w-1.5 bg-white/40 hover:bg-white/70"
+              i === idx ? "w-8 bg-teal-400" : "w-1.5 bg-white/40 hover:bg-white/70"
             }`}
           />
         ))}
@@ -160,22 +160,22 @@ export function Home({
 
   return (
     <>
-      {/* ── HERO — full-bleed carousel ── */}
+      {/* ── HERO ── */}
       <HeroCarousel go={go} onEnquireOpen={() => go("enquiry")} />
 
       {/* ── PRODUCTS PREVIEW ── */}
-      <section className="mx-auto max-w-6xl px-4 py-12">
-        <div className="reveal mb-8 flex flex-wrap items-end justify-between gap-4">
+      <section className="mx-auto max-w-6xl px-4 py-16">
+        <div className="reveal mb-10 flex flex-wrap items-end justify-between gap-4">
           <div>
             <SectionTag>📦 Flagship Catalogue</SectionTag>
-            <h2 className="mt-3 font-display text-3xl font-bold">Explore our range</h2>
+            <h2 className="mt-4 font-display text-3xl font-bold text-[var(--text)]">Explore our range</h2>
             <p className="mt-2 max-w-md text-sm text-muted">
               6 flagship brands · Multiple strengths · All export-ready 🚀
             </p>
           </div>
           <button
             onClick={() => go("products")}
-            className="rounded-xl glass px-5 py-2.5 text-sm font-medium transition hover:border-blue-400/40"
+            className="rounded-full border border-[var(--border)] bg-white dark:bg-[var(--surface)] px-5 py-2.5 text-sm font-medium text-[var(--muted)] shadow-sm transition hover:border-teal-400/50 hover:text-teal-600 dark:hover:text-teal-300"
           >
             Full catalogue →
           </button>
@@ -190,35 +190,39 @@ export function Home({
       </section>
 
       {/* ── WHY SAHERPHARMA ── */}
-      <section className="mx-auto max-w-6xl px-4 py-12">
-        <div className="reveal mb-8 text-center">
-          <SectionTag>✨ Why Choose Us</SectionTag>
-          <h2 className="mt-3 font-display text-3xl font-bold">Your trusted export partner</h2>
-          <p className="mt-2 text-sm text-muted">
-            25+ countries · 20+ generic brands · ⚡ Reply within 2 hours
-          </p>
-        </div>
-        <div className="grid gap-4 md:grid-cols-4">
-          {[
-            { icon: "🌍", t: "Global Reach",    d: "Buyers across Asia, Africa, Middle East, Latin America & CIS." },
-            { icon: "📦", t: "Secure Packing",  d: "Tamper-evident 10×10 blister cartons — neutral & custom options." },
-            { icon: "🛡️", t: "Quality Assured", d: "Sourced from facilities meeting strict pharmacopoeial standards." },
-            { icon: "⚡", t: "2h Response",      d: "Export desk replies within 2 hours via WhatsApp, Telegram or email." },
-          ].map((f) => (
-            <div key={f.t} className="reveal rounded-3xl glass p-5 card-hover text-center">
-              <div className="mb-3 text-3xl">{f.icon}</div>
-              <h3 className="font-display text-sm font-semibold">{f.t}</h3>
-              <p className="mt-1.5 text-xs text-muted leading-relaxed">{f.d}</p>
-            </div>
-          ))}
+      <section className="bg-[var(--bg-2)] border-y border-[var(--border)] py-16">
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="reveal mb-10 text-center">
+            <SectionTag>✨ Why Choose Us</SectionTag>
+            <h2 className="mt-4 font-display text-3xl font-bold text-[var(--text)]">Your trusted export partner</h2>
+            <p className="mt-2 text-sm text-muted">
+              25+ countries · 20+ generic brands · ⚡ Reply within 2 hours
+            </p>
+          </div>
+          <div className="grid gap-4 md:grid-cols-4">
+            {[
+              { icon: "🌍", t: "Global Reach",    d: "Buyers across Asia, Africa, Middle East, Latin America & CIS.", color: "text-sky-600 dark:text-sky-400", bg: "bg-sky-50 dark:bg-sky-900/20" },
+              { icon: "📦", t: "Secure Packing",  d: "Tamper-evident 10×10 blister cartons — neutral & custom options.", color: "text-teal-600 dark:text-teal-400", bg: "bg-teal-50 dark:bg-teal-900/20" },
+              { icon: "🛡️", t: "Quality Assured", d: "Sourced from facilities meeting strict pharmacopoeial standards.", color: "text-violet-600 dark:text-violet-400", bg: "bg-violet-50 dark:bg-violet-900/20" },
+              { icon: "⚡", t: "2h Response",      d: "Export desk replies within 2 hours via WhatsApp, Telegram or email.", color: "text-amber-600 dark:text-amber-400", bg: "bg-amber-50 dark:bg-amber-900/20" },
+            ].map((f) => (
+              <div key={f.t} className="reveal rounded-2xl bg-white dark:bg-[var(--surface)] border border-[var(--border)] p-6 card-hover shadow-sm">
+                <div className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl text-2xl ${f.bg}`}>
+                  {f.icon}
+                </div>
+                <h3 className="font-display text-sm font-bold text-[var(--text)]">{f.t}</h3>
+                <p className="mt-2 text-xs text-muted leading-relaxed">{f.d}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* ── EXPORT WORKFLOW ── */}
-      <section className="mx-auto max-w-6xl px-4 py-12">
-        <div className="reveal mb-8 text-center">
+      <section className="mx-auto max-w-6xl px-4 py-16">
+        <div className="reveal mb-10 text-center">
           <SectionTag>🚢 How It Works</SectionTag>
-          <h2 className="mt-3 font-display text-3xl font-bold">4 simple steps</h2>
+          <h2 className="mt-4 font-display text-3xl font-bold text-[var(--text)]">4 simple steps</h2>
         </div>
         <div className="grid gap-4 md:grid-cols-4">
           {[
@@ -227,71 +231,76 @@ export function Home({
             { n: "03", e: "✅", t: "Confirm",  d: "Finalise order, documentation & preferred shipping mode." },
             { n: "04", e: "✈️", t: "Deliver",  d: "Secure packing & coordinated international dispatch." },
           ].map((s, i) => (
-            <div key={s.n} className="reveal relative rounded-3xl glass p-5 card-hover">
-              <div className="mb-2 flex items-center gap-2">
-                <span className="text-2xl">{s.e}</span>
-                <span className="font-display text-3xl font-bold text-blue-500/20">{s.n}</span>
-              </div>
-              <h3 className="font-display text-base font-semibold">{s.t}</h3>
-              <p className="mt-1 text-xs text-muted leading-relaxed">{s.d}</p>
-              {i < 3 && <div className="absolute -right-2 top-1/2 hidden h-px w-4 bg-blue-400/30 md:block" />}
+            <div key={s.n} className="reveal relative rounded-2xl bg-white dark:bg-[var(--surface)] border border-[var(--border)] p-6 card-hover shadow-sm">
+              <div className="mb-1 font-display text-5xl font-bold text-teal-500/15 dark:text-teal-400/10 leading-none">{s.n}</div>
+              <div className="mb-3 text-2xl">{s.e}</div>
+              <h3 className="font-display text-sm font-bold text-[var(--text)]">{s.t}</h3>
+              <p className="mt-1.5 text-xs text-muted leading-relaxed">{s.d}</p>
+              {i < 3 && (
+                <div className="absolute -right-2 top-1/2 hidden h-px w-4 bg-teal-400/30 md:block" />
+              )}
             </div>
           ))}
         </div>
       </section>
 
       {/* ── FAQ ── */}
-      <section className="mx-auto max-w-3xl px-4 py-12">
-        <div className="reveal mb-8 text-center">
-          <SectionTag>❓ FAQs</SectionTag>
-          <h2 className="mt-3 font-display text-3xl font-bold">Common questions</h2>
-        </div>
-        <div className="reveal space-y-2">
-          {faqs.map((f, i) => (
-            <div key={i} className="overflow-hidden rounded-2xl glass">
-              <button
-                onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                className="flex w-full items-center justify-between gap-4 p-4 text-left text-sm font-medium"
-              >
-                <span>{f.q}</span>
-                <svg
-                  width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-                  className={`shrink-0 transition-transform ${openFaq === i ? "rotate-45" : ""}`}
+      <section className="bg-[var(--bg-2)] border-y border-[var(--border)] py-16">
+        <div className="mx-auto max-w-3xl px-4">
+          <div className="reveal mb-10 text-center">
+            <SectionTag>❓ FAQs</SectionTag>
+            <h2 className="mt-4 font-display text-3xl font-bold text-[var(--text)]">Common questions</h2>
+          </div>
+          <div className="reveal space-y-2">
+            {faqs.map((f, i) => (
+              <div key={i} className="overflow-hidden rounded-2xl bg-white dark:bg-[var(--surface)] border border-[var(--border)] shadow-sm">
+                <button
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  className="flex w-full items-center justify-between gap-4 p-4 text-left text-sm font-medium text-[var(--text)]"
                 >
-                  <path d="M12 5v14M5 12h14"/>
-                </svg>
-              </button>
-              <div className={`grid transition-all duration-300 ${openFaq === i ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
-                <div className="overflow-hidden">
-                  <p className="px-4 pb-4 text-xs text-muted leading-relaxed">{f.a}</p>
+                  <span>{f.q}</span>
+                  <svg
+                    width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+                    className={`shrink-0 text-teal-500 transition-transform ${openFaq === i ? "rotate-45" : ""}`}
+                  >
+                    <path d="M12 5v14M5 12h14"/>
+                  </svg>
+                </button>
+                <div className={`grid transition-all duration-300 ${openFaq === i ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
+                  <div className="overflow-hidden">
+                    <p className="border-t border-[var(--border)] px-4 pb-4 pt-3 text-xs text-muted leading-relaxed">{f.a}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
       {/* ── CTA ── */}
-      <section className="mx-auto max-w-6xl px-4 py-10 pb-16">
-        <div className="reveal relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-blue-600/15 via-transparent to-sky-500/10 p-10 text-center md:p-14">
-          <div className="floaty absolute -left-10 -top-10 h-52 w-52 rounded-full bg-blue-500/20 blur-3xl" />
-          <div className="floaty absolute -bottom-10 -right-10 h-52 w-52 rounded-full bg-sky-400/15 blur-3xl" />
+      <section className="mx-auto max-w-6xl px-4 py-16 pb-20">
+        <div className="reveal relative overflow-hidden rounded-3xl bg-[#0f172a] dark:bg-[#080d18] border border-teal-900/30 p-10 text-center md:p-16">
+          <div className="floaty absolute -left-10 -top-10 h-52 w-52 rounded-full bg-teal-500/10 blur-3xl" />
+          <div className="floaty absolute -bottom-10 -right-10 h-52 w-52 rounded-full bg-teal-400/8 blur-3xl" />
           <div className="relative">
-            <div className="mb-3 text-4xl">🚀</div>
-            <h2 className="font-display text-3xl font-bold md:text-4xl">Ready to source with confidence?</h2>
-            <p className="mx-auto mt-3 max-w-xl text-sm text-muted">
+            <span className="inline-flex items-center gap-2 rounded-full border border-teal-700/50 bg-teal-500/10 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-teal-300 mb-5">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-teal-400" />
+              Ready to Source
+            </span>
+            <h2 className="font-display text-3xl font-bold text-white md:text-4xl">Ready to source with confidence?</h2>
+            <p className="mx-auto mt-3 max-w-xl text-sm text-slate-400">
               Build your enquiry in minutes — send via WhatsApp, Telegram or email. ⚡ Reply within 2 hours.
             </p>
-            <div className="mt-7 flex flex-wrap justify-center gap-3">
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
               <button
                 onClick={() => go("enquiry")}
-                className="rounded-xl bg-blue-600 px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-blue-700 glow"
+                className="rounded-full bg-teal-500 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-teal-500/25 transition hover:bg-teal-400"
               >
                 ✉️ Start Your Enquiry
               </button>
               <button
                 onClick={() => go("contact")}
-                className="rounded-xl glass px-7 py-3.5 text-sm font-semibold transition hover:border-blue-400/40"
+                className="rounded-full border border-white/15 bg-white/8 px-8 py-3.5 text-sm font-semibold text-white/80 transition hover:bg-white/15 hover:text-white"
               >
                 📞 Contact Us
               </button>

@@ -17,7 +17,6 @@ const BRAND_EMOJI: Record<string, string> = {
 };
 
 const FEATURED_LIMIT = 8;
-/* Pick top products for the Featured tab (capped at FEATURED_LIMIT) */
 function buildFeatured(): Product[] {
   const seen = new Set<string>();
   const result: Product[] = [];
@@ -86,7 +85,7 @@ export function Catalogue({ onEnquire }: { onEnquire: (p: Product) => void }) {
   };
 
   return (
-    <section className="mx-auto max-w-6xl px-4 pt-8 pb-12">
+    <section className="mx-auto max-w-6xl px-4 pt-10 pb-16">
       <div className="reveal text-center">
         <SectionTag>📦 Export Catalogue</SectionTag>
         <h1 className="mt-5 font-display text-4xl font-bold leading-tight text-[var(--text)] sm:text-5xl">
@@ -99,16 +98,16 @@ export function Catalogue({ onEnquire }: { onEnquire: (p: Product) => void }) {
       </div>
 
       {/* ── Filter row ── */}
-      <div className="reveal mt-8 flex flex-wrap items-center justify-between gap-3">
+      <div className="reveal mt-10 flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap gap-2">
           {(["Featured", ...BRANDS] as FilterTab[]).map((tab) => (
             <button
               key={tab}
               onClick={() => switchTab(tab)}
-              className={`rounded-xl px-3.5 py-2 text-xs font-semibold transition-all duration-200 ${
+              className={`rounded-full px-4 py-2 text-xs font-semibold transition-all duration-200 ${
                 activeTab === tab
-                  ? "bg-blue-600 text-white shadow"
-                  : "glass text-muted hover:text-[var(--text)] hover:border-blue-400/40"
+                  ? "bg-teal-600 text-white shadow-md shadow-teal-600/20"
+                  : "border border-[var(--border)] bg-white dark:bg-[var(--surface)] text-muted hover:text-[var(--text)] hover:border-teal-400/40"
               }`}
             >
               <span className="mr-1">{BRAND_EMOJI[tab]}</span>
@@ -119,12 +118,21 @@ export function Catalogue({ onEnquire }: { onEnquire: (p: Product) => void }) {
             </button>
           ))}
         </div>
+        <button
+          onClick={downloadCatalogue}
+          className="flex items-center gap-2 rounded-full border border-[var(--border)] bg-white dark:bg-[var(--surface)] px-4 py-2 text-xs font-medium text-muted shadow-sm transition hover:border-teal-400/40 hover:text-teal-600 dark:hover:text-teal-400"
+        >
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download Catalogue
+        </button>
       </div>
 
       {/* ── Grid ── */}
       <div
         key={`${activeTab}-${showAll}`}
-        className="mt-6 grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 animate-fade"
+        className="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 animate-fade"
       >
         {displayed.map((p) => (
           <ProductCard key={p.id} product={p} onEnquire={onEnquire} />
@@ -133,11 +141,11 @@ export function Catalogue({ onEnquire }: { onEnquire: (p: Product) => void }) {
 
       {/* ── Show more / less (Featured only) ── */}
       {activeTab === "Featured" && (
-        <div className="mt-8 text-center">
+        <div className="mt-10 text-center">
           {!showAll ? (
             <button
               onClick={() => setShowAll(true)}
-              className="inline-flex items-center gap-2 rounded-xl glass px-6 py-3 text-sm font-semibold text-[var(--text)] hover:border-blue-400/40 hover:text-blue-600 transition"
+              className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white dark:bg-[var(--surface)] px-7 py-3 text-sm font-semibold text-[var(--muted)] shadow-sm hover:border-teal-400/50 hover:text-teal-600 dark:hover:text-teal-400 transition"
             >
               🔍 Show all {products.length} products
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
@@ -145,7 +153,7 @@ export function Catalogue({ onEnquire }: { onEnquire: (p: Product) => void }) {
           ) : (
             <button
               onClick={() => setShowAll(false)}
-              className="inline-flex items-center gap-2 rounded-xl glass px-6 py-3 text-sm font-semibold text-[var(--text)] hover:border-blue-400/40 hover:text-blue-600 transition"
+              className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white dark:bg-[var(--surface)] px-7 py-3 text-sm font-semibold text-[var(--muted)] shadow-sm hover:border-teal-400/50 hover:text-teal-600 dark:hover:text-teal-400 transition"
             >
               Show less
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m18 15-6-6-6 6"/></svg>

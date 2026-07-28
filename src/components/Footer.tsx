@@ -58,15 +58,15 @@ const socialLinks = [
         <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/>
       </svg>
     ),
-    hover: "hover:text-blue-500 hover:border-blue-400/40",
+    hover: "hover:text-teal-400 hover:border-teal-400/40",
   },
 ];
 
 const paymentMethods = [
-  { name: "PayPal",        symbol: "PayPal",   color: "text-blue-500",   bg: "bg-blue-500/8" },
-  { name: "USDT",          symbol: "₮ USDT",   color: "text-emerald-500",bg: "bg-emerald-500/8" },
-  { name: "Bitcoin",       symbol: "₿ Bitcoin",color: "text-amber-500",  bg: "bg-amber-500/8" },
-  { name: "Bank Transfer", symbol: "🏦 Bank",  color: "text-indigo-500", bg: "bg-indigo-500/8" },
+  { name: "PayPal",        symbol: "PayPal",   color: "text-blue-400",   bg: "bg-blue-500/10 border-blue-500/20" },
+  { name: "USDT",          symbol: "₮ USDT",   color: "text-teal-400",   bg: "bg-teal-500/10 border-teal-500/20" },
+  { name: "Bitcoin",       symbol: "₿ Bitcoin",color: "text-amber-400",  bg: "bg-amber-500/10 border-amber-500/20" },
+  { name: "Bank Transfer", symbol: "🏦 Bank",  color: "text-slate-300",  bg: "bg-white/5 border-white/10" },
 ];
 
 export function Footer({ onEnquire }: { onEnquire?: (items: CartItem[]) => void }) {
@@ -76,14 +76,14 @@ export function Footer({ onEnquire }: { onEnquire?: (items: CartItem[]) => void 
   };
 
   return (
-    <footer className="relative border-t border-[var(--border)]">
+    <footer className="relative">
 
-      {/* ── WHY SECTION ── */}
-      <div id="why" className="border-b border-[var(--border)] bg-[var(--bg-2)] px-4 py-16">
+      {/* ── WHY SECTION — light bg ── */}
+      <div id="why" className="border-t border-b border-[var(--border)] bg-[var(--bg-2)] px-4 py-16">
         <div className="mx-auto max-w-6xl">
           <div className="mb-10 text-center">
-            <span className="inline-flex items-center gap-2 rounded-full bg-blue-500/10 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">
-              <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+            <span className="inline-flex items-center gap-2 rounded-full border border-teal-200 dark:border-teal-800/50 bg-teal-50 dark:bg-teal-900/20 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-teal-700 dark:text-teal-300">
+              <span className="h-1.5 w-1.5 rounded-full bg-teal-500" />
               Why SaherPharma
             </span>
             <h2 className="mt-4 font-display text-3xl font-bold text-[var(--text)]">
@@ -97,27 +97,29 @@ export function Footer({ onEnquire }: { onEnquire?: (items: CartItem[]) => void 
           {/* Feature cards */}
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { icon: "🌍", title: "Global Reach",    desc: "25+ countries across Asia, Africa, Middle East, LATAM & CIS.", grad: "from-blue-500/10 to-sky-500/8" },
-              { icon: "📦", title: "Secure Packing",  desc: "Tamper-evident 10×10 blister cartons — neutral & custom options.", grad: "from-emerald-500/10 to-teal-500/8" },
-              { icon: "🛡️", title: "Quality First",  desc: "Sourced from facilities meeting strict pharmacopoeial standards.", grad: "from-violet-500/10 to-purple-500/8" },
-              { icon: "⚡", title: "2h Response",     desc: "Export desk replies within 2 hours — WhatsApp, Telegram or email.", grad: "from-amber-500/10 to-orange-500/8" },
+              { icon: "🌍", title: "Global Reach",    desc: "25+ countries across Asia, Africa, Middle East, LATAM & CIS.", bg: "bg-sky-50 dark:bg-sky-900/20", iconBg: "bg-sky-100 dark:bg-sky-900/30" },
+              { icon: "📦", title: "Secure Packing",  desc: "Tamper-evident 10×10 blister cartons — neutral & custom options.", bg: "bg-teal-50 dark:bg-teal-900/20", iconBg: "bg-teal-100 dark:bg-teal-900/30" },
+              { icon: "🛡️", title: "Quality First",  desc: "Sourced from facilities meeting strict pharmacopoeial standards.", bg: "bg-violet-50 dark:bg-violet-900/20", iconBg: "bg-violet-100 dark:bg-violet-900/30" },
+              { icon: "⚡", title: "2h Response",     desc: "Export desk replies within 2 hours — WhatsApp, Telegram or email.", bg: "bg-amber-50 dark:bg-amber-900/20", iconBg: "bg-amber-100 dark:bg-amber-900/30" },
             ].map((f) => (
-              <div key={f.title} className={`relative overflow-hidden rounded-2xl bg-gradient-to-br ${f.grad} p-6 ring-1 ring-[var(--border)] card-hover`}>
-                <div className="mb-3 text-3xl">{f.icon}</div>
-                <h3 className="font-display text-sm font-semibold text-[var(--text)]">{f.title}</h3>
+              <div key={f.title} className={`relative overflow-hidden rounded-2xl ${f.bg} border border-[var(--border)] p-6 card-hover`}>
+                <div className={`mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl text-2xl ${f.iconBg}`}>
+                  {f.icon}
+                </div>
+                <h3 className="font-display text-sm font-bold text-[var(--text)]">{f.title}</h3>
                 <p className="mt-2 text-xs leading-relaxed text-muted">{f.desc}</p>
               </div>
             ))}
           </div>
 
           {/* Stats bar */}
-          <div className="mt-6 grid grid-cols-3 gap-px overflow-hidden rounded-2xl ring-1 ring-[var(--border)]">
+          <div className="mt-6 grid grid-cols-3 divide-x divide-[var(--border)] overflow-hidden rounded-2xl border border-[var(--border)] bg-white dark:bg-[var(--surface)]">
             {[
               { value: "25+", label: "Countries Served" },
               { value: "20+", label: "Generic Brands" },
               { value: "2h",  label: "Response Time" },
-            ].map((s, i) => (
-              <div key={s.label} className={`flex flex-col items-center justify-center py-6 px-4 text-center bg-[var(--bg)] ${i !== 2 ? "border-r border-[var(--border)]" : ""}`}>
+            ].map((s) => (
+              <div key={s.label} className="flex flex-col items-center justify-center py-6 px-4 text-center">
                 <div className="font-display text-3xl font-bold gradient-text">{s.value}</div>
                 <div className="mt-1 text-[11px] uppercase tracking-wider text-muted">{s.label}</div>
               </div>
@@ -126,147 +128,152 @@ export function Footer({ onEnquire }: { onEnquire?: (items: CartItem[]) => void 
         </div>
       </div>
 
-      {/* ── PAYMENT ROW ── */}
-      <div className="border-b border-[var(--border)] bg-[var(--bg)] px-4 py-8">
-        <div className="mx-auto max-w-6xl">
-          <p className="mb-4 text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-muted">Accepted Payment Methods</p>
-          <div className="flex flex-wrap justify-center gap-3">
-            {paymentMethods.map((m) => (
-              <div key={m.name} className={`flex items-center gap-2 rounded-xl ${m.bg} px-5 py-2.5 ring-1 ring-[var(--border)]`}>
-                <span className={`text-sm font-semibold ${m.color}`}>{m.symbol}</span>
-              </div>
-            ))}
-          </div>
-          <p className="mt-3 text-center text-[11px] text-muted">Contact our team to arrange your preferred payment method.</p>
-        </div>
-      </div>
+      {/* ── DARK FOOTER ── */}
+      <div className="bg-[#0f172a] dark:bg-[#070c18]">
 
-      {/* ── MAIN FOOTER COLUMNS ── */}
-      <div className="px-4 py-14">
-        <div className="mx-auto max-w-6xl grid gap-12 md:grid-cols-[1.8fr_1fr_1fr_1.5fr]">
-
-          {/* Brand */}
-          <div>
-            <button
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="flex items-center gap-3"
-            >
-              <Logo className="h-10 w-10" />
-              <span className="font-display text-xl font-bold text-[var(--text)]">
-                Saher<span className="gradient-text">Pharma</span>
-              </span>
-            </button>
-            <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted">
-              International B2B pharmaceutical export company. Quality generics, secure packaging, and logistics support for wholesale buyers worldwide.
-            </p>
-
-            {/* Social */}
-            <div className="mt-6 flex gap-2">
-              {socialLinks.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  aria-label={s.label}
-                  title={s.label}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onMouseEnter={hoverSound}
-                  className={`grid h-9 w-9 place-items-center rounded-lg glass text-muted transition ${s.hover}`}
-                >
-                  {s.icon}
-                </a>
+        {/* Payment row */}
+        <div className="border-b border-white/8 px-4 py-8">
+          <div className="mx-auto max-w-6xl">
+            <p className="mb-4 text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">Accepted Payment Methods</p>
+            <div className="flex flex-wrap justify-center gap-3">
+              {paymentMethods.map((m) => (
+                <div key={m.name} className={`flex items-center gap-2 rounded-full border ${m.bg} px-5 py-2`}>
+                  <span className={`text-sm font-semibold ${m.color}`}>{m.symbol}</span>
+                </div>
               ))}
             </div>
-          </div>
-
-          {/* Company */}
-          <div>
-            <h4 className="mb-5 text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--text)]">Company</h4>
-            <ul className="space-y-3">
-              {companyLinks.map(([label, id]) => (
-                <li key={label}>
-                  <button
-                    onClick={() => scrollTo(id)}
-                    onMouseEnter={hoverSound}
-                    className="text-sm text-muted transition hover:text-blue-500 dark:hover:text-blue-300"
-                  >
-                    {label}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Catalogue */}
-          <div>
-            <h4 className="mb-5 text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--text)]">Catalogue</h4>
-            <ul className="space-y-3">
-              {catalogueLinks.map(([label, id]) => (
-                <li key={label}>
-                  <button
-                    onClick={() => {
-                      if (id === "enquiry-action") onEnquire?.([]);
-                      else scrollTo(id);
-                    }}
-                    onMouseEnter={hoverSound}
-                    className="text-sm text-muted transition hover:text-blue-500 dark:hover:text-blue-300"
-                  >
-                    {label}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <h4 className="mb-5 text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--text)]">Contact</h4>
-            <ul className="space-y-3">
-              <li>
-                <a
-                  href={`mailto:${CONTACT.email}`}
-                  className="flex items-start gap-2.5 text-sm text-muted transition hover:text-blue-500 break-all"
-                >
-                  <svg className="mt-0.5 shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/>
-                  </svg>
-                  <span className="text-xs">{CONTACT.email}</span>
-                </a>
-              </li>
-              <li>
-                <a href={`https://wa.me/${CONTACT.whatsapp}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 text-sm text-muted transition hover:text-green-500">
-                  <WhatsAppIcon size={14} />
-                  WhatsApp
-                </a>
-              </li>
-              <li>
-                <a href={`https://t.me/${CONTACT.telegram}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 text-sm text-muted transition hover:text-sky-500">
-                  <TelegramIcon size={14} />
-                  @{CONTACT.telegram}
-                </a>
-              </li>
-              <li>
-                <a href="https://instagram.com/saherpharma" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 text-sm text-muted transition hover:text-pink-500">
-                  <InstagramIcon size={14} />
-                  @saherpharma
-                </a>
-              </li>
-              <li className="flex items-center gap-2.5 text-sm text-muted">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                {CONTACT.address}
-              </li>
-            </ul>
+            <p className="mt-3 text-center text-[11px] text-slate-500">Contact our team to arrange your preferred payment method.</p>
           </div>
         </div>
-      </div>
 
-      {/* ── BOTTOM BAR ── */}
-      <div className="border-t border-[var(--border)] px-4 py-5">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 text-xs text-muted sm:flex-row">
-          <p>© {new Date().getFullYear()} SaherPharma. All rights reserved.</p>
-          <p className="hidden sm:block">International B2B Pharmaceutical Export · Andheri, Mumbai, India</p>
-          <p>Built for global wholesale trade 🌍</p>
+        {/* Main footer columns */}
+        <div className="px-4 py-14">
+          <div className="mx-auto max-w-6xl grid gap-12 md:grid-cols-[1.8fr_1fr_1fr_1.5fr]">
+
+            {/* Brand */}
+            <div>
+              <button
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                className="flex items-center gap-3"
+              >
+                <Logo className="h-10 w-10" />
+                <span className="font-display text-xl font-bold text-white">
+                  Saher<span className="text-teal-400">Pharma</span>
+                </span>
+              </button>
+              <p className="mt-5 max-w-xs text-sm leading-relaxed text-slate-400">
+                International B2B pharmaceutical export company. Quality generics, secure packaging, and logistics support for wholesale buyers worldwide.
+              </p>
+
+              {/* Social */}
+              <div className="mt-6 flex gap-2">
+                {socialLinks.map((s) => (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    aria-label={s.label}
+                    title={s.label}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onMouseEnter={hoverSound}
+                    className={`grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/5 text-slate-400 transition ${s.hover}`}
+                  >
+                    {s.icon}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Company */}
+            <div>
+              <h4 className="mb-5 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Company</h4>
+              <ul className="space-y-3">
+                {companyLinks.map(([label, id]) => (
+                  <li key={label}>
+                    <button
+                      onClick={() => scrollTo(id)}
+                      onMouseEnter={hoverSound}
+                      className="text-sm text-slate-400 transition hover:text-teal-400"
+                    >
+                      {label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Catalogue */}
+            <div>
+              <h4 className="mb-5 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Catalogue</h4>
+              <ul className="space-y-3">
+                {catalogueLinks.map(([label, id]) => (
+                  <li key={label}>
+                    <button
+                      onClick={() => {
+                        if (id === "enquiry-action") onEnquire?.([]);
+                        else scrollTo(id);
+                      }}
+                      onMouseEnter={hoverSound}
+                      className="text-sm text-slate-400 transition hover:text-teal-400"
+                    >
+                      {label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <h4 className="mb-5 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Contact</h4>
+              <ul className="space-y-3">
+                <li>
+                  <a
+                    href={`mailto:${CONTACT.email}`}
+                    className="flex items-start gap-2.5 text-sm text-slate-400 transition hover:text-teal-400 break-all"
+                  >
+                    <svg className="mt-0.5 shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/>
+                    </svg>
+                    <span className="text-xs">{CONTACT.email}</span>
+                  </a>
+                </li>
+                <li>
+                  <a href={`https://wa.me/${CONTACT.whatsapp}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 text-sm text-slate-400 transition hover:text-green-400">
+                    <WhatsAppIcon size={14} />
+                    WhatsApp
+                  </a>
+                </li>
+                <li>
+                  <a href={`https://t.me/${CONTACT.telegram}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 text-sm text-slate-400 transition hover:text-sky-400">
+                    <TelegramIcon size={14} />
+                    @{CONTACT.telegram}
+                  </a>
+                </li>
+                <li>
+                  <a href="https://instagram.com/saherpharma" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 text-sm text-slate-400 transition hover:text-pink-400">
+                    <InstagramIcon size={14} />
+                    @saherpharma
+                  </a>
+                </li>
+                <li className="flex items-center gap-2.5 text-sm text-slate-400">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  {CONTACT.address}
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
+
+        {/* Bottom bar */}
+        <div className="border-t border-white/8 px-4 py-5">
+          <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 text-xs text-slate-500 sm:flex-row">
+            <p>© {new Date().getFullYear()} SaherPharma. All rights reserved.</p>
+            <p className="hidden sm:block">International B2B Pharmaceutical Export · Andheri, Mumbai, India</p>
+            <p>Built for global wholesale trade 🌍</p>
+          </div>
+        </div>
+
       </div>
     </footer>
   );

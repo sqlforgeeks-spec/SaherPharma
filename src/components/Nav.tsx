@@ -20,6 +20,20 @@ const brandEmoji: Record<string, string> = {
   Kamagra:   "🟢",
 };
 
+/* ── Pill / tablet SVG icon ── */
+function PillIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      width="15" height="15" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+      className={className}
+    >
+      <path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/>
+      <path d="M8.5 8.5 16 16"/>
+    </svg>
+  );
+}
+
 /* ── Sun / Moon icon ── */
 function SunIcon() {
   return (
@@ -52,7 +66,7 @@ function BrandDropdown({ brand, onClose }: { brand: Brand; onClose: () => void }
   return (
     <div className="dropdown-enter absolute left-1/2 top-full mt-3 w-52 -translate-x-1/2 rounded-2xl glass-strong shadow-xl shadow-black/10 dark:shadow-black/40 p-3 z-50">
       <p className="mb-2 flex items-center gap-1.5 px-1 text-[9px] font-bold uppercase tracking-[0.18em] text-blue-500 dark:text-blue-400">
-        <span>{brandEmoji[brand]}</span>
+        <PillIcon className="text-blue-500 dark:text-blue-400" />
         {brand}
       </p>
       <div className="flex flex-col gap-0.5">
@@ -158,7 +172,7 @@ export function Navbar({
                   onClick={() => toggleBrand(brand)}
                   className="flex items-center gap-1 rounded-xl px-3 py-2 text-sm font-medium text-muted transition hover:text-[var(--text)]"
                 >
-                  <span className="text-[13px]">{brandEmoji[brand]}</span>
+                  <PillIcon />
                   {brand}
                   <svg
                     width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"

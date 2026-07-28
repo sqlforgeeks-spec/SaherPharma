@@ -46,11 +46,6 @@ export function ProductCard({ product, onEnquire }: {
           <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${meta.dot}`} />
           <span className={`text-[9.5px] font-semibold truncate ${meta.text}`}>{product.compound}</span>
         </div>
-        <div className="flex flex-wrap gap-1">
-          {product.strengths.map((s) => (
-            <span key={s} className={`rounded px-1.5 py-0.5 text-[9px] font-semibold leading-none ${meta.badge}`}>{s}</span>
-          ))}
-        </div>
         <button
           onClick={() => onEnquire(product)}
           className="mt-1 w-full rounded-lg bg-blue-600 py-1.5 text-[11px] font-semibold text-white transition-all duration-200 hover:bg-blue-500 active:scale-[0.97]"

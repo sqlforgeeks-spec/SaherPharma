@@ -1,14 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#1d4ed8"/>
-      <stop offset="100%" stop-color="#0ea5e9"/>
+    <linearGradient id="sp-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f766e"/>
+      <stop offset="100%" stop-color="#0d9488"/>
     </linearGradient>
   </defs>
-  <rect width="40" height="40" rx="11" fill="url(#bg)"/>
+
+  <!-- Badge background -->
+  <rect width="40" height="40" rx="11" fill="url(#sp-bg)"/>
+
+  <!-- Globe outline -->
   <circle cx="18" cy="20" r="9.5" stroke="white" stroke-width="1.5" stroke-opacity="0.9" fill="none"/>
+
+  <!-- Horizontal equator -->
   <ellipse cx="18" cy="20" rx="9.5" ry="3.5" stroke="white" stroke-width="1.2" stroke-opacity="0.6" fill="none"/>
+
+  <!-- Vertical meridian -->
   <ellipse cx="18" cy="20" rx="3.5" ry="9.5" stroke="white" stroke-width="1.2" stroke-opacity="0.6" fill="none"/>
+
+  <!-- Export arrow -->
   <polyline points="27,8 33,8 33,14" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   <line x1="26" y1="15" x2="33" y2="8" stroke="white" stroke-width="2" stroke-linecap="round"/>
 </svg>

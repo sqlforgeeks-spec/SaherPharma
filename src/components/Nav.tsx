@@ -189,8 +189,9 @@ export function Navbar({
               {darkMode ? <SunIcon /> : <MoonIcon />}
             </button>
 
-            <RippleButton onClick={onEnquire} className="hidden rounded-xl bg-blue-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-blue-700 dark:bg-white dark:text-slate-900 dark:hover:bg-blue-50 sm:block">
-              ✉️ Quick Enquiry
+            <RippleButton onClick={onEnquire} className="hidden items-center gap-1.5 rounded-xl bg-blue-600 px-4 py-2.5 text-xs font-semibold text-white shadow-md shadow-blue-600/25 transition hover:bg-blue-500 sm:flex">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              Enquiry
             </RippleButton>
 
             <button

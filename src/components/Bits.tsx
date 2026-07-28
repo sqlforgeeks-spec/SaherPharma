@@ -92,27 +92,21 @@ export function Particles() {
   return <canvas ref={ref} className="pointer-events-none fixed inset-0 -z-10 opacity-60" aria-hidden />;
 }
 
-/* ---------- Logo — clean SVG mark ---------- */
+/* ---------- Logo — brand image ---------- */
 export function Logo({ className = "h-8 w-8" }: { className?: string }) {
   return (
-    <svg
-      viewBox="0 0 36 36"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
-      aria-label="SaherPharma"
-    >
-      {/* Background pill shape */}
-      <rect width="36" height="36" rx="10" fill="#2563EB" />
-      {/* Globe circle */}
-      <circle cx="18" cy="18" r="9" stroke="white" strokeWidth="1.5" fill="none" />
-      {/* Horizontal equator */}
-      <path d="M9 18 Q13 14 18 18 Q23 22 27 18" stroke="white" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-      {/* Vertical meridian */}
-      <path d="M18 9 Q22 13 18 18 Q14 23 18 27" stroke="white" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-      {/* Top pole accent */}
-      <circle cx="18" cy="9" r="1.2" fill="white" opacity="0.8" />
-    </svg>
+    <>
+      <img
+        src="/images/logo-light.png"
+        alt="SaherPharma"
+        className={`${className} object-contain rounded-md dark:hidden`}
+      />
+      <img
+        src="/images/logo-dark.png"
+        alt="SaherPharma"
+        className={`${className} object-contain rounded-md hidden dark:block`}
+      />
+    </>
   );
 }
 

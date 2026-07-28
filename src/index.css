@@ -64,13 +64,13 @@ body {
   -webkit-backdrop-filter: blur(16px);
 }
 .glass-strong {
-  background: rgba(240, 244, 250, 0.88);
+  background: rgba(244, 247, 252, 0.97);
   border: 1px solid var(--border);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
 }
 [data-theme="dark"] .glass-strong {
-  background: rgba(10, 15, 28, 0.82);
+  background: rgba(8, 12, 22, 0.97);
   border: 1px solid var(--border);
 }
 
@@ -106,7 +106,7 @@ body {
 .card-hover:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -12px rgba(59,130,246,0.18); border-color: var(--border-hi); }
 
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-.marquee-track { display: flex; width: max-content; animation: marquee 45s linear infinite; }
+.marquee-track { display: flex; width: max-content; animation: marquee 120s linear infinite; }
 
 @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 .floaty { animation: floaty 5s ease-in-out infinite; }

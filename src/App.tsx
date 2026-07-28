@@ -5,12 +5,11 @@ import { Navbar } from "./components/Nav";
 import { LogoLoader } from "./components/LogoLoader";
 import { ScrollProgress, BackToTop, Particles } from "./components/Bits";
 import { Catalogue } from "./components/Catalogue";
-import { ProductModal, EnquiryModal, FloatingContacts } from "./components/Enquiry";
+import { EnquiryModal, FloatingContacts } from "./components/Enquiry";
 import { Footer } from "./components/Footer";
 
 export default function App() {
   const [loaded, setLoaded] = useState(false);
-  const [modal, setModal] = useState<Product | null>(null);
   const [enquiryItems, setEnquiryItems] = useState<{ id: string; name: string; strength: string; qty: string }[]>([]);
   const [enquiryOpen, setEnquiryOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -20,7 +19,6 @@ export default function App() {
 
   useReveal();
 
-  // Apply dark mode to <html>
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", darkMode ? "dark" : "light");
   }, [darkMode]);
@@ -46,10 +44,8 @@ export default function App() {
 
   const onEnquire = (p: Product) => {
     setEnquiryItems([{ id: p.id, name: p.name, strength: p.strengths[0], qty: "1000 boxes" }]);
-    setModal(null);
     setEnquiryOpen(true);
   };
-  const onView = (p: Product) => setModal(p);
   const openEmptyEnquiry = () => { setEnquiryItems([]); setEnquiryOpen(true); };
 
   return (
@@ -65,7 +61,7 @@ export default function App() {
         setDarkMode={setDarkMode}
       />
 
-      {/* HERO — minimal */}
+      {/* HERO */}
       <section className="relative flex min-h-[80vh] items-center justify-center px-4 pt-32">
         <div className="absolute inset-0 grid-bg opacity-20" />
         <div className="floaty absolute left-[12%] top-1/3 h-60 w-60 rounded-full bg-blue-600/20 blur-[110px]" />
@@ -96,10 +92,10 @@ export default function App() {
 
       {/* PRODUCTS */}
       <section id="products" ref={productsRef} className="pt-8">
-        <Catalogue onEnquire={onEnquire} onView={onView} />
+        <Catalogue onEnquire={onEnquire} />
       </section>
 
-      {/* FOOTER (contains Why Us + Payment + Contact) */}
+      {/* FOOTER */}
       <div id="contact" ref={contactRef}>
         <Footer onEnquire={openEmptyEnquiry} />
       </div>
@@ -107,7 +103,6 @@ export default function App() {
       <BackToTop />
       <FloatingContacts />
 
-      <ProductModal product={modal} onClose={() => setModal(null)} onEnquire={onEnquire} />
       {enquiryOpen && (
         <EnquiryModal
           initialItems={enquiryItems}

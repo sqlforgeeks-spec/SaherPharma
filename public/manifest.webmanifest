@@ -1,0 +1,12 @@
+{
+  "name": "SaherPharma — Pharmaceutical Export",
+  "short_name": "SaherPharma",
+  "description": "International B2B pharmaceutical export company.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#060912",
+  "theme_color": "#060912",
+  "icons": [
+    { "src": "/images/og-image.jpg", "sizes": "512x512", "type": "image/jpeg", "purpose": "any" }
+  ]
+}

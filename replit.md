@@ -18,6 +18,13 @@ npm run build   # production build → dist/
 
 The dev workflow "Start application" is pre-configured and runs `npm run dev`.
 
+## Contact info
+- **Email:** sales.saherinternational02@gmail.com
+- **Phone / WhatsApp:** +91 9321770181
+- **Telegram:** @saherpharma06
+- **Instagram:** @saherpharma
+- **Address:** Andheri, Mumbai, India
+
 ## Key features implemented
 
 - **Light/Dark mode toggle** — default is light mode; moon/sun button in navbar; `data-theme` attribute on `<html>`
@@ -52,3 +59,4 @@ Static site — deploy to GitHub Pages or Cloudflare Pages using `npm run build`
 - Keep existing project structure and stack — no migrations
 - Dark mode OFF by default (light mode is default)
 - Maintain static/no-backend architecture for GitHub Pages / Cloudflare compatibility
+- Kamagra brand added as a fourth product category in `src/data.ts` (11 products, appended via `products.push(...kamagraProducts)`)

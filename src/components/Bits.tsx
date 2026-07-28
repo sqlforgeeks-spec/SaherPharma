@@ -98,21 +98,27 @@ export function Logo({ className = "h-8 w-8" }: { className?: string }) {
     <svg className={className} viewBox="0 0 48 48" fill="none" aria-hidden>
       <defs>
         <linearGradient id="sp-lg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#1e40af" />
-          <stop offset="1" stopColor="#3b82f6" />
+          <stop offset="0" stopColor="#1e3a8a" />
+          <stop offset="1" stopColor="#2563eb" />
+        </linearGradient>
+        <linearGradient id="sp-lg2" x1="0" y1="1" x2="0" y2="0">
+          <stop offset="0" stopColor="rgba(255,255,255,0.0)" />
+          <stop offset="1" stopColor="rgba(255,255,255,0.10)" />
         </linearGradient>
       </defs>
-      {/* Globe circle — world / international trade */}
-      <circle cx="24" cy="24" r="19" stroke="url(#sp-lg)" strokeWidth="2" fill="rgba(37,99,235,0.07)" />
-      {/* Subtle meridian & equator for globe feel */}
-      <line x1="24" y1="5" x2="24" y2="43" stroke="url(#sp-lg)" strokeWidth="1" opacity="0.22" />
-      <ellipse cx="24" cy="24" rx="19" ry="7" stroke="url(#sp-lg)" strokeWidth="1" fill="none" opacity="0.22" />
-      {/* Export arrow — diagonal ↗ cutting up-right through globe */}
-      <line x1="13" y1="34" x2="31" y2="16" stroke="url(#sp-lg)" strokeWidth="2.8" strokeLinecap="round" />
-      {/* Arrowhead — bracket at top-right */}
-      <path d="M21 14 L33 14 L33 26" stroke="url(#sp-lg)" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-      {/* Origin dot — shipment source */}
-      <circle cx="13" cy="34" r="2.5" fill="url(#sp-lg)" />
+      {/* Diamond body — pharmaceutical export seal */}
+      <path d="M24 3 L45 24 L24 45 L3 24 Z" fill="url(#sp-lg)" />
+      {/* Inner highlight */}
+      <path d="M24 3 L45 24 L24 45 L3 24 Z" fill="url(#sp-lg2)" />
+      {/* Diamond border */}
+      <path d="M24 3 L45 24 L24 45 L3 24 Z" stroke="rgba(255,255,255,0.18)" strokeWidth="1" fill="none" />
+      {/* Cross + upward arrow — pharma cross with export direction */}
+      {/* Vertical shaft going up */}
+      <line x1="24" y1="31" x2="24" y2="14" stroke="white" strokeWidth="3.2" strokeLinecap="round" />
+      {/* Arrowhead at top */}
+      <path d="M19 20 L24 13 L29 20" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      {/* Horizontal crossbar — makes it a cross */}
+      <line x1="16" y1="25" x2="32" y2="25" stroke="white" strokeWidth="3" strokeLinecap="round" />
     </svg>
   );
 }

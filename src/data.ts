@@ -7,6 +7,7 @@ export type Product = {
   category: string;
   image: string;
   description: string;
+  tagline: string;
   featured?: boolean;
 };
 
@@ -20,8 +21,8 @@ export const products: Product[] = [
     strengths: ["5mg"],
     category: "Tablets",
     image: "/images/vidalista-5.jpg",
-    description:
-      "Low-dose Tadalafil tablets ideal for daily-use protocols. Film-coated, supplied in 10×10 blister cartons under strict quality controls for export markets.",
+    tagline: "Daily low-dose for continuous readiness",
+    description: "Low-dose Tadalafil tablets ideal for daily-use protocols. Film-coated, supplied in 10×10 blister cartons under strict quality controls for export markets.",
   },
   {
     id: "vidalista-10",
@@ -31,8 +32,8 @@ export const products: Product[] = [
     strengths: ["10mg"],
     category: "Tablets",
     image: "/images/vidalista-10.jpg",
-    description:
-      "Tadalafil 10mg film-coated tablets with extended duration of action. Packaged in tamper-evident 10×10 blister cartons and ready for international B2B export.",
+    tagline: "Extended-action tablet for on-demand use",
+    description: "Tadalafil 10mg film-coated tablets with extended duration of action. Packaged in tamper-evident 10×10 blister cartons and ready for international B2B export.",
     featured: true,
   },
   {
@@ -43,8 +44,8 @@ export const products: Product[] = [
     strengths: ["20mg"],
     category: "Tablets",
     image: "/images/vidalista-20.jpg",
-    description:
-      "Tadalafil 20mg — the most widely distributed strength in the Vidalista range. Film-coated tablets in export-ready 10×10 blister cartons, manufactured by Centurion Remedies Pvt. Ltd.",
+    tagline: "Most exported Tadalafil strength worldwide",
+    description: "Tadalafil 20mg — the most widely distributed strength in the Vidalista range. Film-coated tablets in export-ready 10×10 blister cartons, manufactured by Centurion Remedies Pvt. Ltd.",
     featured: true,
   },
   {
@@ -55,8 +56,8 @@ export const products: Product[] = [
     strengths: ["60mg"],
     category: "Tablets",
     image: "/images/vidalista-60.jpg",
-    description:
-      "High-strength Tadalafil 60mg tablets for markets requiring a stronger dose. Supplied in secure blister packaging with full export documentation support.",
+    tagline: "High-strength for demanding B2B markets",
+    description: "High-strength Tadalafil 60mg tablets for markets requiring a stronger dose. Supplied in secure blister packaging with full export documentation support.",
     featured: true,
   },
   {
@@ -67,8 +68,8 @@ export const products: Product[] = [
     strengths: ["80mg"],
     category: "Tablets",
     image: "/images/vidalista-80.jpg",
-    description:
-      "Tadalafil 80mg — the highest standard-tablet strength in the Vidalista line. Presented in clean, tamper-evident export cartons for regulated wholesale distribution.",
+    tagline: "Maximum tablet dose in the Vidalista range",
+    description: "Tadalafil 80mg — the highest standard-tablet strength in the Vidalista line. Presented in clean, tamper-evident export cartons for regulated wholesale distribution.",
   },
   {
     id: "vidalista-black-80",
@@ -78,8 +79,8 @@ export const products: Product[] = [
     strengths: ["80mg"],
     category: "Tablets",
     image: "/images/vidalista-black-80.jpg",
-    description:
-      "Vidalista Black 80mg — a distinct sub-brand of Tadalafil 80mg with characteristically dark-coated tablets. Packed in 10×10 export blister cartons.",
+    tagline: "Dark-coat 80mg variant for specialist markets",
+    description: "Vidalista Black 80mg — a distinct sub-brand of Tadalafil 80mg with characteristically dark-coated tablets. Packed in 10×10 export blister cartons.",
   },
   {
     id: "vidalista-ct",
@@ -89,8 +90,8 @@ export const products: Product[] = [
     strengths: ["20mg"],
     category: "Chewable Tablets",
     image: "/images/vidalista-ct.jpg",
-    description:
-      "Tadalafil chewable tablets — a convenient alternative for patients who prefer not to swallow standard film-coated tablets. Supplied in 10×10 blister cartons for export.",
+    tagline: "Chewable format, no water required",
+    description: "Tadalafil chewable tablets — a convenient alternative for patients who prefer not to swallow standard film-coated tablets. Supplied in 10×10 blister cartons for export.",
   },
   {
     id: "vidalista-professional",
@@ -100,8 +101,8 @@ export const products: Product[] = [
     strengths: ["20mg"],
     category: "Sublingual Tablets",
     image: "/images/vidalista-professional.jpg",
-    description:
-      "Tadalafil sublingual tablets for rapid absorption. Placed under the tongue for faster onset. Packed in 10×10 blister cartons with full export documentation.",
+    tagline: "Sublingual tablet for rapid under-tongue onset",
+    description: "Tadalafil sublingual tablets for rapid absorption. Placed under the tongue for faster onset. Packed in 10×10 blister cartons with full export documentation.",
   },
   {
     id: "super-vidalista",
@@ -111,8 +112,8 @@ export const products: Product[] = [
     strengths: ["20mg + 60mg"],
     category: "Combination Tablets",
     image: "/images/super-vidalista.jpg",
-    description:
-      "Combination tablet containing Tadalafil 20mg and Dapoxetine 60mg. Dual-action formulation manufactured by Centurion Remedies for international wholesale buyers.",
+    tagline: "Dual-action: ED & premature ejaculation",
+    description: "Combination tablet containing Tadalafil 20mg and Dapoxetine 60mg. Dual-action formulation manufactured by Centurion Remedies for international wholesale buyers.",
   },
 
   /* ── Sildenafil Citrate / Fildena ── */
@@ -124,8 +125,8 @@ export const products: Product[] = [
     strengths: ["100mg"],
     category: "Tablets",
     image: "/images/fildena-100.jpg",
-    description:
-      "Fildena 100mg Sildenafil Citrate tablets in signature purple packaging. Film-coated tablets supplied in 10×10 blister cartons — a widely recognised generic line for international distribution.",
+    tagline: "Signature purple sildenafil, globally recognised",
+    description: "Fildena 100mg Sildenafil Citrate tablets in signature purple packaging. Film-coated tablets supplied in 10×10 blister cartons — a widely recognised generic line for international distribution.",
     featured: true,
   },
   {
@@ -136,8 +137,8 @@ export const products: Product[] = [
     strengths: ["100mg"],
     category: "Sublingual Tablets",
     image: "/images/fildena-100-pro.jpg",
-    description:
-      "Fildena Professional 100mg — sublingual Sildenafil Citrate tablets for faster absorption. Manufactured by Fortune Health Care and presented in export-ready blister cartons.",
+    tagline: "Sublingual sildenafil, faster absorption",
+    description: "Fildena Professional 100mg — sublingual Sildenafil Citrate tablets for faster absorption. Manufactured by Fortune Health Care and presented in export-ready blister cartons.",
   },
   {
     id: "fildena-super-active",
@@ -147,8 +148,8 @@ export const products: Product[] = [
     strengths: ["100mg"],
     category: "Softgel Capsules",
     image: "/images/fildena-super-active.jpg",
-    description:
-      "Fildena Super Active 100mg — Sildenafil Citrate in softgel capsule form. Faster dissolution profile compared to standard tablets; supplied in 10×10 blister cartons.",
+    tagline: "Softgel capsule for ultra-fast dissolution",
+    description: "Fildena Super Active 100mg — Sildenafil Citrate in softgel capsule form. Faster dissolution profile compared to standard tablets; supplied in 10×10 blister cartons.",
   },
   {
     id: "fildena-strong-120",
@@ -158,8 +159,8 @@ export const products: Product[] = [
     strengths: ["120mg"],
     category: "Tablets",
     image: "/images/fildena-strong-120.jpg",
-    description:
-      "Fildena Strong 120mg in distinctive red packaging. High-strength Sildenafil Citrate tablets for markets where 120mg dosing is required; packed for bulk B2B export.",
+    tagline: "High-strength in bold red packaging",
+    description: "Fildena Strong 120mg in distinctive red packaging. High-strength Sildenafil Citrate tablets for markets where 120mg dosing is required; packed for bulk B2B export.",
   },
 
   /* ── Vardenafil / Vilitra ── */
@@ -171,8 +172,8 @@ export const products: Product[] = [
     strengths: ["20mg"],
     category: "Tablets",
     image: "/images/vilitra-20.jpg",
-    description:
-      "Vardenafil 20mg tablets formulated to consistent pharmacopoeial standards. Presented in clean, tamper-evident export cartons suitable for regulated markets.",
+    tagline: "Premium vardenafil, pharmacopoeial grade",
+    description: "Vardenafil 20mg tablets formulated to consistent pharmacopoeial standards. Presented in clean, tamper-evident export cartons suitable for regulated markets.",
     featured: true,
   },
   {
@@ -183,8 +184,8 @@ export const products: Product[] = [
     strengths: ["40mg"],
     category: "Tablets",
     image: "/images/vilitra-40.jpg",
-    description:
-      "Vardenafil 40mg tablets in export-ready packaging. Manufactured under strict quality controls and supplied in 10×10 blister cartons for international wholesale orders.",
+    tagline: "Higher-dose vardenafil for wholesale supply",
+    description: "Vardenafil 40mg tablets in export-ready packaging. Manufactured under strict quality controls and supplied in 10×10 blister cartons for international wholesale orders.",
   },
   {
     id: "vilitra-60",
@@ -194,8 +195,8 @@ export const products: Product[] = [
     strengths: ["60mg"],
     category: "Tablets",
     image: "/images/vilitra-60.jpg",
-    description:
-      "High-strength Vardenafil 60mg tablets for B2B export. Supplied in tamper-evident blister cartons with neutral packaging options available for qualifying orders.",
+    tagline: "Maximum vardenafil for specialist channels",
+    description: "High-strength Vardenafil 60mg tablets for B2B export. Supplied in tamper-evident blister cartons with neutral packaging options available for qualifying orders.",
   },
 
   /* ── Sildenafil Citrate / Cenforce ── */
@@ -207,8 +208,8 @@ export const products: Product[] = [
     strengths: ["25mg"],
     category: "Tablets",
     image: "/images/cenforce-25.jpg",
-    description:
-      "Cenforce 25mg Sildenafil Citrate tablets — low-dose entry option in the Cenforce range. Blue film-coated tablets packed for bulk B2B export by Centurion Remedies.",
+    tagline: "Entry-dose sildenafil for sensitive markets",
+    description: "Cenforce 25mg Sildenafil Citrate tablets — low-dose entry option in the Cenforce range. Blue film-coated tablets packed for bulk B2B export by Centurion Remedies.",
     featured: true,
   },
   {
@@ -219,8 +220,8 @@ export const products: Product[] = [
     strengths: ["50mg"],
     category: "Tablets",
     image: "/images/cenforce-50.jpg",
-    description:
-      "Cenforce 50mg Sildenafil Citrate tablets — an entry-strength option in the Cenforce range. Blue film-coated tablets packed for bulk B2B export by Centurion Remedies.",
+    tagline: "Standard sildenafil, broad market appeal",
+    description: "Cenforce 50mg Sildenafil Citrate tablets — an entry-strength option in the Cenforce range. Blue film-coated tablets packed for bulk B2B export by Centurion Remedies.",
   },
   {
     id: "cenforce-100",
@@ -230,8 +231,8 @@ export const products: Product[] = [
     strengths: ["100mg"],
     category: "Tablets",
     image: "/images/cenforce-100.jpg",
-    description:
-      "Cenforce 100mg — the most widely distributed strength in the Cenforce range. Blue film-coated tablets in export-ready 10×10 blister cartons by Centurion Remedies.",
+    tagline: "Best-selling sildenafil in global generics",
+    description: "Cenforce 100mg — the most widely distributed strength in the Cenforce range. Blue film-coated tablets in export-ready 10×10 blister cartons by Centurion Remedies.",
     featured: true,
   },
   {
@@ -242,8 +243,8 @@ export const products: Product[] = [
     strengths: ["150mg"],
     category: "Tablets",
     image: "/images/cenforce-150.jpg",
-    description:
-      "Cenforce 150mg — high-strength Sildenafil Citrate tablets popular across global generic markets. Packed in secure 10×10 blister cartons for international distribution.",
+    tagline: "High-strength for established wholesale buyers",
+    description: "Cenforce 150mg — high-strength Sildenafil Citrate tablets popular across global generic markets. Packed in secure 10×10 blister cartons for international distribution.",
   },
   {
     id: "cenforce-200",
@@ -253,8 +254,8 @@ export const products: Product[] = [
     strengths: ["200mg"],
     category: "Tablets",
     image: "/images/cenforce-200.jpg",
-    description:
-      "Cenforce 200mg — maximum-strength Sildenafil Citrate tablets for markets requiring the highest dose. Supplied in secure 10×10 blister cartons for international distribution.",
+    tagline: "Maximum sildenafil, top-tier wholesale choice",
+    description: "Cenforce 200mg — maximum-strength Sildenafil Citrate tablets for markets requiring the highest dose. Supplied in secure 10×10 blister cartons for international distribution.",
   },
   {
     id: "cenforce-soft-100",
@@ -264,8 +265,8 @@ export const products: Product[] = [
     strengths: ["100mg"],
     category: "Chewable Tablets",
     image: "/images/cenforce-soft-100.jpg",
-    description:
-      "Cenforce Soft-100 — chewable Sildenafil Citrate tablets for rapid onset. Uncoated chewable format supplied in 10×10 blister cartons by Centurion Remedies Pvt. Ltd.",
+    tagline: "Chewable sildenafil, fast-acting formula",
+    description: "Cenforce Soft-100 — chewable Sildenafil Citrate tablets for rapid onset. Uncoated chewable format supplied in 10×10 blister cartons by Centurion Remedies Pvt. Ltd.",
   },
 ];
 

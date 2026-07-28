@@ -32,12 +32,7 @@ export function ProductCard({ product, onEnquire }: {
     >
       {/* Image */}
       <div className="relative overflow-hidden bg-white dark:bg-slate-900/60">
-        {product.featured && (
-          <span className="absolute left-2 top-2 z-10 rounded-full bg-blue-600 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-white shadow-sm">
-            ⭐ Featured
-          </span>
-        )}
-        <div className="flex h-56 items-center justify-center p-1">
+        <div className="flex h-64 items-center justify-center p-1">
           <img
             src={product.image}
             alt={product.name}
@@ -48,7 +43,7 @@ export function ProductCard({ product, onEnquire }: {
       </div>
 
       {/* Body */}
-      <div className="flex flex-1 flex-col gap-1.5 px-3 pt-2 pb-3">
+      <div className="flex flex-1 flex-col gap-1.5 px-3 pt-1 pb-3">
 
         {/* Row 1 — name + compound on same line */}
         <div className="flex items-baseline justify-between gap-1 min-w-0">

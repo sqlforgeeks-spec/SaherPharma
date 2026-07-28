@@ -16,7 +16,8 @@ const BRAND_EMOJI: Record<string, string> = {
   Kamagra:   "🟢",
 };
 
-/* 2 products per brand for the default Featured view */
+const FEATURED_LIMIT = 8;
+/* Pick top products for the Featured tab (capped at FEATURED_LIMIT) */
 function buildFeatured(): Product[] {
   const seen = new Set<string>();
   const result: Product[] = [];
@@ -28,7 +29,7 @@ function buildFeatured(): Product[] {
       if (!seen.has(p.id)) { seen.add(p.id); result.push(p); }
     }
   }
-  return result;
+  return result.slice(0, FEATURED_LIMIT);
 }
 const FEATURED = buildFeatured();
 
@@ -132,7 +133,7 @@ export function Catalogue({ onEnquire }: { onEnquire: (p: Product) => void }) {
       {/* ── Grid ── */}
       <div
         key={`${activeTab}-${showAll}`}
-        className="mt-6 grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 animate-fade"
+        className="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 animate-fade"
       >
         {displayed.map((p) => (
           <ProductCard key={p.id} product={p} onEnquire={onEnquire} />

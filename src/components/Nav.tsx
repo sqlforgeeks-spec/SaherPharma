@@ -2,13 +2,13 @@ import { useState, useRef, useEffect } from "react";
 import { Logo, RippleButton } from "./Bits";
 import { products } from "../data";
 
-/* ── Group products by compound (active ingredient) ── */
-const byCompound: Record<string, typeof products> = {};
+/* ── Group products by brand ── */
+const byBrand: Record<string, typeof products> = {};
 for (const p of products) {
-  if (!byCompound[p.compound]) byCompound[p.compound] = [];
-  byCompound[p.compound].push(p);
+  if (!byBrand[p.brand]) byBrand[p.brand] = [];
+  byBrand[p.brand].push(p);
 }
-const compoundGroups = Object.entries(byCompound);
+const brandGroups = Object.entries(byBrand);
 
 /* ── Sun / Moon icon ── */
 function SunIcon() {
@@ -32,29 +32,30 @@ function MoonIcon() {
 
 /* ── Products mega-dropdown ── */
 function ProductsDropdown({ onClose }: { onClose: () => void }) {
+  const scrollToProducts = () => {
+    onClose();
+    document.getElementById("products")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
-    <div className="dropdown-enter absolute left-1/2 top-full mt-3 w-[520px] -translate-x-1/2 rounded-2xl glass-strong shadow-xl shadow-black/10 dark:shadow-black/40 p-5 z-50">
-      <div className="grid grid-cols-3 gap-4">
-        {compoundGroups.map(([compound, prods]) => (
-          <div key={compound}>
+    <div className="dropdown-enter absolute left-1/2 top-full mt-3 w-[680px] -translate-x-1/2 rounded-2xl glass-strong shadow-xl shadow-black/10 dark:shadow-black/40 p-5 z-50">
+      <div className="grid grid-cols-4 gap-4">
+        {brandGroups.map(([brand, prods]) => (
+          <div key={brand}>
             <p className="mb-2 text-[9px] font-bold uppercase tracking-[0.18em] text-blue-500 dark:text-blue-400">
-              {compound}
+              {brand}
             </p>
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-0.5">
               {prods.map((p) => (
                 <button
                   key={p.id}
-                  onClick={() => {
-                    onClose();
-                    const el = document.getElementById("products");
-                    el?.scrollIntoView({ behavior: "smooth", block: "start" });
-                  }}
-                  className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-left transition hover:bg-blue-500/8 group"
+                  onClick={scrollToProducts}
+                  className="flex items-center gap-2 rounded-xl px-2 py-1.5 text-left transition hover:bg-blue-500/8 group"
                 >
-                  <img src={p.image} alt={p.name} className="h-7 w-7 rounded-lg object-cover ring-1 ring-[var(--border)]" />
-                  <div>
-                    <p className="text-sm font-semibold text-[var(--text)] group-hover:text-blue-600 dark:group-hover:text-blue-300 transition">{p.name}</p>
-                    <p className="text-[10px] text-muted">{p.strengths.slice(0, 3).join(" / ")}{p.strengths.length > 3 ? "…" : ""}</p>
+                  <img src={p.image} alt={p.name} className="h-6 w-6 rounded-md object-cover ring-1 ring-[var(--border)] shrink-0" />
+                  <div className="min-w-0">
+                    <p className="truncate text-[12px] font-semibold text-[var(--text)] group-hover:text-blue-600 dark:group-hover:text-blue-300 transition">{p.name}</p>
+                    <p className="text-[9px] text-muted">{p.category}</p>
                   </div>
                 </button>
               ))}
@@ -62,14 +63,9 @@ function ProductsDropdown({ onClose }: { onClose: () => void }) {
           </div>
         ))}
       </div>
-      <div className="mt-4 border-t border-[var(--border)] pt-3">
-        <button
-          onClick={() => {
-            onClose();
-            document.getElementById("products")?.scrollIntoView({ behavior: "smooth", block: "start" });
-          }}
-          className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline"
-        >
+      <div className="mt-4 border-t border-[var(--border)] pt-3 flex items-center justify-between">
+        <p className="text-[11px] text-muted">{products.length} products available for export</p>
+        <button onClick={scrollToProducts} className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline">
           View full catalogue →
         </button>
       </div>
@@ -209,19 +205,19 @@ export function Navbar({
             </button>
 
             {mobileProductsOpen && (
-              <div className="mb-1 rounded-xl bg-black/5 dark:bg-white/5 p-3">
-                {compoundGroups.map(([compound, prods]) => (
-                  <div key={compound} className="mb-3 last:mb-0">
-                    <p className="mb-1.5 px-2 text-[9px] font-bold uppercase tracking-[0.18em] text-blue-500 dark:text-blue-400">{compound}</p>
+              <div className="mb-1 max-h-72 overflow-y-auto rounded-xl bg-black/5 dark:bg-white/5 p-3">
+                {brandGroups.map(([brand, prods]) => (
+                  <div key={brand} className="mb-3 last:mb-0">
+                    <p className="mb-1.5 px-2 text-[9px] font-bold uppercase tracking-[0.18em] text-blue-500 dark:text-blue-400">{brand}</p>
                     {prods.map((p) => (
                       <button
                         key={p.id}
                         onClick={() => { setOpen(false); nav("products"); }}
                         className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-left transition hover:bg-blue-500/8"
                       >
-                        <img src={p.image} alt={p.name} className="h-6 w-6 rounded-md object-cover" />
+                        <img src={p.image} alt={p.name} className="h-6 w-6 rounded-md object-cover shrink-0" />
                         <span className="text-sm font-medium text-[var(--text)]">{p.name}</span>
-                        <span className="ml-auto text-[10px] text-muted">{p.strengths[0]}</span>
+                        <span className="ml-auto text-[10px] text-muted shrink-0">{p.category}</span>
                       </button>
                     ))}
                   </div>

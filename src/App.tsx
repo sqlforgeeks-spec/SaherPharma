@@ -73,7 +73,7 @@ export default function App() {
       />
 
       {/* PRODUCTS */}
-      <section id="products" ref={productsRef} className="pt-8">
+      <section id="products" ref={productsRef} className="pt-2">
         <Catalogue onEnquire={onEnquire} />
       </section>
 

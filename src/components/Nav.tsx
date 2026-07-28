@@ -21,16 +21,45 @@ const brandColor: Record<Brand, string> = {
   Kamagra:   "#10b981",  // emerald-500
 };
 
-/* ── Tablet / capsule SVG — unique per brand via stroke colour ── */
-function TabletIcon({ color, size = 14 }: { color: string; size?: number }) {
-  return (
+/* ── Per-brand premium SVG icons ── */
+const BrandIcons: Record<Brand, (props: { color: string; size: number }) => JSX.Element> = {
+  // Vidalista — hexagon (structured, premium)
+  Vidalista: ({ color, size }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
       stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/>
-      <path d="M8.5 8.5 16 16"/>
+      <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5"/>
+      <circle cx="12" cy="12" r="3"/>
     </svg>
-  );
-}
+  ),
+  // Fildena — heart pulse (rose, Sildenafil)
+  Fildena: ({ color, size }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
+      stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+    </svg>
+  ),
+  // Vilitra — zap / lightning (violet, Vardenafil — energy)
+  Vilitra: ({ color, size }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
+      stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+    </svg>
+  ),
+  // Cenforce — shield (blue, trust & protection)
+  Cenforce: ({ color, size }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
+      stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+    </svg>
+  ),
+  // Kamagra — flame (emerald, jelly / fun range)
+  Kamagra: ({ color, size }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
+      stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
+    </svg>
+  ),
+};
 
 /* ── Sun / Moon icons ── */
 function SunIcon() {
@@ -76,7 +105,7 @@ function BrandDropdown({ brand, onClose }: { brand: Brand; onClose: () => void }
     <div className="dropdown-enter absolute left-1/2 top-full mt-3 w-56 -translate-x-1/2 rounded-2xl glass-strong shadow-xl shadow-black/10 dark:shadow-black/40 p-3 z-50">
       {/* Header */}
       <div className="mb-2.5 flex items-center gap-2 px-1">
-        <TabletIcon color={color} size={13} />
+        {BrandIcons[brand]({ color, size: 13 })}
         <span className="text-[10px] font-bold uppercase tracking-[0.18em]" style={{ color }}>
           {brand}
         </span>
@@ -194,7 +223,7 @@ export function Navbar({
                     className="flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-medium text-muted transition hover:text-[var(--text)]"
                     style={isOpen ? { color } : {}}
                   >
-                    <TabletIcon color={isOpen ? color : "currentColor"} size={13} />
+                    {BrandIcons[brand]({ color: isOpen ? color : "currentColor", size: 13 })}
                     {brand}
                     <ChevronIcon open={isOpen} />
                   </button>
@@ -249,7 +278,7 @@ export function Navbar({
                     style={isOpen ? { color } : {}}
                   >
                     <span className="flex items-center gap-2.5">
-                      <TabletIcon color={isOpen ? color : "currentColor"} size={14} />
+                      {BrandIcons[brand]({ color: isOpen ? color : "currentColor", size: 14 })}
                       {brand}
                     </span>
                     <ChevronIcon open={isOpen} />

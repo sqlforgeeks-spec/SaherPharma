@@ -85,7 +85,7 @@ export function Catalogue({ onEnquire }: { onEnquire: (p: Product) => void }) {
   };
 
   return (
-    <section className="mx-auto max-w-6xl px-4 pt-16 pb-12">
+    <section className="mx-auto max-w-6xl px-4 pt-8 pb-12">
       <div className="reveal text-center">
         <SectionTag>📦 Export Catalogue</SectionTag>
         <h1 className="mt-5 font-display text-4xl font-bold leading-tight text-[var(--text)] sm:text-5xl">

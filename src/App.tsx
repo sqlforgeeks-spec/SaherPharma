@@ -14,10 +14,16 @@ export default function App() {
   const [enquiryItems, setEnquiryItems] = useState<{ id: string; name: string; strength: string; qty: string }[]>([]);
   const [enquiryOpen, setEnquiryOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
   const productsRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
 
   useReveal();
+
+  // Apply dark mode to <html>
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", darkMode ? "dark" : "light");
+  }, [darkMode]);
 
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 30);
@@ -51,7 +57,13 @@ export default function App() {
       {!loaded && <LogoLoader onDone={onLoadDone} />}
       <Particles />
       <ScrollProgress />
-      <Navbar scrolled={scrolled} onNav={scrollTo} onEnquire={openEmptyEnquiry} />
+      <Navbar
+        scrolled={scrolled}
+        onNav={scrollTo}
+        onEnquire={openEmptyEnquiry}
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+      />
 
       {/* HERO — minimal */}
       <section className="relative flex min-h-[80vh] items-center justify-center px-4 pt-32">
@@ -60,11 +72,11 @@ export default function App() {
         <div className="floaty absolute right-[15%] bottom-1/3 h-64 w-64 rounded-full bg-sky-500/15 blur-[120px]" />
 
         <div className="relative z-10 mx-auto max-w-3xl text-center">
-          <span className="reveal in inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-blue-300">
-            <span className="h-1.5 w-1.5 rounded-full bg-blue-400 shadow-[0_0_8px_2px_rgba(59,130,246,0.8)]" />
+          <span className="reveal in inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-blue-500 dark:text-blue-300">
+            <span className="h-1.5 w-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_2px_rgba(59,130,246,0.8)] dark:bg-blue-400" />
              Global Pharmaceutical Export
           </span>
-          <h1 className="reveal mt-6 font-display text-5xl font-bold leading-[1.05] sm:text-6xl md:text-7xl">
+          <h1 className="reveal mt-6 font-display text-5xl font-bold leading-[1.05] sm:text-6xl md:text-7xl text-[var(--text)]">
             Trusted generics,<br />
             delivered <span className="gradient-text">worldwide</span>
           </h1>
@@ -72,10 +84,10 @@ export default function App() {
             B2B pharmaceutical export company supplying quality-assured generic formulations to wholesale buyers. Secure packaging, documentation support, global logistics.
           </p>
           <div className="reveal mt-8 flex flex-wrap items-center justify-center gap-3">
-            <button onClick={() => scrollTo("products")} className="rounded-xl bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-blue-50">
+            <button onClick={() => scrollTo("products")} className="rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 dark:bg-white dark:text-slate-900 dark:hover:bg-blue-50">
               View Catalogue ↓
             </button>
-            <button onClick={openEmptyEnquiry} className="rounded-xl glass px-6 py-3 text-sm font-semibold transition hover:border-blue-400/40">
+            <button onClick={openEmptyEnquiry} className="rounded-xl glass px-6 py-3 text-sm font-semibold transition hover:border-blue-400/40 text-[var(--text)]">
               Quick Enquiry
             </button>
           </div>

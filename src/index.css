@@ -1,6 +1,23 @@
 @import "tailwindcss";
 
+/* ── Dark-mode variant (activated via data-theme="dark" on <html>) ── */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/* ── Light mode (default) ── */
 :root {
+  --bg: #f0f4fa;
+  --bg-2: #e4ebf5;
+  --surface: rgba(255, 255, 255, 0.72);
+  --border: rgba(30, 58, 138, 0.10);
+  --border-hi: rgba(59, 130, 246, 0.35);
+  --text: #0f172a;
+  --muted: #4b6080;
+  --accent: #2563eb;
+  color-scheme: light;
+}
+
+/* ── Dark mode ── */
+[data-theme="dark"] {
   --bg: #05070d;
   --bg-2: #0a0f1c;
   --surface: rgba(255, 255, 255, 0.03);
@@ -9,6 +26,7 @@
   --text: #e6ecf5;
   --muted: #8597b4;
   --accent: #3b82f6;
+  color-scheme: dark;
 }
 
 * { scroll-behavior: smooth; }
@@ -22,7 +40,15 @@ html, body {
   overflow-x: hidden;
 }
 
+/* Light mode body gradient */
 body {
+  background:
+    radial-gradient(900px 500px at 90% 0%, rgba(59, 130, 246, 0.07), transparent 55%),
+    radial-gradient(700px 400px at 0% 15%, rgba(37, 99, 235, 0.04), transparent 50%),
+    var(--bg);
+}
+
+[data-theme="dark"] body {
   background:
     radial-gradient(900px 500px at 90% 0%, rgba(59, 130, 246, 0.08), transparent 55%),
     radial-gradient(700px 400px at 0% 15%, rgba(37, 99, 235, 0.05), transparent 50%),
@@ -38,15 +64,24 @@ body {
   -webkit-backdrop-filter: blur(16px);
 }
 .glass-strong {
-  background: rgba(10, 15, 28, 0.82);
+  background: rgba(240, 244, 250, 0.88);
   border: 1px solid var(--border);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
+}
+[data-theme="dark"] .glass-strong {
+  background: rgba(10, 15, 28, 0.82);
+  border: 1px solid var(--border);
 }
 
 .text-muted { color: var(--muted); }
 
 .gradient-text {
+  background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #3b82f6 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+[data-theme="dark"] .gradient-text {
   background: linear-gradient(135deg, #93c5fd 0%, #3b82f6 50%, #1e40af 100%);
   -webkit-background-clip: text; background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -58,8 +93,17 @@ body {
 .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s cubic-bezier(.16,1,.3,1), transform 0.7s cubic-bezier(.16,1,.3,1); }
 .reveal.in { opacity: 1; transform: none; }
 
-.card-hover { transition: transform 0.4s cubic-bezier(.16,1,.3,1), box-shadow 0.4s, border-color 0.4s; }
-.card-hover:hover { transform: translateY(-6px); border-color: var(--border-hi); box-shadow: 0 30px 60px -25px rgba(59, 130, 246, 0.3); }
+/* Grid background */
+.grid-bg {
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Cards */
+.card-hover { transition: transform 0.3s cubic-bezier(.16,1,.3,1), box-shadow 0.3s ease, border-color 0.3s; }
+.card-hover:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -12px rgba(59,130,246,0.18); border-color: var(--border-hi); }
 
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 .marquee-track { display: flex; width: max-content; animation: marquee 45s linear infinite; }
@@ -105,6 +149,10 @@ body {
 ::-webkit-scrollbar { width: 10px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #3b82f6, #1e3a8a); border-radius: 9999px; }
+
+/* Dropdown */
+@keyframes dropIn { from { opacity: 0; transform: translateY(-6px) scale(0.98); } to { opacity: 1; transform: none; } }
+.dropdown-enter { animation: dropIn 0.2s cubic-bezier(.16,1,.3,1); }
 
 @media (prefers-reduced-motion: reduce) {
   .marquee-track, .floaty, .logo-load, .line-load, .loader-fade, .card-hover, .reveal, .animate-fade { animation: none !important; transition: none !important; }

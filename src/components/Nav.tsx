@@ -1,30 +1,100 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Logo, RippleButton } from "./Bits";
 import { products } from "../data";
 
-const sections = [
-  { id: "products", label: "Products" },
-  { id: "contact", label: "Contact" },
-];
+/* ── Group products by compound (active ingredient) ── */
+const byCompound: Record<string, typeof products> = {};
+for (const p of products) {
+  if (!byCompound[p.compound]) byCompound[p.compound] = [];
+  byCompound[p.compound].push(p);
+}
+const compoundGroups = Object.entries(byCompound);
 
-/* Auto-rotating catalogue marquee */
+/* ── Sun / Moon icon ── */
+function SunIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="5"/>
+      <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+      <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+    </svg>
+  );
+}
+function MoonIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  );
+}
+
+/* ── Products mega-dropdown ── */
+function ProductsDropdown({ onClose }: { onClose: () => void }) {
+  return (
+    <div className="dropdown-enter absolute left-1/2 top-full mt-3 w-[520px] -translate-x-1/2 rounded-2xl glass-strong shadow-xl shadow-black/10 dark:shadow-black/40 p-5 z-50">
+      <div className="grid grid-cols-3 gap-4">
+        {compoundGroups.map(([compound, prods]) => (
+          <div key={compound}>
+            <p className="mb-2 text-[9px] font-bold uppercase tracking-[0.18em] text-blue-500 dark:text-blue-400">
+              {compound}
+            </p>
+            <div className="flex flex-col gap-1">
+              {prods.map((p) => (
+                <button
+                  key={p.id}
+                  onClick={() => {
+                    onClose();
+                    const el = document.getElementById("products");
+                    el?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }}
+                  className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-left transition hover:bg-blue-500/8 group"
+                >
+                  <img src={p.image} alt={p.name} className="h-7 w-7 rounded-lg object-cover ring-1 ring-[var(--border)]" />
+                  <div>
+                    <p className="text-sm font-semibold text-[var(--text)] group-hover:text-blue-600 dark:group-hover:text-blue-300 transition">{p.name}</p>
+                    <p className="text-[10px] text-muted">{p.strengths.slice(0, 3).join(" / ")}{p.strengths.length > 3 ? "…" : ""}</p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-4 border-t border-[var(--border)] pt-3">
+        <button
+          onClick={() => {
+            onClose();
+            document.getElementById("products")?.scrollIntoView({ behavior: "smooth", block: "start" });
+          }}
+          className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline"
+        >
+          View full catalogue →
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ── Auto-rotating catalogue marquee ── */
 function CatalogueBanner() {
   const ticker = [...products, ...products];
   return (
-    <div className="fixed inset-x-0 top-0 z-50 h-9 overflow-hidden border-b border-white/5 bg-[var(--bg-2)]">
+    <div className="fixed inset-x-0 top-0 z-50 h-9 overflow-hidden border-b border-[var(--border)] bg-[var(--bg-2)]">
       <div className="marquee-track h-full items-center gap-8 px-4">
         {ticker.map((p, i) => (
           <div key={i} className="flex shrink-0 items-center gap-2 text-xs">
-            <span className="shimmer grid h-6 w-6 shrink-0 place-items-center rounded-md bg-white/5 ring-1 ring-white/10">
+            <span className="shimmer grid h-6 w-6 shrink-0 place-items-center rounded-md bg-black/5 dark:bg-white/5 ring-1 ring-[var(--border)]">
               <img src={p.image} alt={p.name} className="h-full w-full rounded-md object-cover" />
             </span>
-            <span className="font-display font-semibold text-white">{p.name}</span>
+            <span className="font-display font-semibold text-[var(--text)]">{p.name}</span>
             <span className="text-muted hidden sm:inline">·</span>
             <span className="hidden text-muted sm:inline">{p.compound}</span>
             <span className="text-muted hidden md:inline">·</span>
             <span className="hidden text-muted md:inline">{p.strengths.join(" / ")}</span>
-            <span className="ml-2 rounded-full bg-blue-500/15 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-blue-300">Export Ready</span>
-            <span className="ml-4 text-white/15">◆</span>
+            <span className="ml-2 rounded-full bg-blue-500/15 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-300">Export Ready</span>
+            <span className="ml-4 text-[var(--border-hi)]">◆</span>
           </div>
         ))}
       </div>
@@ -33,14 +103,31 @@ function CatalogueBanner() {
 }
 
 export function Navbar({
-  scrolled, onNav, onEnquire,
+  scrolled, onNav, onEnquire, darkMode, setDarkMode,
 }: {
   scrolled: boolean;
   onNav: (target: "products" | "contact" | "top") => void;
   onEnquire: () => void;
+  darkMode: boolean;
+  setDarkMode: (v: boolean) => void;
 }) {
   const [open, setOpen] = useState(false);
+  const [productsOpen, setProductsOpen] = useState(false);
+  const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
   const nav = (id: "products" | "contact") => { onNav(id); setOpen(false); };
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setProductsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
 
   return (
     <>
@@ -49,24 +136,54 @@ export function Navbar({
         <nav className={`flex w-full max-w-6xl items-center justify-between rounded-2xl px-4 py-2.5 transition-all duration-500 ${scrolled ? "glass-strong" : "glass"}`}>
           <button onClick={() => onNav("top")} className="flex items-center gap-2.5">
             <Logo className="h-7 w-7" />
-            <span className="font-display text-base font-bold tracking-tight">
+            <span className="font-display text-base font-bold tracking-tight text-[var(--text)]">
               Saher<span className="gradient-text">Pharma</span>
             </span>
           </button>
 
+          {/* Desktop nav */}
           <div className="hidden items-center gap-1 lg:flex">
-            {sections.map((l) => (
-              <button key={l.id} onClick={() => nav(l.id as any)} className="rounded-xl px-3.5 py-2 text-sm font-medium text-muted transition hover:text-white">
-                {l.label}
+            {/* Products with dropdown */}
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setProductsOpen((o) => !o)}
+                className="flex items-center gap-1 rounded-xl px-3.5 py-2 text-sm font-medium text-muted transition hover:text-[var(--text)]"
+              >
+                Products
+                <svg
+                  width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+                  className={`transition-transform duration-200 ${productsOpen ? "rotate-180" : ""}`}
+                >
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
               </button>
-            ))}
+              {productsOpen && <ProductsDropdown onClose={() => setProductsOpen(false)} />}
+            </div>
+            <button onClick={() => nav("contact")} className="rounded-xl px-3.5 py-2 text-sm font-medium text-muted transition hover:text-[var(--text)]">
+              Contact
+            </button>
           </div>
 
           <div className="flex items-center gap-1.5">
-            <RippleButton onClick={onEnquire} className="hidden rounded-xl bg-white px-4 py-2 text-xs font-semibold text-slate-900 transition hover:bg-blue-50 sm:block">
+            {/* Dark mode toggle */}
+            <button
+              onClick={() => setDarkMode(!darkMode)}
+              aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+              title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+              className="grid h-9 w-9 place-items-center rounded-xl glass transition hover:border-blue-400/40 text-muted hover:text-[var(--text)]"
+            >
+              {darkMode ? <SunIcon /> : <MoonIcon />}
+            </button>
+
+            <RippleButton onClick={onEnquire} className="hidden rounded-xl bg-blue-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-blue-700 dark:bg-white dark:text-slate-900 dark:hover:bg-blue-50 sm:block">
               Quick Enquiry
             </RippleButton>
-            <button onClick={() => setOpen((o) => !o)} aria-label="Menu" className={`burger relative grid h-9 w-9 place-items-center rounded-xl glass lg:hidden ${open ? "active" : ""}`}>
+
+            <button
+              onClick={() => setOpen((o) => !o)}
+              aria-label="Menu"
+              className={`burger relative grid h-9 w-9 place-items-center rounded-xl glass lg:hidden ${open ? "active" : ""} text-[var(--text)]`}
+            >
               <div className="flex flex-col items-center gap-[5px]">
                 <span /><span /><span />
               </div>
@@ -74,17 +191,66 @@ export function Navbar({
           </div>
         </nav>
 
+        {/* Mobile menu */}
         {open && (
           <div className="absolute inset-x-3 top-[58px] flex flex-col gap-1 rounded-2xl glass-strong p-3 lg:hidden animate-fade">
-            {[...sections, { id: "enquiry", label: "Quick Enquiry" }].map((item) => (
-              <button
-                key={item.id}
-                onClick={() => item.id === "enquiry" ? onEnquire() : nav(item.id as any)}
-                className="rounded-xl px-4 py-3 text-left text-sm font-medium text-muted transition hover:bg-white/5"
+            {/* Products expandable */}
+            <button
+              onClick={() => setMobileProductsOpen((o) => !o)}
+              className="flex items-center justify-between rounded-xl px-4 py-3 text-left text-sm font-medium text-muted transition hover:bg-black/5 dark:hover:bg-white/5"
+            >
+              Products
+              <svg
+                width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+                className={`transition-transform duration-200 ${mobileProductsOpen ? "rotate-180" : ""}`}
               >
-                {item.label}
-              </button>
-            ))}
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </button>
+
+            {mobileProductsOpen && (
+              <div className="mb-1 rounded-xl bg-black/5 dark:bg-white/5 p-3">
+                {compoundGroups.map(([compound, prods]) => (
+                  <div key={compound} className="mb-3 last:mb-0">
+                    <p className="mb-1.5 px-2 text-[9px] font-bold uppercase tracking-[0.18em] text-blue-500 dark:text-blue-400">{compound}</p>
+                    {prods.map((p) => (
+                      <button
+                        key={p.id}
+                        onClick={() => { setOpen(false); nav("products"); }}
+                        className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-left transition hover:bg-blue-500/8"
+                      >
+                        <img src={p.image} alt={p.name} className="h-6 w-6 rounded-md object-cover" />
+                        <span className="text-sm font-medium text-[var(--text)]">{p.name}</span>
+                        <span className="ml-auto text-[10px] text-muted">{p.strengths[0]}</span>
+                      </button>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <button
+              onClick={() => nav("contact")}
+              className="rounded-xl px-4 py-3 text-left text-sm font-medium text-muted transition hover:bg-black/5 dark:hover:bg-white/5"
+            >
+              Contact
+            </button>
+
+            {/* Dark mode toggle in mobile menu */}
+            <button
+              onClick={() => setDarkMode(!darkMode)}
+              className="flex items-center gap-2 rounded-xl px-4 py-3 text-left text-sm font-medium text-muted transition hover:bg-black/5 dark:hover:bg-white/5"
+            >
+              {darkMode ? <SunIcon /> : <MoonIcon />}
+              {darkMode ? "Light mode" : "Dark mode"}
+            </button>
+
+            <button
+              onClick={() => { onEnquire(); setOpen(false); }}
+              className="mt-1 rounded-xl bg-blue-600 px-4 py-3 text-left text-sm font-semibold text-white transition hover:bg-blue-700"
+            >
+              Quick Enquiry
+            </button>
           </div>
         )}
       </header>

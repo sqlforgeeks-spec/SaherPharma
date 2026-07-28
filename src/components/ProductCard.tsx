@@ -13,7 +13,7 @@ export function ProductCard({
     <div className="group relative flex flex-col overflow-hidden rounded-3xl glass card-hover">
       <button
         onClick={() => onView(product)}
-        className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-slate-800/30 to-slate-900/30"
+        className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-slate-200/60 to-slate-300/60 dark:from-slate-800/30 dark:to-slate-900/30"
         aria-label={`View ${product.name}`}
       >
         <img
@@ -22,7 +22,7 @@ export function ProductCard({
           loading="lazy"
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
-        <span className="absolute left-3 top-3 rounded-full bg-black/40 backdrop-blur px-3 py-1 text-[11px] font-medium text-white">
+        <span className="absolute left-3 top-3 rounded-full bg-black/50 backdrop-blur px-3 py-1 text-[11px] font-medium text-white">
           {product.compound}
         </span>
         {product.featured && (
@@ -39,7 +39,7 @@ export function ProductCard({
         </div>
         <div className="flex flex-wrap gap-1.5">
           {product.strengths.map((s) => (
-            <span key={s} className="rounded-md border border-white/10 px-2 py-0.5 text-[11px] text-muted">
+            <span key={s} className="rounded-md border border-[var(--border)] px-2 py-0.5 text-[11px] text-muted">
               {s}
             </span>
           ))}

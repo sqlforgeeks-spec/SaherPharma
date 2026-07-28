@@ -71,7 +71,7 @@ export function Catalogue({ onEnquire }: { onEnquire: (p: Product) => void }) {
       ]),
       "",
       "────────────────────────────────────────────",
-      `${products.length} products available for international B2B export.`,
+      `${products.length} products available for international export.`,
       "Minimum order quantities and pricing available on request.",
       "Contact us via the channels above to place an enquiry.",
       "",

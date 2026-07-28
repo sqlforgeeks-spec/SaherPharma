@@ -33,7 +33,7 @@ export const products: Product[] = [
     category: "Tablets",
     image: "/images/vidalista-10.jpg",
     tagline: "Extended-action tablet for on-demand use",
-    description: "Tadalafil 10mg film-coated tablets with extended duration of action. Packaged in tamper-evident 10×10 blister cartons and ready for international B2B export.",
+    description: "Tadalafil 10mg film-coated tablets with extended duration of action. Packaged in tamper-evident 10×10 blister cartons and ready for international export.",
     featured: true,
   },
   {
@@ -56,7 +56,7 @@ export const products: Product[] = [
     strengths: ["60mg"],
     category: "Tablets",
     image: "/images/vidalista-60.jpg",
-    tagline: "High-strength for demanding B2B markets",
+    tagline: "High-strength for demanding markets",
     description: "High-strength Tadalafil 60mg tablets for markets requiring a stronger dose. Supplied in secure blister packaging with full export documentation support.",
     featured: true,
   },
@@ -160,7 +160,7 @@ export const products: Product[] = [
     category: "Tablets",
     image: "/images/fildena-strong-120.jpg",
     tagline: "High-strength in bold red packaging",
-    description: "Fildena Strong 120mg in distinctive red packaging. High-strength Sildenafil Citrate tablets for markets where 120mg dosing is required; packed for bulk B2B export.",
+    description: "Fildena Strong 120mg in distinctive red packaging. High-strength Sildenafil Citrate tablets for markets where 120mg dosing is required; packed for bulk export.",
   },
 
   /* ── Vardenafil / Vilitra ── */
@@ -196,7 +196,7 @@ export const products: Product[] = [
     category: "Tablets",
     image: "/images/vilitra-60.jpg",
     tagline: "Maximum vardenafil for specialist channels",
-    description: "High-strength Vardenafil 60mg tablets for B2B export. Supplied in tamper-evident blister cartons with neutral packaging options available for qualifying orders.",
+    description: "High-strength Vardenafil 60mg tablets for export. Supplied in tamper-evident blister cartons with neutral packaging options available for qualifying orders.",
   },
 
   /* ── Sildenafil Citrate / Cenforce ── */
@@ -209,7 +209,7 @@ export const products: Product[] = [
     category: "Tablets",
     image: "/images/cenforce-25.jpg",
     tagline: "Entry-dose sildenafil for sensitive markets",
-    description: "Cenforce 25mg Sildenafil Citrate tablets — low-dose entry option in the Cenforce range. Blue film-coated tablets packed for bulk B2B export by Centurion Remedies.",
+    description: "Cenforce 25mg Sildenafil Citrate tablets — low-dose entry option in the Cenforce range. Blue film-coated tablets packed for bulk export by Centurion Remedies.",
     featured: true,
   },
   {
@@ -221,7 +221,7 @@ export const products: Product[] = [
     category: "Tablets",
     image: "/images/cenforce-50.jpg",
     tagline: "Standard sildenafil, broad market appeal",
-    description: "Cenforce 50mg Sildenafil Citrate tablets — an entry-strength option in the Cenforce range. Blue film-coated tablets packed for bulk B2B export by Centurion Remedies.",
+    description: "Cenforce 50mg Sildenafil Citrate tablets — an entry-strength option in the Cenforce range. Blue film-coated tablets packed for bulk export by Centurion Remedies.",
   },
   {
     id: "cenforce-100",
@@ -282,7 +282,7 @@ const kamagraProducts: Product[] = [
     category: "Tablets",
     image: "/images/kamagra-export-100.jpg",
     tagline: "Export-grade sildenafil, globally distributed",
-    description: "Kamagra Export 100mg Sildenafil Citrate tablets in export-ready blister cartons. A widely distributed generic formulation designed for international B2B wholesale buyers.",
+    description: "Kamagra Export 100mg Sildenafil Citrate tablets in export-ready blister cartons. A widely distributed generic formulation designed for international wholesale buyers.",
     featured: true,
   },
   {
@@ -316,7 +316,7 @@ const kamagraProducts: Product[] = [
     category: "Tablets",
     image: "/images/kamagra-gold-100.jpg",
     tagline: "Premium gold-tier sildenafil formulation",
-    description: "Kamagra Gold 100mg — a premium variant of Sildenafil Citrate 100mg in distinctive gold packaging. Film-coated tablets in export-ready 10×10 blister cartons for B2B distribution.",
+    description: "Kamagra Gold 100mg — a premium variant of Sildenafil Citrate 100mg in distinctive gold packaging. Film-coated tablets in export-ready 10×10 blister cartons for distribution.",
     featured: true,
   },
   {
@@ -362,7 +362,7 @@ const kamagraProducts: Product[] = [
     category: "Tablets",
     image: "/images/lovegra-100.jpg",
     tagline: "Women's sildenafil, elegantly formulated",
-    description: "Lovegra 100mg — Sildenafil Citrate formulated specifically for women's health. Pink film-coated tablets in tamper-evident export cartons; supplied for qualified international B2B buyers.",
+    description: "Lovegra 100mg — Sildenafil Citrate formulated specifically for women's health. Pink film-coated tablets in tamper-evident export cartons; supplied for qualified international buyers.",
   },
   {
     id: "tadalis-sx-20",
@@ -383,7 +383,7 @@ const kamagraProducts: Product[] = [
     strengths: ["20mg"],
     category: "Tablets",
     image: "/images/valif-20.jpg",
-    tagline: "Premium vardenafil for B2B export",
+    tagline: "Premium vardenafil for export",
     description: "Valif 20mg — Vardenafil 20mg tablets in premium packaging. Fast-acting PDE5 inhibitor supplied in tamper-evident 10×10 blister cartons for international wholesale distribution.",
     featured: true,
   },
@@ -412,7 +412,7 @@ export const allStrengths = Array.from(
 export const faqs = [
   {
     q: "Are you a manufacturer or an exporter?",
-    a: "SaherPharma operates as an international B2B pharmaceutical export company. We coordinate sourcing from partner manufacturing facilities and handle documentation, packaging and global logistics for wholesale buyers.",
+    a: "SaherPharma operates as an international pharmaceutical export company. We coordinate sourcing from partner manufacturing facilities and handle documentation, packaging and global logistics for wholesale buyers.",
   },
   {
     q: "What is the minimum order quantity (MOQ)?",

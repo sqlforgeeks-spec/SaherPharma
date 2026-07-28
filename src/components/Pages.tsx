@@ -17,7 +17,7 @@ function PageShell({ tag, title, subtitle, children }: { tag: string; title: str
 
 export function About() {
   return (
-    <PageShell tag=" About Us" title="Built for global trade" subtitle="SaherPharma is an international B2B pharmaceutical export company. We source, package, and dispatch trusted generic formulations to wholesale buyers worldwide.">
+    <PageShell tag=" About Us" title="Built for global trade" subtitle="SaherPharma is an international pharmaceutical export company. We source, package, and dispatch trusted generic formulations to wholesale buyers worldwide.">
       <div className="grid gap-4 md:grid-cols-3">
         {[
           { icon: "", t: "Mission", d: "Make quality generics accessible to wholesalers through transparent, compliant export operations." },
@@ -172,7 +172,7 @@ const legalContent: Record<string, { title: string; body: string[] }> = {
   disclaimer: {
     title: "Disclaimer",
     body: [
-      "Information on this website is provided in good faith for general informational and B2B purposes only.",
+      "Information on this website is provided in good faith for general informational purposes only.",
       "SaherPharma makes no medical claims and does not provide medical advice. Always consult a licensed healthcare professional.",
       "Product images are representative. Actual packaging and specifications may vary by batch and market.",
       "Buyers are solely responsible for ensuring compliance with the legal requirements of their destination country.",

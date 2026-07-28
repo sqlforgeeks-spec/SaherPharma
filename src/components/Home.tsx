@@ -14,7 +14,7 @@ const HERO_SLIDES = [
   },
   {
     src: "/images/hero-2.jpg",
-    headline: "Global B2B",
+    headline: "Global",
     highlight: "Pharma Export",
     sub: "From Tadalafil to Sildenafil and Vardenafil — every strength, every format, ready for international wholesale distribution.",
   },
@@ -50,7 +50,7 @@ export function HeroCarousel({
   }, []);
 
   return (
-    <section className="relative min-h-[80svh] w-full overflow-hidden">
+    <section className="relative min-h-[60svh] sm:min-h-[80svh] w-full overflow-hidden">
       {/* Background images */}
       {HERO_SLIDES.map((s, i) => (
         <img
@@ -69,7 +69,7 @@ export function HeroCarousel({
       <div className="absolute inset-0 bg-gradient-to-t from-[#0a1628]/60 via-transparent to-transparent" />
 
       {/* Content */}
-      <div className="relative z-10 flex min-h-[80svh] flex-col items-start justify-center px-6 pt-28 pb-16 sm:px-10 lg:px-20">
+      <div className="relative z-10 flex min-h-[60svh] sm:min-h-[80svh] flex-col items-start justify-center px-6 pt-28 pb-16 sm:px-10 lg:px-20">
         <div className="max-w-2xl">
           {/* Badge */}
           <div key={idx + "b"} className="animate-fade mb-6">
@@ -121,7 +121,6 @@ export function HeroCarousel({
               { v: "25+", l: "Countries" },
               { v: "20+", l: "Brands" },
               { v: "2h", l: "Response" },
-              { v: "10×10", l: "Blisters" },
             ].map((s) => (
               <div key={s.l}>
                 <div className="font-display text-2xl font-bold text-white">{s.v}</div>

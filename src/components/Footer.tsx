@@ -162,7 +162,7 @@ export function Footer({ onEnquire }: { onEnquire?: (items: CartItem[]) => void 
                 </span>
               </button>
               <p className="mt-5 max-w-xs text-sm leading-relaxed text-slate-400">
-                International B2B pharmaceutical export company. Quality generics, secure packaging, and logistics support for wholesale buyers worldwide.
+                International pharmaceutical export company. Quality generics, secure packaging, and logistics support for wholesale buyers worldwide.
               </p>
 
               {/* Social */}
@@ -269,7 +269,7 @@ export function Footer({ onEnquire }: { onEnquire?: (items: CartItem[]) => void 
         <div className="border-t border-white/8 px-4 py-5">
           <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 text-xs text-slate-500 sm:flex-row">
             <p>© {new Date().getFullYear()} SaherPharma. All rights reserved.</p>
-            <p className="hidden sm:block">International B2B Pharmaceutical Export · Andheri, Mumbai, India</p>
+            <p className="hidden sm:block">International Pharmaceutical Export · Andheri, Mumbai, India</p>
             <p>Built for global wholesale trade 🌍</p>
           </div>
         </div>

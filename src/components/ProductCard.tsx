@@ -29,19 +29,19 @@ export function ProductCard({ product, onEnquire }: {
       onMouseEnter={playHoverSound}
       className="group overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--surface)] transition-all duration-300 hover:-translate-y-0.5 hover:border-blue-400/50 hover:shadow-[0_6px_20px_-4px_rgba(59,130,246,0.18)]"
     >
-      {/* Image — square, full bleed, no padding */}
-      <div className={`w-full aspect-square bg-gradient-to-b ${accent} to-white dark:to-slate-900/60 overflow-hidden`}>
+      {/* Image — landscape ratio, fills frame, no padding */}
+      <div className={`w-full aspect-[16/10] bg-gradient-to-b ${accent} to-white dark:to-slate-900/60 overflow-hidden`}>
         <img
           src={product.image}
           alt={product.name}
           loading="lazy"
-          className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-[1.04]"
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
         />
       </div>
 
-      {/* Info — flush under image */}
-      <div className="border-t border-[var(--border)] px-2.5 py-2 flex flex-col gap-1">
-        <p className="text-[12px] font-bold leading-none text-[var(--text)] truncate">{product.name}</p>
+      {/* Info — flush under image, ultra tight */}
+      <div className="border-t border-[var(--border)] px-2.5 pt-1.5 pb-2 flex flex-col gap-0.5">
+        <p className="text-[12px] font-bold leading-snug text-[var(--text)] truncate">{product.name}</p>
         <div className="flex items-center gap-1">
           <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${meta.dot}`} />
           <span className={`text-[9.5px] font-semibold truncate ${meta.text}`}>{product.compound}</span>

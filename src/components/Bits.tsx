@@ -98,29 +98,21 @@ export function Logo({ className = "h-8 w-8" }: { className?: string }) {
     <svg className={className} viewBox="0 0 48 48" fill="none" aria-hidden>
       <defs>
         <linearGradient id="sp-lg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#1e3a8a" />
-          <stop offset="1" stopColor="#2563eb" />
+          <stop offset="0" stopColor="#1e40af" />
+          <stop offset="1" stopColor="#3b82f6" />
         </linearGradient>
-        <clipPath id="sp-clip">
-          <circle cx="24" cy="24" r="20" />
-        </clipPath>
       </defs>
-      {/* Filled globe circle */}
-      <circle cx="24" cy="24" r="22" fill="url(#sp-lg)" />
-      {/* Subtle globe grid lines */}
-      <g clipPath="url(#sp-clip)" stroke="white" fill="none" strokeWidth="1.2" opacity="0.45">
-        {/* Equator ellipse */}
-        <ellipse cx="24" cy="24" rx="20" ry="7.5" />
-        {/* Central meridian */}
-        <line x1="24" y1="4" x2="24" y2="44" />
-        {/* Upper & lower latitudes */}
-        <line x1="4" y1="16" x2="44" y2="16" />
-        <line x1="4" y1="32" x2="44" y2="32" />
-      </g>
-      {/* Bold pharmaceutical cross in white */}
-      <path d="M18 24h12M24 18v12" stroke="white" strokeWidth="3.2" strokeLinecap="round" />
-      {/* Outer ring for depth */}
-      <circle cx="24" cy="24" r="22" stroke="rgba(255,255,255,0.18)" strokeWidth="1" fill="none" />
+      {/* Globe circle — world / international trade */}
+      <circle cx="24" cy="24" r="19" stroke="url(#sp-lg)" strokeWidth="2" fill="rgba(37,99,235,0.07)" />
+      {/* Subtle meridian & equator for globe feel */}
+      <line x1="24" y1="5" x2="24" y2="43" stroke="url(#sp-lg)" strokeWidth="1" opacity="0.22" />
+      <ellipse cx="24" cy="24" rx="19" ry="7" stroke="url(#sp-lg)" strokeWidth="1" fill="none" opacity="0.22" />
+      {/* Export arrow — diagonal ↗ cutting up-right through globe */}
+      <line x1="13" y1="34" x2="31" y2="16" stroke="url(#sp-lg)" strokeWidth="2.8" strokeLinecap="round" />
+      {/* Arrowhead — bracket at top-right */}
+      <path d="M21 14 L33 14 L33 26" stroke="url(#sp-lg)" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      {/* Origin dot — shipment source */}
+      <circle cx="13" cy="34" r="2.5" fill="url(#sp-lg)" />
     </svg>
   );
 }

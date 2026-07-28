@@ -77,10 +77,13 @@ export function Catalogue({ onEnquire }: { onEnquire: (p: Product) => void }) {
   return (
     <section className="mx-auto max-w-6xl px-4 pt-16 pb-12">
       <div className="reveal text-center">
-        <SectionTag>📦 Product Catalogue</SectionTag>
-        <h1 className="mt-4 font-display text-5xl font-bold text-[var(--text)]">Explore our range</h1>
-        <p className="mx-auto mt-4 max-w-xl text-sm text-muted">
-          {products.length} products available for international B2B export.
+        <SectionTag>📦 Export Catalogue</SectionTag>
+        <h1 className="mt-5 font-display text-4xl font-bold leading-tight text-[var(--text)] sm:text-5xl">
+          Globally Sourced.{" "}
+          <span className="gradient-text">Export-Ready.</span>
+        </h1>
+        <p className="mx-auto mt-4 max-w-lg text-sm text-muted">
+          Quality-assured generics for international wholesale buyers — documented, packaged, and cleared for distribution in 25+ countries.
         </p>
       </div>
 
@@ -115,10 +118,10 @@ export function Catalogue({ onEnquire }: { onEnquire: (p: Product) => void }) {
         </button>
       </div>
 
-      {/* ── Grid — key forces remount + fade when tab changes ── */}
+      {/* ── Grid — 1 col mobile → 2 col tablet → 4 col laptop ── */}
       <div
         key={`${activeTab}-${showAll}`}
-        className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 animate-fade"
+        className="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 animate-fade"
       >
         {displayed.map((p) => (
           <ProductCard key={p.id} product={p} onEnquire={onEnquire} />

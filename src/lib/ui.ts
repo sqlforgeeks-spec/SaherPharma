@@ -54,4 +54,24 @@ export function useInView<T extends HTMLElement>() {
   return { ref, inView };
 }
 
-export function hoverSound() {}
+/* Subtle soft-click tone via Web Audio API — no file needed */
+export function hoverSound(): void { playHoverSound(); }
+export function playHoverSound(): void {
+  try {
+    const Ctx = window.AudioContext ?? (window as any).webkitAudioContext;
+    if (!Ctx) return;
+    const ctx = new Ctx() as AudioContext;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(1100, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(550, ctx.currentTime + 0.07);
+    gain.gain.setValueAtTime(0.06, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.14);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.14);
+    osc.onended = () => ctx.close();
+  } catch { /* silently ignore – e.g. autoplay policy */ }
+}

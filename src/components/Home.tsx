@@ -5,9 +5,9 @@ import { ProductCard } from "./ProductCard";
 import { useState } from "react";
 
 export function Home({
-  go, onEnquire, onView,
+  go, onEnquire,
 }: {
-  go: (r: string) => void; onEnquire: (p: Product) => void; onView: (p: Product) => void;
+  go: (r: string) => void; onEnquire: (p: Product) => void;
 }) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
@@ -69,7 +69,7 @@ export function Home({
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {products.map((p) => (
             <div key={p.id} className="reveal">
-              <ProductCard product={p} onEnquire={onEnquire} onView={onView} />
+              <ProductCard product={p} onEnquire={onEnquire} />
             </div>
           ))}
         </div>

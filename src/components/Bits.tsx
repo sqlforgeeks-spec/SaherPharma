@@ -92,34 +92,21 @@ export function Particles() {
   return <canvas ref={ref} className="pointer-events-none fixed inset-0 -z-10 opacity-60" aria-hidden />;
 }
 
-/* ---------- Logo mark ---------- */
+/* ---------- Logo — uses uploaded brand images ---------- */
 export function Logo({ className = "h-8 w-8" }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 48 48" fill="none" aria-hidden>
-      <defs>
-        <linearGradient id="sp-lg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#1e3a8a" />
-          <stop offset="1" stopColor="#2563eb" />
-        </linearGradient>
-        <linearGradient id="sp-lg2" x1="0" y1="1" x2="0" y2="0">
-          <stop offset="0" stopColor="rgba(255,255,255,0.0)" />
-          <stop offset="1" stopColor="rgba(255,255,255,0.10)" />
-        </linearGradient>
-      </defs>
-      {/* Diamond body — pharmaceutical export seal */}
-      <path d="M24 3 L45 24 L24 45 L3 24 Z" fill="url(#sp-lg)" />
-      {/* Inner highlight */}
-      <path d="M24 3 L45 24 L24 45 L3 24 Z" fill="url(#sp-lg2)" />
-      {/* Diamond border */}
-      <path d="M24 3 L45 24 L24 45 L3 24 Z" stroke="rgba(255,255,255,0.18)" strokeWidth="1" fill="none" />
-      {/* Cross + upward arrow — pharma cross with export direction */}
-      {/* Vertical shaft going up */}
-      <line x1="24" y1="31" x2="24" y2="14" stroke="white" strokeWidth="3.2" strokeLinecap="round" />
-      {/* Arrowhead at top */}
-      <path d="M19 20 L24 13 L29 20" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-      {/* Horizontal crossbar — makes it a cross */}
-      <line x1="16" y1="25" x2="32" y2="25" stroke="white" strokeWidth="3" strokeLinecap="round" />
-    </svg>
+    <>
+      <img
+        src="/images/logo-light.png"
+        alt="SaherPharma"
+        className={`${className} object-contain rounded-md dark:hidden`}
+      />
+      <img
+        src="/images/logo-dark.png"
+        alt="SaherPharma"
+        className={`${className} object-contain rounded-md hidden dark:block`}
+      />
+    </>
   );
 }
 

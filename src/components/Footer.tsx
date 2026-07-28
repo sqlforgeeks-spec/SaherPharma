@@ -3,61 +3,37 @@ import { CONTACT } from "../data";
 import { hoverSound } from "../lib/ui";
 import type { CartItem } from "./Enquiry";
 
-const cols = [
-  { title: "Company", links: [["Why Us", "why"], ["Products", "products"], ["Contact", "contact"]] },
-  { title: "Catalogue", links: [["All Products", "products"], ["Quick Enquiry", "enquiry-action"], ["Download Catalogue", "products"]] },
-  { title: "Contact", links: [["✉️ sales.saherinternational02@gmail.com", ""], ["📞 +91 9321770181", ""], ["📍 Andheri, Mumbai, India", ""]], noLink: true },
-];
+const companyLinks = [["Why Us", "why"], ["Products", "products"], ["Contact", "contact"]];
+const catalogueLinks = [["All Products", "products"], ["Quick Enquiry", "enquiry-action"], ["Download Catalogue", "products"]];
 
 const whyFeatures = [
   {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-      </svg>
-    ),
+    icon: "🌍",
     title: "Global Reach",
-    desc: "Shipping to 25+ countries across Asia, Africa, the Middle East and beyond.",
-    color: "from-blue-500/15 to-sky-500/10",
-    iconColor: "text-blue-500 dark:text-blue-400",
+    desc: "25+ countries across Asia, Africa, Middle East, LATAM & CIS.",
+    color: "from-blue-500/10 to-sky-500/8",
   },
   {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-      </svg>
-    ),
+    icon: "📦",
     title: "Secure Packing",
-    desc: "Tamper-evident blister cartons with neutral and custom packaging options.",
-    color: "from-emerald-500/15 to-teal-500/10",
-    iconColor: "text-emerald-500 dark:text-emerald-400",
+    desc: "Tamper-evident 10×10 blister cartons, neutral & custom options.",
+    color: "from-emerald-500/10 to-teal-500/8",
   },
   {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
-      </svg>
-    ),
+    icon: "🛡️",
     title: "Quality First",
-    desc: "Products sourced from partner facilities under strict pharmacopoeial standards.",
-    color: "from-violet-500/15 to-purple-500/10",
-    iconColor: "text-violet-500 dark:text-violet-400",
+    desc: "Sourced from facilities meeting strict pharmacopoeial standards.",
+    color: "from-violet-500/10 to-purple-500/8",
   },
   {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-      </svg>
-    ),
-    title: "Fast Response",
-    desc: "Dedicated export desk replying within 24 hours — via WhatsApp, Telegram or email.",
-    color: "from-amber-500/15 to-orange-500/10",
-    iconColor: "text-amber-500 dark:text-amber-400",
+    icon: "⚡",
+    title: "2h Response",
+    desc: "Export desk replies within 2 hours — WhatsApp, Telegram or email.",
+    color: "from-amber-500/10 to-orange-500/8",
   },
 ];
 
-/* WhatsApp SVG (official brand path) */
+/* WhatsApp SVG */
 export function WhatsAppIcon({ size = 15 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
@@ -68,47 +44,44 @@ export function WhatsAppIcon({ size = 15 }: { size?: number }) {
 
 export function Footer({ onEnquire }: { onEnquire?: (items: CartItem[]) => void }) {
   return (
-    <footer className="relative border-t border-[var(--border)] px-4 pb-10 pt-16">
+    <footer className="relative border-t border-[var(--border)] px-4 pb-10 pt-14">
       <div className="mx-auto max-w-6xl">
 
-        {/* ── WHY SAHERPHARMA — redesigned ── */}
+        {/* ── WHY SAHERPHARMA ── */}
         <div id="why" className="mb-12">
-          {/* Section header */}
-          <div className="mb-8 text-center">
+          <div className="mb-7 text-center">
             <span className="inline-flex items-center gap-2 rounded-full bg-blue-500/10 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">
-              <span className="h-1.5 w-1.5 rounded-full bg-blue-500 dark:bg-blue-400" />
-              Why SaherPharma
+              <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+              ✨ Why SaherPharma
             </span>
             <h2 className="mt-4 font-display text-2xl font-bold text-[var(--text)]">
-              Built for global pharmaceutical trade
+              Trusted across 25+ countries
             </h2>
-            <p className="mt-2 text-sm text-muted">
-              Trusted by wholesale buyers across 25+ countries — from enquiry to delivery.
+            <p className="mt-1.5 text-sm text-muted">
+              Quality generics · Secure packaging · ⚡ Reply within 2 hours
             </p>
           </div>
 
           {/* Feature cards */}
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {whyFeatures.map((f) => (
               <div
                 key={f.title}
-                className={`relative overflow-hidden rounded-2xl bg-gradient-to-br ${f.color} p-5 ring-1 ring-[var(--border)] card-hover`}
+                className={`relative overflow-hidden rounded-2xl bg-gradient-to-br ${f.color} p-5 ring-1 ring-[var(--border)] card-hover text-center`}
               >
-                <div className={`mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-white/60 dark:bg-white/8 ring-1 ring-[var(--border)] ${f.iconColor}`}>
-                  {f.icon}
-                </div>
-                <h3 className="font-semibold text-[var(--text)]">{f.title}</h3>
+                <div className="mb-2 text-2xl">{f.icon}</div>
+                <h3 className="text-sm font-semibold text-[var(--text)]">{f.title}</h3>
                 <p className="mt-1.5 text-xs leading-relaxed text-muted">{f.desc}</p>
               </div>
             ))}
           </div>
 
           {/* Stats bar */}
-          <div className="mt-6 grid grid-cols-3 gap-4 rounded-2xl glass p-5 text-center sm:grid-cols-3">
+          <div className="mt-5 grid grid-cols-3 gap-4 rounded-2xl glass p-5 text-center">
             {[
-              { value: "25+", label: "Countries Served" },
-              { value: "5", label: "Generic Brands" },
-              { value: "24h", label: "Response Time" },
+              { value: "25+",  label: "🌍 Countries Served" },
+              { value: "20+",  label: "💊 Generic Brands" },
+              { value: "2h",   label: "⚡ Response Time" },
             ].map((s) => (
               <div key={s.label}>
                 <div className="font-display text-2xl font-bold gradient-text">{s.value}</div>
@@ -119,13 +92,13 @@ export function Footer({ onEnquire }: { onEnquire?: (items: CartItem[]) => void 
         </div>
 
         {/* Payment methods */}
-        <div className="rounded-3xl glass p-6 text-center mb-10">
-          <p className="text-xs uppercase tracking-[0.2em] text-muted">We Accept Payment As</p>
+        <div className="mb-10 rounded-3xl glass p-6 text-center">
+          <p className="text-xs uppercase tracking-[0.2em] text-muted">💳 We Accept Payment As</p>
           <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
             {[
-              { name: "PayPal", icon: "💳", color: "from-blue-600/15 to-sky-500/15" },
-              { name: "USDT", icon: "₮", color: "from-emerald-500/15 to-green-500/15" },
-              { name: "Bitcoin", icon: "₿", color: "from-amber-500/15 to-orange-500/15" },
+              { name: "PayPal",        icon: "💳", color: "from-blue-600/15 to-sky-500/15" },
+              { name: "USDT",          icon: "₮",  color: "from-emerald-500/15 to-green-500/15" },
+              { name: "Bitcoin",       icon: "₿",  color: "from-amber-500/15 to-orange-500/15" },
               { name: "Bank Transfer", icon: "🏦", color: "from-indigo-500/15 to-violet-500/15" },
             ].map((m) => (
               <div key={m.name} className={`rounded-2xl bg-gradient-to-br ${m.color} p-4 text-center`}>
@@ -137,71 +110,178 @@ export function Footer({ onEnquire }: { onEnquire?: (items: CartItem[]) => void 
           <p className="mt-3 text-[11px] text-muted">Contact our team to arrange your preferred payment method.</p>
         </div>
 
-        <div className="grid gap-10 md:grid-cols-[1.4fr_repeat(3,1fr)]">
+        {/* Footer columns */}
+        <div className="grid gap-10 md:grid-cols-[1.6fr_1fr_1fr_1.4fr]">
+
+          {/* Brand */}
           <div>
             <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="flex items-center gap-2.5">
-              <Logo className="h-9 w-9" />
+              <Logo className="h-10 w-10" />
               <span className="font-display text-xl font-bold text-[var(--text)]">Saher<span className="gradient-text">Pharma</span></span>
             </button>
-            <p className="mt-4 max-w-xs text-sm text-muted">
-              International B2B pharmaceutical export company. Quality-assured generics, secure packaging, global logistics.
+            <p className="mt-4 max-w-xs text-sm text-muted leading-relaxed">
+              🌍 International B2B pharmaceutical export. Quality generics, secure packaging, global logistics.
             </p>
             {/* Social icons */}
             <div className="mt-5 flex gap-2">
               {/* WhatsApp */}
-              <a href={`https://wa.me/${CONTACT.whatsapp}`} onMouseEnter={hoverSound} aria-label="WhatsApp" className="grid h-9 w-9 place-items-center rounded-lg glass transition hover:border-blue-400/40 text-[var(--muted)] hover:text-green-600 dark:hover:text-green-400">
+              <a
+                href={`https://wa.me/${CONTACT.whatsapp}`}
+                onMouseEnter={hoverSound}
+                aria-label="WhatsApp"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="WhatsApp"
+                className="grid h-9 w-9 place-items-center rounded-lg glass transition hover:border-green-400/40 text-[var(--muted)] hover:text-green-600 dark:hover:text-green-400"
+              >
                 <WhatsAppIcon size={15} />
               </a>
               {/* Telegram */}
-              <a href={`https://t.me/${CONTACT.telegram}`} onMouseEnter={hoverSound} aria-label="Telegram" className="grid h-9 w-9 place-items-center rounded-lg glass transition hover:border-blue-400/40 text-[var(--muted)] hover:text-sky-500">
+              <a
+                href={`https://t.me/${CONTACT.telegram}`}
+                onMouseEnter={hoverSound}
+                aria-label="Telegram"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="@saherpharma06"
+                className="grid h-9 w-9 place-items-center rounded-lg glass transition hover:border-sky-400/40 text-[var(--muted)] hover:text-sky-500"
+              >
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.6 20c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-4.9 9-8.1c.4-.3-.1-.5-.6-.2L6.1 13.2l-4.8-1.5c-1-.3-1-1 .2-1.5l18.7-7.2c.9-.3 1.6.2 1.7 1.3z"/></svg>
               </a>
-              {/* Email */}
-              <a href={`mailto:${CONTACT.email}`} onMouseEnter={hoverSound} aria-label="Email" className="grid h-9 w-9 place-items-center rounded-lg glass transition hover:border-blue-400/40 text-[var(--muted)] hover:text-blue-500">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
-              </a>
               {/* Instagram */}
-              <a href="https://instagram.com/saherpharma" onMouseEnter={hoverSound} aria-label="Instagram" target="_blank" rel="noopener noreferrer" className="grid h-9 w-9 place-items-center rounded-lg glass transition hover:border-blue-400/40 text-[var(--muted)] hover:text-pink-500">
+              <a
+                href="https://instagram.com/saherpharma"
+                onMouseEnter={hoverSound}
+                aria-label="Instagram"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="@saherpharma"
+                className="grid h-9 w-9 place-items-center rounded-lg glass transition hover:border-pink-400/40 text-[var(--muted)] hover:text-pink-500"
+              >
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
                 </svg>
               </a>
+              {/* Email */}
+              <a
+                href={`mailto:${CONTACT.email}`}
+                onMouseEnter={hoverSound}
+                aria-label="Email"
+                title={CONTACT.email}
+                className="grid h-9 w-9 place-items-center rounded-lg glass transition hover:border-blue-400/40 text-[var(--muted)] hover:text-blue-500"
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+              </a>
             </div>
           </div>
 
-          {cols.map((col) => (
-            <div key={col.title}>
-              <h4 className="mb-4 text-xs font-semibold uppercase tracking-wider text-[var(--text)]">{col.title}</h4>
-              <ul className="space-y-2.5">
-                {col.links.map(([label, id]) => (
-                  <li key={label}>
-                    {col.noLink ? (
-                      <span className="text-sm text-muted break-all">{label}</span>
-                    ) : (
-                      <button
-                        onClick={() => {
-                          if (id === "enquiry-action") onEnquire?.([]);
-                          else {
-                            const el = document.getElementById(id);
-                            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                          }
-                        }}
-                        onMouseEnter={hoverSound}
-                        className="text-sm text-muted transition hover:text-blue-500 dark:hover:text-blue-300"
-                      >
-                        {label}
-                      </button>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {/* Company */}
+          <div>
+            <h4 className="mb-4 text-xs font-semibold uppercase tracking-wider text-[var(--text)]">🏢 Company</h4>
+            <ul className="space-y-2.5">
+              {companyLinks.map(([label, id]) => (
+                <li key={label}>
+                  <button
+                    onClick={() => {
+                      const el = document.getElementById(id);
+                      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }}
+                    onMouseEnter={hoverSound}
+                    className="text-sm text-muted transition hover:text-blue-500 dark:hover:text-blue-300"
+                  >
+                    {label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Catalogue */}
+          <div>
+            <h4 className="mb-4 text-xs font-semibold uppercase tracking-wider text-[var(--text)]">📦 Catalogue</h4>
+            <ul className="space-y-2.5">
+              {catalogueLinks.map(([label, id]) => (
+                <li key={label}>
+                  <button
+                    onClick={() => {
+                      if (id === "enquiry-action") onEnquire?.([]);
+                      else {
+                        const el = document.getElementById(id);
+                        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                      }
+                    }}
+                    onMouseEnter={hoverSound}
+                    className="text-sm text-muted transition hover:text-blue-500 dark:hover:text-blue-300"
+                  >
+                    {label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h4 className="mb-4 text-xs font-semibold uppercase tracking-wider text-[var(--text)]">📬 Contact</h4>
+            <ul className="space-y-2.5">
+              <li>
+                <a
+                  href={`mailto:${CONTACT.email}`}
+                  className="flex items-start gap-2 text-sm text-muted transition hover:text-blue-500 break-all"
+                >
+                  <span className="mt-0.5 shrink-0">✉️</span>
+                  <span className="text-xs">{CONTACT.email}</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`tel:${CONTACT.phone}`}
+                  className="flex items-center gap-2 text-sm text-muted transition hover:text-blue-500"
+                >
+                  <span>📞</span> {CONTACT.phone}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`https://wa.me/${CONTACT.whatsapp}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm text-muted transition hover:text-green-500"
+                >
+                  <span>💬</span> WhatsApp
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`https://t.me/${CONTACT.telegram}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm text-muted transition hover:text-sky-500"
+                >
+                  <span>✈️</span> @{CONTACT.telegram}
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://instagram.com/saherpharma"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm text-muted transition hover:text-pink-500"
+                >
+                  <span>📸</span> @saherpharma
+                </a>
+              </li>
+              <li className="flex items-center gap-2 text-sm text-muted">
+                <span>📍</span> {CONTACT.address}
+              </li>
+            </ul>
+          </div>
         </div>
 
+        {/* Bottom bar */}
         <div className="mx-auto mt-10 flex max-w-6xl flex-col items-center justify-between gap-3 border-t border-[var(--border)] pt-6 text-xs text-muted sm:flex-row">
           <p>© {new Date().getFullYear()} SaherPharma. All rights reserved.</p>
-          <p>Built for global B2B pharmaceutical trade.</p>
+          <p>🌍 Built for global B2B pharmaceutical trade.</p>
         </div>
       </div>
     </footer>

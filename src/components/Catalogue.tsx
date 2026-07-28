@@ -4,8 +4,17 @@ import type { Product } from "../data";
 import { ProductCard } from "./ProductCard";
 import { SectionTag } from "./Bits";
 
-const BRANDS = ["Vidalista", "Fildena", "Vilitra", "Cenforce"] as const;
+const BRANDS = ["Vidalista", "Fildena", "Vilitra", "Cenforce", "Kamagra"] as const;
 type FilterTab = "Featured" | typeof BRANDS[number];
+
+const BRAND_EMOJI: Record<string, string> = {
+  Featured:  "⭐",
+  Vidalista: "💊",
+  Fildena:   "❤️",
+  Vilitra:   "🟣",
+  Cenforce:  "🔵",
+  Kamagra:   "🟢",
+};
 
 /* 2 products per brand for the default Featured view */
 function buildFeatured(): Product[] {
@@ -51,13 +60,14 @@ export function Catalogue({ onEnquire }: { onEnquire: (p: Product) => void }) {
       `WhatsApp : +${CONTACT.whatsapp}`,
       `Telegram : @${CONTACT.telegram}`,
       `Phone    : ${CONTACT.phone}`,
+      `Address  : ${CONTACT.address}`,
       "",
       "PRODUCTS",
       "────────────────────────────────────────────",
       ...Object.entries(byBrand).flatMap(([brand, prods]) => [
         "",
         `▸ ${brand.toUpperCase()}`,
-        ...prods.map((p) => `  • ${p.name.padEnd(26)} ${p.compound.padEnd(30)} ${p.strengths.join(" / ")}`),
+        ...prods.map((p) => `  • ${p.name.padEnd(34)} ${p.compound.padEnd(30)} ${p.strengths.join(" / ")}`),
       ]),
       "",
       "────────────────────────────────────────────",
@@ -83,7 +93,7 @@ export function Catalogue({ onEnquire }: { onEnquire: (p: Product) => void }) {
           <span className="gradient-text">Export-Ready.</span>
         </h1>
         <p className="mx-auto mt-4 max-w-lg text-sm text-muted">
-          Quality-assured generics for international wholesale buyers — documented, packaged, and cleared for distribution in 25+ countries.
+          Quality-assured generics for international wholesale buyers — documented, packaged, and cleared for distribution in 25+ countries. 🌍
         </p>
       </div>
 
@@ -94,12 +104,13 @@ export function Catalogue({ onEnquire }: { onEnquire: (p: Product) => void }) {
             <button
               key={tab}
               onClick={() => switchTab(tab)}
-              className={`rounded-xl px-4 py-2 text-xs font-semibold transition-all duration-200 ${
+              className={`rounded-xl px-3.5 py-2 text-xs font-semibold transition-all duration-200 ${
                 activeTab === tab
                   ? "bg-blue-600 text-white shadow"
                   : "glass text-muted hover:text-[var(--text)] hover:border-blue-400/40"
               }`}
             >
+              <span className="mr-1">{BRAND_EMOJI[tab]}</span>
               {tab}
               <span className="ml-1.5 opacity-60 font-normal">
                 {tab === "Featured" ? FEATURED.length : products.filter((p) => p.brand === tab).length}
@@ -114,14 +125,14 @@ export function Catalogue({ onEnquire }: { onEnquire: (p: Product) => void }) {
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
           </svg>
-          Download Catalogue
+          📄 Download Catalogue
         </button>
       </div>
 
-      {/* ── Grid — 1 col mobile → 2 col tablet → 4 col laptop ── */}
+      {/* ── Grid ── */}
       <div
         key={`${activeTab}-${showAll}`}
-        className="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 animate-fade"
+        className="mt-6 grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 animate-fade"
       >
         {displayed.map((p) => (
           <ProductCard key={p.id} product={p} onEnquire={onEnquire} />
@@ -136,7 +147,7 @@ export function Catalogue({ onEnquire }: { onEnquire: (p: Product) => void }) {
               onClick={() => setShowAll(true)}
               className="inline-flex items-center gap-2 rounded-xl glass px-6 py-3 text-sm font-semibold text-[var(--text)] hover:border-blue-400/40 hover:text-blue-600 transition"
             >
-              Show all {products.length} products
+              🔍 Show all {products.length} products
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
             </button>
           ) : (

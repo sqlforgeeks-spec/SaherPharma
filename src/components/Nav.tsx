@@ -10,6 +10,14 @@ for (const p of products) {
 }
 const brandGroups = Object.entries(byBrand);
 
+const brandEmoji: Record<string, string> = {
+  Vidalista: "💊",
+  Fildena:   "❤️",
+  Vilitra:   "🟣",
+  Cenforce:  "🔵",
+  Kamagra:   "🟢",
+};
+
 /* ── Sun / Moon icon ── */
 function SunIcon() {
   return (
@@ -38,33 +46,42 @@ function ProductsDropdown({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="dropdown-enter absolute left-1/2 top-full mt-3 w-[680px] -translate-x-1/2 rounded-2xl glass-strong shadow-xl shadow-black/10 dark:shadow-black/40 p-5 z-50">
-      <div className="grid grid-cols-4 gap-4">
+    <div className="dropdown-enter absolute left-1/2 top-full mt-3 w-[920px] -translate-x-1/2 rounded-2xl glass-strong shadow-xl shadow-black/10 dark:shadow-black/40 p-5 z-50">
+      <div className="grid grid-cols-5 gap-3">
         {brandGroups.map(([brand, prods]) => (
           <div key={brand}>
-            <p className="mb-2 text-[9px] font-bold uppercase tracking-[0.18em] text-blue-500 dark:text-blue-400">
+            <p className="mb-2 flex items-center gap-1 text-[9px] font-bold uppercase tracking-[0.18em] text-blue-500 dark:text-blue-400">
+              <span>{brandEmoji[brand] ?? "💊"}</span>
               {brand}
             </p>
             <div className="flex flex-col gap-0.5">
-              {prods.map((p) => (
+              {prods.slice(0, 7).map((p) => (
                 <button
                   key={p.id}
                   onClick={scrollToProducts}
                   className="flex items-center gap-2 rounded-xl px-2 py-1.5 text-left transition hover:bg-blue-500/8 group"
                 >
-                  <img src={p.image} alt={p.name} className="h-6 w-6 rounded-md object-cover ring-1 ring-[var(--border)] shrink-0" />
+                  <img src={p.image} alt={p.name} className="h-6 w-6 rounded-md object-contain bg-white ring-1 ring-[var(--border)] shrink-0" />
                   <div className="min-w-0">
-                    <p className="truncate text-[12px] font-semibold text-[var(--text)] group-hover:text-blue-600 dark:group-hover:text-blue-300 transition">{p.name}</p>
+                    <p className="truncate text-[11px] font-semibold text-[var(--text)] group-hover:text-blue-600 dark:group-hover:text-blue-300 transition">{p.name}</p>
                     <p className="text-[9px] text-muted">{p.category}</p>
                   </div>
                 </button>
               ))}
+              {prods.length > 7 && (
+                <button
+                  onClick={scrollToProducts}
+                  className="px-2 py-1 text-[9px] text-blue-500 dark:text-blue-400 hover:underline text-left"
+                >
+                  +{prods.length - 7} more →
+                </button>
+              )}
             </div>
           </div>
         ))}
       </div>
       <div className="mt-4 border-t border-[var(--border)] pt-3 flex items-center justify-between">
-        <p className="text-[11px] text-muted">{products.length} products available for export</p>
+        <p className="text-[11px] text-muted">📦 {products.length} products available for export</p>
         <button onClick={scrollToProducts} className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline">
           View full catalogue →
         </button>
@@ -82,14 +99,14 @@ function CatalogueBanner() {
         {ticker.map((p, i) => (
           <div key={i} className="flex shrink-0 items-center gap-2 text-xs">
             <span className="shimmer grid h-6 w-6 shrink-0 place-items-center rounded-md bg-black/5 dark:bg-white/5 ring-1 ring-[var(--border)]">
-              <img src={p.image} alt={p.name} className="h-full w-full rounded-md object-cover" />
+              <img src={p.image} alt={p.name} className="h-full w-full rounded-md object-contain bg-white" />
             </span>
             <span className="font-display font-semibold text-[var(--text)]">{p.name}</span>
             <span className="text-muted hidden sm:inline">·</span>
             <span className="hidden text-muted sm:inline">{p.compound}</span>
             <span className="text-muted hidden md:inline">·</span>
             <span className="hidden text-muted md:inline">{p.strengths.join(" / ")}</span>
-            <span className="ml-2 rounded-full bg-blue-500/15 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-300">Export Ready</span>
+            <span className="ml-2 rounded-full bg-blue-500/15 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-300">✈️ Export Ready</span>
             <span className="ml-4 text-[var(--border-hi)]">◆</span>
           </div>
         ))}
@@ -114,7 +131,6 @@ export function Navbar({
 
   const nav = (id: "products" | "contact" | "why") => { onNav(id); setOpen(false); };
 
-  // Close dropdown on outside click
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
@@ -131,7 +147,7 @@ export function Navbar({
       <header className="fixed inset-x-0 top-9 z-40 flex justify-center px-3 pt-3">
         <nav className={`flex w-full max-w-6xl items-center justify-between rounded-2xl px-4 py-2.5 transition-all duration-500 ${scrolled ? "glass-strong" : "glass"}`}>
           <button onClick={() => onNav("top")} className="flex items-center gap-2.5">
-            <Logo className="h-7 w-7" />
+            <Logo className="h-8 w-8" />
             <span className="font-display text-base font-bold tracking-tight text-[var(--text)]">
               Saher<span className="gradient-text">Pharma</span>
             </span>
@@ -139,13 +155,12 @@ export function Navbar({
 
           {/* Desktop nav */}
           <div className="hidden items-center gap-1 lg:flex">
-            {/* Products with dropdown */}
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setProductsOpen((o) => !o)}
                 className="flex items-center gap-1 rounded-xl px-3.5 py-2 text-sm font-medium text-muted transition hover:text-[var(--text)]"
               >
-                Products
+                📦 Products
                 <svg
                   width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
                   className={`transition-transform duration-200 ${productsOpen ? "rotate-180" : ""}`}
@@ -156,26 +171,24 @@ export function Navbar({
               {productsOpen && <ProductsDropdown onClose={() => setProductsOpen(false)} />}
             </div>
             <button onClick={() => nav("why")} className="rounded-xl px-3.5 py-2 text-sm font-medium text-muted transition hover:text-[var(--text)]">
-              Standards
+              ✨ Standards
             </button>
             <button onClick={() => nav("contact")} className="rounded-xl px-3.5 py-2 text-sm font-medium text-muted transition hover:text-[var(--text)]">
-              Contact
+              📬 Contact
             </button>
           </div>
 
           <div className="flex items-center gap-1.5">
-            {/* Dark mode toggle */}
             <button
               onClick={() => setDarkMode(!darkMode)}
               aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
-              title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
               className="grid h-9 w-9 place-items-center rounded-xl glass transition hover:border-blue-400/40 text-muted hover:text-[var(--text)]"
             >
               {darkMode ? <SunIcon /> : <MoonIcon />}
             </button>
 
             <RippleButton onClick={onEnquire} className="hidden rounded-xl bg-blue-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-blue-700 dark:bg-white dark:text-slate-900 dark:hover:bg-blue-50 sm:block">
-              Quick Enquiry
+              ✉️ Quick Enquiry
             </RippleButton>
 
             <button
@@ -193,12 +206,11 @@ export function Navbar({
         {/* Mobile menu */}
         {open && (
           <div className="absolute inset-x-3 top-[58px] flex flex-col gap-1 rounded-2xl glass-strong p-3 lg:hidden animate-fade">
-            {/* Products expandable */}
             <button
               onClick={() => setMobileProductsOpen((o) => !o)}
               className="flex items-center justify-between rounded-xl px-4 py-3 text-left text-sm font-medium text-muted transition hover:bg-black/5 dark:hover:bg-white/5"
             >
-              Products
+              📦 Products
               <svg
                 width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
                 className={`transition-transform duration-200 ${mobileProductsOpen ? "rotate-180" : ""}`}
@@ -211,50 +223,48 @@ export function Navbar({
               <div className="mb-1 max-h-72 overflow-y-auto rounded-xl bg-black/5 dark:bg-white/5 p-3">
                 {brandGroups.map(([brand, prods]) => (
                   <div key={brand} className="mb-3 last:mb-0">
-                    <p className="mb-1.5 px-2 text-[9px] font-bold uppercase tracking-[0.18em] text-blue-500 dark:text-blue-400">{brand}</p>
-                    {prods.map((p) => (
+                    <p className="mb-1.5 px-2 text-[9px] font-bold uppercase tracking-[0.18em] text-blue-500 dark:text-blue-400">
+                      {brandEmoji[brand] ?? "💊"} {brand}
+                    </p>
+                    {prods.slice(0, 5).map((p) => (
                       <button
                         key={p.id}
                         onClick={() => { setOpen(false); nav("products"); }}
                         className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-left transition hover:bg-blue-500/8"
                       >
-                        <img src={p.image} alt={p.name} className="h-6 w-6 rounded-md object-cover shrink-0" />
+                        <img src={p.image} alt={p.name} className="h-6 w-6 rounded-md object-contain bg-white shrink-0" />
                         <span className="text-sm font-medium text-[var(--text)]">{p.name}</span>
                         <span className="ml-auto text-[10px] text-muted shrink-0">{p.category}</span>
                       </button>
                     ))}
+                    {prods.length > 5 && (
+                      <p className="px-3 py-1 text-[9px] text-blue-500">+{prods.length - 5} more</p>
+                    )}
                   </div>
                 ))}
               </div>
             )}
 
-            <button
-              onClick={() => nav("why")}
-              className="rounded-xl px-4 py-3 text-left text-sm font-medium text-muted transition hover:bg-black/5 dark:hover:bg-white/5"
-            >
-              Standards
+            <button onClick={() => nav("why")} className="rounded-xl px-4 py-3 text-left text-sm font-medium text-muted transition hover:bg-black/5 dark:hover:bg-white/5">
+              ✨ Standards
             </button>
-            <button
-              onClick={() => nav("contact")}
-              className="rounded-xl px-4 py-3 text-left text-sm font-medium text-muted transition hover:bg-black/5 dark:hover:bg-white/5"
-            >
-              Contact
+            <button onClick={() => nav("contact")} className="rounded-xl px-4 py-3 text-left text-sm font-medium text-muted transition hover:bg-black/5 dark:hover:bg-white/5">
+              📬 Contact
             </button>
 
-            {/* Dark mode toggle in mobile menu */}
             <button
               onClick={() => setDarkMode(!darkMode)}
               className="flex items-center gap-2 rounded-xl px-4 py-3 text-left text-sm font-medium text-muted transition hover:bg-black/5 dark:hover:bg-white/5"
             >
               {darkMode ? <SunIcon /> : <MoonIcon />}
-              {darkMode ? "Light mode" : "Dark mode"}
+              {darkMode ? "Light mode ☀️" : "Dark mode 🌙"}
             </button>
 
             <button
               onClick={() => { onEnquire(); setOpen(false); }}
               className="mt-1 rounded-xl bg-blue-600 px-4 py-3 text-left text-sm font-semibold text-white transition hover:bg-blue-700"
             >
-              Quick Enquiry
+              ✉️ Quick Enquiry
             </button>
           </div>
         )}

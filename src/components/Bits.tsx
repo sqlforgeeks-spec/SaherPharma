@@ -92,21 +92,55 @@ export function Particles() {
   return <canvas ref={ref} className="pointer-events-none fixed inset-0 -z-10 opacity-60" aria-hidden />;
 }
 
-/* ---------- Logo — brand image ---------- */
+/**
+ * SaherPharma Logo — custom SVG mark
+ * A rounded square badge with a globe (meridians + equator) and an
+ * upward-right export arrow, representing global pharma trade.
+ */
 export function Logo({ className = "h-8 w-8" }: { className?: string }) {
   return (
-    <>
-      <img
-        src="/images/logo-light.png"
-        alt="SaherPharma"
-        className={`${className} object-contain rounded-md dark:hidden`}
+    <svg
+      viewBox="0 0 40 40"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-label="SaherPharma"
+    >
+      <defs>
+        <linearGradient id="sp-bg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#1d4ed8" />
+          <stop offset="100%" stopColor="#0ea5e9" />
+        </linearGradient>
+      </defs>
+
+      {/* Badge background */}
+      <rect width="40" height="40" rx="11" fill="url(#sp-bg)" />
+
+      {/* Globe outline */}
+      <circle cx="18" cy="20" r="9.5" stroke="white" strokeWidth="1.5" strokeOpacity="0.9" fill="none" />
+
+      {/* Horizontal equator */}
+      <ellipse cx="18" cy="20" rx="9.5" ry="3.5" stroke="white" strokeWidth="1.2" strokeOpacity="0.6" fill="none" />
+
+      {/* Vertical meridian */}
+      <ellipse cx="18" cy="20" rx="3.5" ry="9.5" stroke="white" strokeWidth="1.2" strokeOpacity="0.6" fill="none" />
+
+      {/* Export arrow — top-right corner, punchy white */}
+      <polyline
+        points="27,8 33,8 33,14"
+        stroke="white"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
-      <img
-        src="/images/logo-dark.png"
-        alt="SaherPharma"
-        className={`${className} object-contain rounded-md hidden dark:block`}
+      <line
+        x1="26" y1="15"
+        x2="33" y2="8"
+        stroke="white"
+        strokeWidth="2"
+        strokeLinecap="round"
       />
-    </>
+    </svg>
   );
 }
 

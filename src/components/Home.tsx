@@ -35,7 +35,7 @@ const HERO_SLIDES = [
 const homeFeatured = products.filter((p) => p.featured);
 
 /* ── Premium full-bleed hero carousel ── */
-function HeroCarousel({
+export function HeroCarousel({
   go,
   onEnquireOpen,
 }: {

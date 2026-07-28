@@ -120,12 +120,13 @@ export function Catalogue({ onEnquire }: { onEnquire: (p: Product) => void }) {
         </div>
         <button
           onClick={downloadCatalogue}
-          className="flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 transition shrink-0"
+          aria-label="Download Catalogue"
+          title="Download Catalogue"
+          className="grid h-9 w-9 place-items-center rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition shrink-0"
         >
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
           </svg>
-          📄 Download Catalogue
         </button>
       </div>
 

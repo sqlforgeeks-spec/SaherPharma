@@ -11,6 +11,7 @@ const HERO_IMAGES = [
   "/images/hero-4.jpg",
 ];
 
+
 const homeFeatured = products.filter((p) => p.featured);
 
 function HeroCarousel() {
@@ -21,13 +22,10 @@ function HeroCarousel() {
     return () => clearInterval(t);
   }, []);
 
-  const prev = () => setIdx((i) => (i - 1 + HERO_IMAGES.length) % HERO_IMAGES.length);
-  const next = () => setIdx((i) => (i + 1) % HERO_IMAGES.length);
-
   return (
     <div className="relative overflow-hidden rounded-3xl shadow-2xl shadow-blue-900/15 ring-1 ring-[var(--border)]">
       {/* Images */}
-      <div className="relative aspect-[4/3] w-full bg-slate-100 dark:bg-slate-900">
+      <div className="relative aspect-[16/10] w-full bg-slate-100 dark:bg-slate-900">
         {HERO_IMAGES.map((src, i) => (
           <img
             key={src}
@@ -48,23 +46,7 @@ function HeroCarousel() {
         </span>
       </div>
 
-      {/* Prev / Next */}
-      <button
-        onClick={prev}
-        aria-label="Previous"
-        className="absolute left-2 top-1/2 z-20 -translate-y-1/2 grid h-8 w-8 place-items-center rounded-full bg-black/40 backdrop-blur-sm text-white transition hover:bg-black/60"
-      >
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="m15 18-6-6 6-6"/></svg>
-      </button>
-      <button
-        onClick={next}
-        aria-label="Next"
-        className="absolute right-2 top-1/2 z-20 -translate-y-1/2 grid h-8 w-8 place-items-center rounded-full bg-black/40 backdrop-blur-sm text-white transition hover:bg-black/60"
-      >
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="m9 18 6-6-6-6"/></svg>
-      </button>
-
-      {/* Dot navigation */}
+      {/* Dot navigation only — no prev/next buttons */}
       <div className="absolute bottom-3 left-1/2 z-20 flex -translate-x-1/2 gap-1.5">
         {HERO_IMAGES.map((_, i) => (
           <button
@@ -109,7 +91,7 @@ export function Home({
                 delivered <span className="gradient-text">worldwide</span>
               </h1>
               <p className="reveal mt-5 max-w-lg text-base text-muted leading-relaxed">
-                B2B pharmaceutical export company supplying quality-assured generic formulations to wholesale buyers. Secure packaging, documentation support, global logistics.
+                We supply quality-assured generic medicines to wholesale buyers worldwide — securely packed, fully documented, and shipped to 25+ countries.
               </p>
 
               <div className="reveal mt-7 flex flex-wrap gap-3">

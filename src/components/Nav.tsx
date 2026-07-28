@@ -59,9 +59,11 @@ function ProductsDropdown({ onClose }: { onClose: () => void }) {
                 <button
                   key={p.id}
                   onClick={scrollToProducts}
-                  className="flex items-center gap-2 rounded-xl px-2 py-1.5 text-left transition hover:bg-blue-500/8 group"
+                  className="flex items-center gap-2.5 rounded-xl px-2 py-2 text-left transition hover:bg-blue-500/8 group"
                 >
-                  <img src={p.image} alt={p.name} className="h-6 w-6 rounded-md object-contain bg-white ring-1 ring-[var(--border)] shrink-0" />
+                  <span className="shrink-0 h-9 w-9 rounded-lg bg-white ring-1 ring-[var(--border)] flex items-center justify-center overflow-hidden">
+                    <img src={p.image} alt={p.name} className="h-8 w-8 object-contain" />
+                  </span>
                   <div className="min-w-0">
                     <p className="truncate text-[11px] font-semibold text-[var(--text)] group-hover:text-blue-600 dark:group-hover:text-blue-300 transition">{p.name}</p>
                     <p className="text-[9px] text-muted">{p.category}</p>
@@ -98,8 +100,8 @@ function CatalogueBanner() {
       <div className="marquee-track h-full items-center gap-8 px-4">
         {ticker.map((p, i) => (
           <div key={i} className="flex shrink-0 items-center gap-2 text-xs">
-            <span className="shimmer grid h-6 w-6 shrink-0 place-items-center rounded-md bg-black/5 dark:bg-white/5 ring-1 ring-[var(--border)]">
-              <img src={p.image} alt={p.name} className="h-full w-full rounded-md object-contain bg-white" />
+            <span className="shrink-0 h-6 w-6 rounded-md bg-white ring-1 ring-[var(--border)] flex items-center justify-center overflow-hidden">
+              <img src={p.image} alt={p.name} className="h-5 w-5 object-contain" />
             </span>
             <span className="font-display font-semibold text-[var(--text)]">{p.name}</span>
             <span className="text-muted hidden sm:inline">·</span>

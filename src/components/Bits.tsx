@@ -97,23 +97,30 @@ export function Logo({ className = "h-8 w-8" }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 48 48" fill="none" aria-hidden>
       <defs>
-        <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+        <linearGradient id="sp-lg" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0" stopColor="#1e3a8a" />
-          <stop offset="1" stopColor="#3b82f6" />
+          <stop offset="1" stopColor="#2563eb" />
         </linearGradient>
-        <linearGradient id="lg2" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#60a5fa" />
-          <stop offset="1" stopColor="#93c5fd" />
-        </linearGradient>
+        <clipPath id="sp-clip">
+          <circle cx="24" cy="24" r="20" />
+        </clipPath>
       </defs>
-      {/* Bold hexagon base */}
-      <path d="M24 3l18.5 10.5v21L24 45 5.5 34.5v-21z" fill="url(#lg)" />
-      {/* Inner highlight ring */}
-      <path d="M24 7l15 8.5v17L24 41 9 32.5v-17z" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-      {/* Bold cross symbol */}
-      <path d="M24 15v18M15 24h18" stroke="white" strokeWidth="4" strokeLinecap="round" />
-      {/* Small accent dot */}
-      <circle cx="24" cy="24" r="2.5" fill="url(#lg2)" opacity="0.9" />
+      {/* Filled globe circle */}
+      <circle cx="24" cy="24" r="22" fill="url(#sp-lg)" />
+      {/* Subtle globe grid lines */}
+      <g clipPath="url(#sp-clip)" stroke="white" fill="none" strokeWidth="1.2" opacity="0.45">
+        {/* Equator ellipse */}
+        <ellipse cx="24" cy="24" rx="20" ry="7.5" />
+        {/* Central meridian */}
+        <line x1="24" y1="4" x2="24" y2="44" />
+        {/* Upper & lower latitudes */}
+        <line x1="4" y1="16" x2="44" y2="16" />
+        <line x1="4" y1="32" x2="44" y2="32" />
+      </g>
+      {/* Bold pharmaceutical cross in white */}
+      <path d="M18 24h12M24 18v12" stroke="white" strokeWidth="3.2" strokeLinecap="round" />
+      {/* Outer ring for depth */}
+      <circle cx="24" cy="24" r="22" stroke="rgba(255,255,255,0.18)" strokeWidth="1" fill="none" />
     </svg>
   );
 }

@@ -3,29 +3,30 @@ import type { Product } from "../data";
 import { SectionTag } from "./Bits";
 import { ProductCard } from "./ProductCard";
 import { useState, useEffect } from "react";
+import { assetUrl } from "../utils/asset";
 
 /* ── Hero slides ── */
 const HERO_SLIDES = [
   {
-    src: "/images/hero-1.jpg",
+    src: assetUrl("/images/hero-1.jpg"),
     headline: "Trusted Generics,",
     highlight: "Delivered Worldwide",
     sub: "Quality-assured generic medicines supplied to wholesale buyers across 25+ countries — fully documented and securely packed.",
   },
   {
-    src: "/images/hero-2.jpg",
+    src: assetUrl("/images/hero-2.jpg"),
     headline: "Global",
     highlight: "Pharma Export",
     sub: "From Tadalafil to Sildenafil and Vardenafil — every strength, every format, ready for international wholesale distribution.",
   },
   {
-    src: "/images/hero-3.jpg",
+    src: assetUrl("/images/hero-3.jpg"),
     headline: "Secure Packaging,",
     highlight: "Seamless Logistics",
     sub: "Tamper-evident 10×10 blister cartons, neutral or custom branding, shipped to buyers across Asia, Africa, Middle East & beyond.",
   },
   {
-    src: "/images/hero-4.jpg",
+    src: assetUrl("/images/hero-4.jpg"),
     headline: "Reply Within",
     highlight: "2 Hours",
     sub: "Send your enquiry via WhatsApp, Telegram or email — our export desk responds fast with pricing and packing options.",

@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Logo, RippleButton } from "./Bits";
 import { products } from "../data";
+import { assetUrl } from "../utils/asset";
 
 /* ── Group products by brand ── */
 const byBrand: Record<string, typeof products> = {};
@@ -111,7 +112,7 @@ function AllDropdown({ onClose }: { onClose: () => void }) {
                     className="flex items-center gap-2 rounded-xl px-1.5 py-1.5 text-left transition hover:bg-teal-500/8 group"
                   >
                     <span className="shrink-0 h-7 w-7 rounded-lg bg-white ring-1 ring-[var(--border)] flex items-center justify-center overflow-hidden">
-                      <img src={p.image} alt={p.name} className="h-6 w-6 object-contain" />
+                      <img src={assetUrl(p.image)} alt={p.name} className="h-6 w-6 object-contain" />
                     </span>
                     <div className="min-w-0">
                       <p className="truncate text-[10px] font-semibold text-[var(--text)] group-hover:text-teal-600 dark:group-hover:text-teal-300 transition">{p.name}</p>
@@ -166,7 +167,7 @@ function BrandDropdown({ brand, onClose }: { brand: Brand; onClose: () => void }
             className="flex items-center gap-2.5 rounded-xl px-2 py-1.5 text-left transition hover:bg-teal-500/8 group"
           >
             <span className="shrink-0 h-8 w-8 rounded-lg bg-white ring-1 ring-[var(--border)] flex items-center justify-center overflow-hidden">
-              <img src={p.image} alt={p.name} className="h-7 w-7 object-contain" />
+              <img src={assetUrl(p.image)} alt={p.name} className="h-7 w-7 object-contain" />
             </span>
             <div className="min-w-0">
               <p className="truncate text-[11px] font-semibold text-[var(--text)] group-hover:text-teal-600 dark:group-hover:text-teal-300 transition">
@@ -201,7 +202,7 @@ function CatalogueBanner() {
         {ticker.map((p, i) => (
           <div key={i} className="flex shrink-0 items-center gap-2 text-xs">
             <span className="shrink-0 h-6 w-6 rounded-md bg-white ring-1 ring-[var(--border)] flex items-center justify-center overflow-hidden">
-              <img src={p.image} alt={p.name} className="h-5 w-5 object-contain" />
+              <img src={assetUrl(p.image)} alt={p.name} className="h-5 w-5 object-contain" />
             </span>
             <span className="font-display font-semibold text-[var(--text)]">{p.name}</span>
             <span className="text-muted hidden sm:inline">·</span>
@@ -375,7 +376,7 @@ export function Navbar({
                           onClick={() => { setOpen(false); onNav("products"); }}
                           className="flex w-full items-center gap-2.5 rounded-xl px-3 py-1.5 text-left transition hover:bg-teal-500/8"
                         >
-                          <img src={p.image} alt={p.name} className="h-6 w-6 rounded-md object-contain bg-white shrink-0" />
+                          <img src={assetUrl(p.image)} alt={p.name} className="h-6 w-6 rounded-md object-contain bg-white shrink-0" />
                           <span className="text-sm font-medium text-[var(--text)] truncate">{p.name}</span>
                           <span className="ml-auto text-[9px] text-muted shrink-0">{p.strengths[0]}</span>
                         </button>
@@ -411,7 +412,7 @@ export function Navbar({
                           onClick={() => { setOpen(false); onNav("products"); }}
                           className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-left transition hover:bg-teal-500/8"
                         >
-                          <img src={p.image} alt={p.name} className="h-7 w-7 rounded-md object-contain bg-white shrink-0" />
+                          <img src={assetUrl(p.image)} alt={p.name} className="h-7 w-7 rounded-md object-contain bg-white shrink-0" />
                           <div className="min-w-0">
                             <p className="text-sm font-medium text-[var(--text)] truncate">{p.name}</p>
                             <p className="text-[10px] text-muted">{p.strengths.slice(0, 3).join(" · ")}</p>

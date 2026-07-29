@@ -1,5 +1,6 @@
 import { playHoverSound } from "../lib/ui";
 import type { Product } from "../data";
+import { assetUrl } from "../utils/asset";
 
 const compoundMeta: Record<string, { dot: string; badge: string; text: string }> = {
   "Tadalafil":                        { dot: "bg-sky-500",    badge: "bg-sky-500/10 text-sky-600 dark:text-sky-400",     text: "text-sky-600"    },
@@ -32,7 +33,7 @@ export function ProductCard({ product, onEnquire }: {
       {/* Image */}
       <div className={`w-full aspect-[16/10] bg-gradient-to-b ${accent} to-slate-50 dark:to-slate-900/60 overflow-hidden`}>
         <img
-          src={product.image}
+          src={assetUrl(product.image)}
           alt={product.name}
           loading="lazy"
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"

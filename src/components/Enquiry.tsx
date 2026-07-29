@@ -3,6 +3,7 @@ import { products, CONTACT } from "../data";
 import type { Product } from "../data";
 import { hoverSound } from "../lib/ui";
 import { WhatsAppIcon } from "./Footer";
+import { assetUrl } from "../utils/asset";
 
 export type CartItem = { id: string; name: string; strength: string; qty: string };
 
@@ -168,7 +169,7 @@ export function ProductModal({
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
         </button>
         <div className="overflow-hidden rounded-2xl">
-          <img src={product.image} alt={`${product.name} ${product.compound}`} className="h-full w-full object-cover" />
+          <img src={assetUrl(product.image)} alt={`${product.name} ${product.compound}`} className="h-full w-full object-cover" />
         </div>
         <div className="flex flex-col gap-4 pr-2">
           <span className="w-fit rounded-full border border-teal-200 dark:border-teal-800/50 bg-teal-50 dark:bg-teal-900/20 px-3 py-1 text-xs text-teal-700 dark:text-teal-300">{product.compound}</span>

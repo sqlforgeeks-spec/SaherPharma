@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Replit-specific files
+.replit
+replit.md
+.agents/
+.local/
+.cache/
+attached_assets/

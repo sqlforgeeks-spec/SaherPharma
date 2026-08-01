@@ -22,9 +22,9 @@ function EmailIcon({ size = 18 }: { size?: number }) {
   );
 }
 
-/* ──────────────────────────────────────────
-   Compact Enquiry Modal
-────────────────────────────────────────── */
+/* ─────────────────────────────────────
+   Compact Enquiry Modal — shortened
+───────────────────────────────────── */
 export function EnquiryModal({
   initialItems = [],
   onClose,
@@ -37,118 +37,102 @@ export function EnquiryModal({
 
   const [productId, setProductId] = useState(defaultId);
   const [qty,       setQty]       = useState(defaultQty);
-  const [msg,       setMsg]       = useState("");
 
   const selected = products.find((p) => p.id === productId) ?? products[0];
 
   const buildMessage = () =>
     [
-      "🩺 Export Enquiry — SaherPharma",
-      "─────────────────────────",
+      "Export Enquiry — SaherPharma",
       `Product  : ${selected.name} (${selected.compound})`,
       `Quantity : ${qty}`,
-      msg ? `Message  : ${msg}` : "",
-    ].filter(Boolean).join("\n");
+    ].join("\n");
 
   const enc  = encodeURIComponent(buildMessage());
   const wa   = `https://wa.me/${CONTACT.whatsapp}?text=${enc}`;
   const tg   = `https://t.me/${CONTACT.telegram}?text=${enc}`;
   const mail = `mailto:${CONTACT.email}?subject=${encodeURIComponent("Export Enquiry — SaherPharma")}&body=${enc}`;
 
-  const input = "w-full rounded-lg bg-[var(--bg-2)] border border-[var(--border)] px-3 py-2.5 text-sm outline-none transition focus:border-teal-400/60 text-[var(--text)] placeholder:text-muted/50";
+  const inputCls = "w-full rounded-xl bg-[var(--bg-2)] border border-[var(--border)] px-3.5 py-2.5 text-[13px] outline-none transition focus:border-teal-400/60 text-[var(--text)] placeholder:text-muted/50";
 
   return (
     <div className="fixed inset-0 z-[80] grid place-items-center p-4 animate-fade" role="dialog" aria-modal="true">
-      <div className="absolute inset-0 bg-black/40 dark:bg-black/70 backdrop-blur-sm" onClick={onClose} />
+      <div className="absolute inset-0 bg-black/45 dark:bg-black/72 backdrop-blur-sm" onClick={onClose} />
 
-      <div className="relative w-full max-w-sm overflow-hidden rounded-2xl bg-white dark:bg-[#0e1526] border border-[var(--border)] shadow-2xl shadow-black/20">
+      <div className="relative w-full max-w-[360px] overflow-hidden rounded-2xl bg-white dark:bg-[#0e1526] border border-[var(--border)] shadow-2xl shadow-black/20">
 
-        {/* ── Header ── */}
-        <div className="flex items-start justify-between border-b border-[var(--border)] px-5 py-4">
+        {/* Header */}
+        <div className="flex items-center justify-between border-b border-[var(--border)] px-5 py-4">
           <div>
-            <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-teal-600 dark:text-teal-400">
-              <span className="h-1.5 w-1.5 rounded-full bg-teal-500 shadow-[0_0_6px_2px_rgba(13,148,136,0.6)]" />
+            <p className="text-[10px] font-bold uppercase tracking-widest text-teal-600 dark:text-teal-400 flex items-center gap-1.5">
+              <span className="h-1.5 w-1.5 rounded-full bg-teal-500 shadow-[0_0_6px_2px_rgba(13,148,136,0.5)]" />
               Quick Export Quote
-            </span>
-            <h2 className="mt-1 font-display text-lg font-bold text-[var(--text)]">Tell us what you need</h2>
+            </p>
+            <h2 className="mt-0.5 font-display text-[17px] font-bold text-[var(--text)]">What do you need?</h2>
           </div>
           <button
             onClick={onClose}
             aria-label="Close"
-            className="ml-3 mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full border border-[var(--border)] bg-[var(--bg-2)] text-muted transition hover:text-[var(--text)]"
+            className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-[var(--border)] bg-[var(--bg-2)] text-muted transition hover:text-[var(--text)]"
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+              <path d="M18 6 6 18M6 6l12 12"/>
+            </svg>
           </button>
         </div>
 
-        {/* ── Form ── */}
-        <div className="px-5 py-4 space-y-2.5">
-
-          {/* Product */}
+        {/* Form — just 2 fields */}
+        <div className="px-5 py-4 space-y-3">
           <div>
-            <label className="mb-1 block text-[10px] font-semibold uppercase tracking-wider text-muted">Select Product</label>
-            <select className={input} value={productId} onChange={(e) => setProductId(e.target.value)}>
+            <label className="mb-1.5 block text-[10px] font-semibold uppercase tracking-wider text-muted">Product</label>
+            <select className={inputCls} value={productId} onChange={(e) => setProductId(e.target.value)}>
               {products.map((p) => (
                 <option key={p.id} value={p.id}>{p.name} — {p.strengths[0]}</option>
               ))}
             </select>
           </div>
 
-          {/* Qty */}
           <div>
-            <label className="mb-1 block text-[10px] font-semibold uppercase tracking-wider text-muted">Order Quantity</label>
+            <label className="mb-1.5 block text-[10px] font-semibold uppercase tracking-wider text-muted">Quantity</label>
             <input
-              className={input}
-              placeholder="e.g. 1,000 Units, 5,000 Boxes"
+              className={inputCls}
+              placeholder="e.g. 1,000 units · 5,000 boxes"
               value={qty}
               onChange={(e) => setQty(e.target.value)}
             />
           </div>
-
-          {/* Message */}
-          <div>
-            <label className="mb-1 block text-[10px] font-semibold uppercase tracking-wider text-muted">Message / Requirements</label>
-            <textarea
-              className={`${input} resize-none`}
-              rows={2}
-              placeholder="Destination, packaging, certifications…"
-              value={msg}
-              onChange={(e) => setMsg(e.target.value)}
-            />
-          </div>
         </div>
 
-        {/* ── Send buttons ── */}
-        <div className="border-t border-[var(--border)] px-5 py-4">
-          <p className="mb-3 text-[10px] font-semibold uppercase tracking-wider text-muted text-center">Send enquiry via</p>
+        {/* Send buttons */}
+        <div className="border-t border-[var(--border)] px-5 pb-5 pt-4">
+          <p className="mb-3 text-center text-[10px] font-semibold uppercase tracking-wider text-muted">Send via</p>
           <div className="grid grid-cols-3 gap-2">
             <a
               href={wa}
               target="_blank"
               rel="noopener"
-              className="group flex flex-col items-center gap-1.5 rounded-xl border border-[#25D366]/30 bg-[#25D366]/8 py-3.5 text-[#1a9e4d] dark:text-[#25D366] transition hover:bg-[#25D366]/18 hover:border-[#25D366]/50 hover:scale-[1.02]"
+              className="flex flex-col items-center gap-1.5 rounded-xl border border-[#25D366]/30 bg-[#25D366]/8 py-3.5 text-[#1a9e4d] dark:text-[#25D366] transition hover:bg-[#25D366]/18 hover:border-[#25D366]/50 hover:scale-[1.02]"
             >
-              <WhatsAppIcon size={20} />
-              <span className="text-[10px] font-bold">WhatsApp</span>
+              <WhatsAppIcon size={19} />
+              <span className="text-[9.5px] font-bold">WhatsApp</span>
             </a>
             <a
               href={tg}
               target="_blank"
               rel="noopener"
-              className="group flex flex-col items-center gap-1.5 rounded-xl border border-[#29A9EB]/30 bg-[#29A9EB]/8 py-3.5 text-[#1a7aaa] dark:text-[#29A9EB] transition hover:bg-[#29A9EB]/18 hover:border-[#29A9EB]/50 hover:scale-[1.02]"
+              className="flex flex-col items-center gap-1.5 rounded-xl border border-[#29A9EB]/30 bg-[#29A9EB]/8 py-3.5 text-[#1a7aaa] dark:text-[#29A9EB] transition hover:bg-[#29A9EB]/18 hover:border-[#29A9EB]/50 hover:scale-[1.02]"
             >
-              <TelegramIcon size={20} />
-              <span className="text-[10px] font-bold">Telegram</span>
+              <TelegramIcon size={19} />
+              <span className="text-[9.5px] font-bold">Telegram</span>
             </a>
             <a
               href={mail}
-              className="group flex flex-col items-center gap-1.5 rounded-xl border border-teal-500/25 bg-teal-500/8 py-3.5 text-teal-700 dark:text-teal-300 transition hover:bg-teal-500/15 hover:border-teal-500/40 hover:scale-[1.02]"
+              className="flex flex-col items-center gap-1.5 rounded-xl border border-teal-500/25 bg-teal-500/8 py-3.5 text-teal-700 dark:text-teal-300 transition hover:bg-teal-500/15 hover:border-teal-500/40 hover:scale-[1.02]"
             >
-              <EmailIcon size={20} />
-              <span className="text-[10px] font-bold">Email</span>
+              <EmailIcon size={19} />
+              <span className="text-[9.5px] font-bold">Email</span>
             </a>
           </div>
-          <p className="mt-3 text-center text-[9.5px] text-muted">⚡ Average response within 2 hours</p>
+          <p className="mt-3 text-center text-[9px] text-muted">Average response within 2 hours</p>
         </div>
 
       </div>
@@ -156,9 +140,9 @@ export function EnquiryModal({
   );
 }
 
-/* ──────────────────────────────────────────
-   Product Detail Modal (unchanged)
-────────────────────────────────────────── */
+/* ─────────────────────────────────────
+   Product Detail Modal
+───────────────────────────────────── */
 export function ProductModal({
   product, onClose, onEnquire,
 }: {
@@ -169,7 +153,7 @@ export function ProductModal({
   if (!product) return null;
   return (
     <div className="fixed inset-0 z-[80] grid place-items-center p-4 animate-fade" role="dialog" aria-modal="true">
-      <div className="absolute inset-0 bg-black/40 dark:bg-black/70 backdrop-blur-sm" onClick={onClose} />
+      <div className="absolute inset-0 bg-black/45 dark:bg-black/72 backdrop-blur-sm" onClick={onClose} />
       <div className="relative grid w-full max-w-2xl gap-6 overflow-auto rounded-3xl bg-white dark:bg-[#0e1526] border border-[var(--border)] shadow-2xl shadow-black/15 p-6 sm:grid-cols-2 sm:p-8">
         <button onClick={onClose} aria-label="Close" className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full border border-[var(--border)] bg-[var(--bg-2)] text-[var(--muted)] hover:text-[var(--text)] transition">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
@@ -196,9 +180,9 @@ export function ProductModal({
   );
 }
 
-/* ──────────────────────────────────────────
+/* ─────────────────────────────────────
    Floating contacts
-────────────────────────────────────────── */
+───────────────────────────────────── */
 export function FloatingContacts() {
   return (
     <div className="fixed bottom-5 right-5 z-40 flex flex-col gap-3">

@@ -97,10 +97,10 @@ export function Footer({ onEnquire }: { onEnquire?: (items: CartItem[]) => void 
           {/* Feature cards */}
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { icon: "🌍", title: "Global Reach",    desc: "25+ countries across Asia, Africa, Middle East, LATAM & CIS.", bg: "bg-sky-50 dark:bg-sky-900/20", iconBg: "bg-sky-100 dark:bg-sky-900/30" },
-              { icon: "📦", title: "Secure Packing",  desc: "Tamper-evident 10×10 blister cartons — neutral & custom options.", bg: "bg-teal-50 dark:bg-teal-900/20", iconBg: "bg-teal-100 dark:bg-teal-900/30" },
-              { icon: "🛡️", title: "Quality First",  desc: "Sourced from facilities meeting strict pharmacopoeial standards.", bg: "bg-violet-50 dark:bg-violet-900/20", iconBg: "bg-violet-100 dark:bg-violet-900/30" },
-              { icon: "⚡", title: "2h Response",     desc: "Export desk replies within 2 hours — WhatsApp, Telegram or email.", bg: "bg-amber-50 dark:bg-amber-900/20", iconBg: "bg-amber-100 dark:bg-amber-900/30" },
+              { icon: "🌍", title: "Global Export",       desc: "Shipping to 25+ countries — Asia, Africa, Middle East, LATAM & CIS — with full documentation.", bg: "bg-sky-50 dark:bg-sky-900/20", iconBg: "bg-sky-100 dark:bg-sky-900/30" },
+              { icon: "🔬", title: "Genuine Molecules",   desc: "100% authentic branded formulations sourced from licensed Indian manufacturers — no counterfeits.", bg: "bg-teal-50 dark:bg-teal-900/20", iconBg: "bg-teal-100 dark:bg-teal-900/30" },
+              { icon: "📋", title: "Regulatory Docs",     desc: "COA, MSDS, and product dossiers provided with every shipment for smooth customs clearance.", bg: "bg-violet-50 dark:bg-violet-900/20", iconBg: "bg-violet-100 dark:bg-violet-900/30" },
+              { icon: "⚡", title: "Fast Dispatch",       desc: "Orders processed within 48 hours of confirmation. Export desk replies within 24 hours.", bg: "bg-amber-50 dark:bg-amber-900/20", iconBg: "bg-amber-100 dark:bg-amber-900/30" },
             ].map((f) => (
               <div key={f.title} className={`relative overflow-hidden rounded-2xl ${f.bg} border border-[var(--border)] p-6 card-hover`}>
                 <div className={`mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl text-2xl ${f.iconBg}`}>

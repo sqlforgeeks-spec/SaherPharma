@@ -10,16 +10,21 @@ for (const p of products) {
   byBrand[p.brand].push(p);
 }
 
-const BRANDS = ["Vidalista", "Fildena", "Vilitra", "Cenforce", "Kamagra"] as const;
+/* Merge Cenforce + Kamagra into one combined navbar entry */
+byBrand["Cenforce & Kamagra"] = [
+  ...(byBrand["Cenforce"] ?? []),
+  ...(byBrand["Kamagra"] ?? []),
+];
+
+const BRANDS = ["Vidalista", "Fildena", "Vilitra", "Cenforce & Kamagra"] as const;
 type Brand = typeof BRANDS[number];
 
 /* Brand accent colours */
 const brandColor: Record<Brand, string> = {
-  Vidalista: "#0ea5e9",
-  Fildena:   "#f43f5e",
-  Vilitra:   "#8b5cf6",
-  Cenforce:  "#0d9488",
-  Kamagra:   "#10b981",
+  Vidalista:            "#0ea5e9",
+  Fildena:              "#f43f5e",
+  Vilitra:              "#8b5cf6",
+  "Cenforce & Kamagra": "#059669",
 };
 
 /* ── Per-brand premium SVG icons ── */
@@ -43,16 +48,11 @@ const BrandIcons: Record<Brand, (props: { color: string; size: number }) => JSX.
       <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
     </svg>
   ),
-  Cenforce: ({ color, size }) => (
+  "Cenforce & Kamagra": ({ color, size }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
       stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-    </svg>
-  ),
-  Kamagra: ({ color, size }) => (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
-      stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
+      <path d="m9 12 2 2 4-4"/>
     </svg>
   ),
 };
@@ -86,17 +86,21 @@ function ChevronIcon({ open }: { open: boolean }) {
   );
 }
 
-/* ── "All" mega dropdown ── */
+/* ── "All" mega dropdown — 4 columns ── */
 function AllDropdown({ onClose }: { onClose: () => void }) {
   const scrollToProducts = () => {
     onClose();
     document.getElementById("products")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
+
   return (
-    <div className="dropdown-enter absolute left-0 top-full mt-3 w-[860px] rounded-2xl glass-strong shadow-2xl shadow-black/8 dark:shadow-black/40 p-4 z-50">
-      <div className="grid grid-cols-5 gap-3">
+    <div className="dropdown-enter absolute left-0 top-full mt-3 w-[700px] rounded-2xl glass-strong shadow-2xl shadow-black/8 dark:shadow-black/40 p-4 z-50">
+      <div className="grid grid-cols-4 gap-3">
         {BRANDS.map((brand) => {
-          const prods = byBrand[brand] ?? [];
+          const isCombined = brand === "Cenforce & Kamagra";
+          const prods = isCombined
+            ? [...(byBrand["Cenforce"] ?? []).slice(0, 4), ...(byBrand["Kamagra"] ?? []).slice(0, 4)]
+            : byBrand[brand] ?? [];
           const color = brandColor[brand];
           return (
             <div key={brand}>
@@ -106,25 +110,20 @@ function AllDropdown({ onClose }: { onClose: () => void }) {
               </div>
               <div className="flex flex-col gap-0.5">
                 {prods.slice(0, 7).map((p) => (
-                  <button
-                    key={p.id}
-                    onClick={scrollToProducts}
-                    className="flex items-center gap-2 rounded-xl px-1.5 py-1.5 text-left transition hover:bg-teal-500/8 group"
-                  >
+                  <button key={p.id} onClick={scrollToProducts}
+                    className="flex items-center gap-2 rounded-xl px-1.5 py-1.5 text-left transition hover:bg-teal-500/8 group">
                     <span className="shrink-0 h-7 w-7 rounded-lg bg-white ring-1 ring-[var(--border)] flex items-center justify-center overflow-hidden">
                       <img src={assetUrl(p.image)} alt={p.name} className="h-6 w-6 object-contain" />
                     </span>
                     <div className="min-w-0">
                       <p className="truncate text-[10px] font-semibold text-[var(--text)] group-hover:text-teal-600 dark:group-hover:text-teal-300 transition">{p.name}</p>
-                      <p className="text-[9px] text-muted">{p.strengths[0]}</p>
+                      <p className="text-[9px] text-muted">{isCombined ? p.brand : p.strengths[0]}</p>
                     </div>
                   </button>
                 ))}
-                {prods.length > 7 && (
-                  <button onClick={scrollToProducts} className="px-1.5 py-1 text-[9px] hover:underline text-left" style={{ color }}>
-                    +{prods.length - 7} more →
-                  </button>
-                )}
+                <button onClick={scrollToProducts} className="px-1.5 py-1 text-[9px] hover:underline text-left" style={{ color }}>
+                  {isCombined ? "View all →" : prods.length > 7 ? `+${prods.length - 7} more →` : "View all →"}
+                </button>
               </div>
             </div>
           );
@@ -142,6 +141,7 @@ function AllDropdown({ onClose }: { onClose: () => void }) {
 
 /* ── Per-brand dropdown ── */
 function BrandDropdown({ brand, onClose }: { brand: Brand; onClose: () => void }) {
+  const isCombined = brand === "Cenforce & Kamagra";
   const prods = byBrand[brand] ?? [];
   const color = brandColor[brand];
 
@@ -150,22 +150,83 @@ function BrandDropdown({ brand, onClose }: { brand: Brand; onClose: () => void }
     document.getElementById("products")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  if (isCombined) {
+    const cenforceProds = byBrand["Cenforce"] ?? [];
+    const kamagraProds  = byBrand["Kamagra"]  ?? [];
+    return (
+      <div className="dropdown-enter absolute left-1/2 top-full mt-3 w-[340px] -translate-x-1/2 rounded-2xl glass-strong shadow-2xl shadow-black/8 dark:shadow-black/40 p-3 z-50">
+        <div className="mb-2.5 flex items-center gap-2 px-1">
+          {BrandIcons[brand]({ color, size: 13 })}
+          <span className="text-[10px] font-bold uppercase tracking-[0.18em]" style={{ color }}>Cenforce & Kamagra</span>
+        </div>
+        <div className="grid grid-cols-2 gap-3">
+          {/* Cenforce */}
+          <div>
+            <p className="mb-1.5 px-1 text-[8.5px] font-bold uppercase tracking-[0.15em] text-teal-600 dark:text-teal-400">Cenforce</p>
+            <div className="flex flex-col gap-0.5">
+              {cenforceProds.slice(0, 5).map((p) => (
+                <button key={p.id} onClick={scrollToProducts}
+                  className="flex items-center gap-2 rounded-xl px-1.5 py-1.5 text-left transition hover:bg-teal-500/8 group">
+                  <span className="shrink-0 h-7 w-7 rounded-lg bg-white ring-1 ring-[var(--border)] flex items-center justify-center overflow-hidden">
+                    <img src={assetUrl(p.image)} alt={p.name} className="h-6 w-6 object-contain" />
+                  </span>
+                  <div className="min-w-0">
+                    <p className="truncate text-[10px] font-semibold text-[var(--text)] group-hover:text-teal-600 dark:group-hover:text-teal-300 transition">{p.name}</p>
+                    <p className="text-[9px] text-muted">{p.strengths[0]}</p>
+                  </div>
+                </button>
+              ))}
+              {cenforceProds.length > 5 && (
+                <button onClick={scrollToProducts} className="px-1.5 py-1 text-[9px] text-teal-600 hover:underline text-left">
+                  +{cenforceProds.length - 5} more →
+                </button>
+              )}
+            </div>
+          </div>
+          {/* Kamagra */}
+          <div>
+            <p className="mb-1.5 px-1 text-[8.5px] font-bold uppercase tracking-[0.15em] text-emerald-600 dark:text-emerald-400">Kamagra</p>
+            <div className="flex flex-col gap-0.5">
+              {kamagraProds.slice(0, 5).map((p) => (
+                <button key={p.id} onClick={scrollToProducts}
+                  className="flex items-center gap-2 rounded-xl px-1.5 py-1.5 text-left transition hover:bg-emerald-500/8 group">
+                  <span className="shrink-0 h-7 w-7 rounded-lg bg-white ring-1 ring-[var(--border)] flex items-center justify-center overflow-hidden">
+                    <img src={assetUrl(p.image)} alt={p.name} className="h-6 w-6 object-contain" />
+                  </span>
+                  <div className="min-w-0">
+                    <p className="truncate text-[10px] font-semibold text-[var(--text)] group-hover:text-emerald-600 dark:group-hover:text-emerald-300 transition">{p.name}</p>
+                    <p className="text-[9px] text-muted">{p.strengths[0]}</p>
+                  </div>
+                </button>
+              ))}
+              {kamagraProds.length > 5 && (
+                <button onClick={scrollToProducts} className="px-1.5 py-1 text-[9px] text-emerald-600 hover:underline text-left">
+                  +{kamagraProds.length - 5} more →
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="mt-2.5 border-t border-[var(--border)] pt-2 px-1">
+          <button onClick={scrollToProducts} className="text-[10px] font-semibold text-teal-600 dark:text-teal-400 hover:underline">
+            View all Cenforce & Kamagra →
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="dropdown-enter absolute left-1/2 top-full mt-3 w-56 -translate-x-1/2 rounded-2xl glass-strong shadow-2xl shadow-black/8 dark:shadow-black/40 p-3 z-50">
       <div className="mb-2.5 flex items-center gap-2 px-1">
         {BrandIcons[brand]({ color, size: 13 })}
-        <span className="text-[10px] font-bold uppercase tracking-[0.18em]" style={{ color }}>
-          {brand}
-        </span>
+        <span className="text-[10px] font-bold uppercase tracking-[0.18em]" style={{ color }}>{brand}</span>
       </div>
 
       <div className="flex flex-col gap-0.5">
         {prods.slice(0, 7).map((p) => (
-          <button
-            key={p.id}
-            onClick={scrollToProducts}
-            className="flex items-center gap-2.5 rounded-xl px-2 py-1.5 text-left transition hover:bg-teal-500/8 group"
-          >
+          <button key={p.id} onClick={scrollToProducts}
+            className="flex items-center gap-2.5 rounded-xl px-2 py-1.5 text-left transition hover:bg-teal-500/8 group">
             <span className="shrink-0 h-8 w-8 rounded-lg bg-white ring-1 ring-[var(--border)] flex items-center justify-center overflow-hidden">
               <img src={assetUrl(p.image)} alt={p.name} className="h-7 w-7 object-contain" />
             </span>
@@ -237,12 +298,8 @@ export function Navbar({
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (brandsRef.current && !brandsRef.current.contains(e.target as Node)) {
-        setOpenBrand(null);
-      }
-      if (allRef.current && !allRef.current.contains(e.target as Node)) {
-        setOpenAll(false);
-      }
+      if (brandsRef.current && !brandsRef.current.contains(e.target as Node)) setOpenBrand(null);
+      if (allRef.current && !allRef.current.contains(e.target as Node)) setOpenAll(false);
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
@@ -266,11 +323,17 @@ export function Navbar({
             ? "bg-white/95 dark:bg-[#0e1526]/95 border border-[var(--border)] shadow-lg shadow-black/5 backdrop-blur-xl"
             : "bg-white/80 dark:bg-[#0e1526]/70 border border-[var(--border)] backdrop-blur-md"
         }`}>
+          {/* Logo + slogan */}
           <button onClick={() => onNav("top")} className="flex items-center gap-2.5">
             <Logo className="h-8 w-8" />
-            <span className="font-display text-base font-bold tracking-tight text-[var(--text)]">
-              Saher<span className="gradient-text">Pharma</span>
-            </span>
+            <div className="flex flex-col items-start">
+              <span className="font-display text-base font-bold leading-tight tracking-tight text-[var(--text)]">
+                Saher<span className="gradient-text">Pharma</span>
+              </span>
+              <span className="hidden text-[8px] font-medium leading-tight tracking-wide text-muted sm:block">
+                Global Pharma Exports · B2B Exports · Serving 25+ Countries
+              </span>
+            </div>
           </button>
 
           {/* Desktop nav */}
@@ -283,7 +346,8 @@ export function Navbar({
                 style={openAll ? { color: "#0d9488" } : { color: "var(--muted)" }}
               >
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                  <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                  <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
                 </svg>
                 All
                 <ChevronIcon open={openAll} />
@@ -330,7 +394,7 @@ export function Navbar({
                 <line x1="22" y1="2" x2="11" y2="13"/>
                 <polygon points="22 2 15 22 11 13 2 9 22 2"/>
               </svg>
-              Enquiry
+              Get Quote
             </RippleButton>
 
             <button
@@ -357,7 +421,8 @@ export function Navbar({
               >
                 <span className="flex items-center gap-2.5">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                    <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                    <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
                   </svg>
                   All Products
                 </span>
@@ -365,9 +430,9 @@ export function Navbar({
               </button>
               {mobileOpenAll && (
                 <div className="mb-1 max-h-72 overflow-y-auto rounded-xl bg-teal-50/60 dark:bg-teal-900/10 p-2 flex flex-col gap-2">
-                  {BRANDS.map((brand) => (
+                  {["Vidalista", "Fildena", "Vilitra", "Cenforce", "Kamagra"].map((brand) => (
                     <div key={brand}>
-                      <p className="px-2 py-1 text-[9px] font-bold uppercase tracking-[0.18em]" style={{ color: brandColor[brand] }}>
+                      <p className="px-2 py-1 text-[9px] font-bold uppercase tracking-[0.18em]" style={{ color: brand === "Cenforce" ? "#0d9488" : brand === "Kamagra" ? "#10b981" : brand === "Vidalista" ? "#0ea5e9" : brand === "Fildena" ? "#f43f5e" : "#8b5cf6" }}>
                         {brand}
                       </p>
                       {(byBrand[brand] ?? []).slice(0, 4).map((p) => (
@@ -390,6 +455,7 @@ export function Navbar({
             {BRANDS.map((brand) => {
               const color = brandColor[brand];
               const isOpen = mobileOpenBrand === brand;
+              const isCombined = brand === "Cenforce & Kamagra";
               return (
                 <div key={brand}>
                   <button
@@ -406,21 +472,51 @@ export function Navbar({
 
                   {isOpen && (
                     <div className="mb-1 max-h-60 overflow-y-auto rounded-xl bg-teal-50/60 dark:bg-teal-900/10 p-2">
-                      {(byBrand[brand] ?? []).slice(0, 6).map((p) => (
-                        <button
-                          key={p.id}
-                          onClick={() => { setOpen(false); onNav("products"); }}
-                          className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-left transition hover:bg-teal-500/8"
-                        >
-                          <img src={assetUrl(p.image)} alt={p.name} className="h-7 w-7 rounded-md object-contain bg-white shrink-0" />
-                          <div className="min-w-0">
-                            <p className="text-sm font-medium text-[var(--text)] truncate">{p.name}</p>
-                            <p className="text-[10px] text-muted">{p.strengths.slice(0, 3).join(" · ")}</p>
-                          </div>
-                        </button>
-                      ))}
-                      {(byBrand[brand]?.length ?? 0) > 6 && (
-                        <p className="px-3 py-1 text-[9px]" style={{ color }}>+{(byBrand[brand]?.length ?? 0) - 6} more</p>
+                      {isCombined ? (
+                        <>
+                          {["Cenforce", "Kamagra"].map((subBrand) => (
+                            <div key={subBrand}>
+                              <p className="px-2 py-1 text-[9px] font-bold uppercase tracking-[0.15em]"
+                                style={{ color: subBrand === "Cenforce" ? "#0d9488" : "#10b981" }}>
+                                {subBrand}
+                              </p>
+                              {(byBrand[subBrand] ?? []).slice(0, 4).map((p) => (
+                                <button
+                                  key={p.id}
+                                  onClick={() => { setOpen(false); onNav("products"); }}
+                                  className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-left transition hover:bg-teal-500/8"
+                                >
+                                  <img src={assetUrl(p.image)} alt={p.name} className="h-7 w-7 rounded-md object-contain bg-white shrink-0" />
+                                  <div className="min-w-0">
+                                    <p className="text-sm font-medium text-[var(--text)] truncate">{p.name}</p>
+                                    <p className="text-[10px] text-muted">{p.strengths[0]}</p>
+                                  </div>
+                                </button>
+                              ))}
+                            </div>
+                          ))}
+                        </>
+                      ) : (
+                        <>
+                          {(byBrand[brand] ?? []).slice(0, 6).map((p) => (
+                            <button
+                              key={p.id}
+                              onClick={() => { setOpen(false); onNav("products"); }}
+                              className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-left transition hover:bg-teal-500/8"
+                            >
+                              <img src={assetUrl(p.image)} alt={p.name} className="h-7 w-7 rounded-md object-contain bg-white shrink-0" />
+                              <div className="min-w-0">
+                                <p className="text-sm font-medium text-[var(--text)] truncate">{p.name}</p>
+                                <p className="text-[10px] text-muted">{p.strengths.slice(0, 3).join(" · ")}</p>
+                              </div>
+                            </button>
+                          ))}
+                          {(byBrand[brand]?.length ?? 0) > 6 && (
+                            <p className="px-3 py-1 text-[9px]" style={{ color }}>
+                              +{(byBrand[brand]?.length ?? 0) - 6} more
+                            </p>
+                          )}
+                        </>
                       )}
                     </div>
                   )}
@@ -444,7 +540,7 @@ export function Navbar({
                 <line x1="22" y1="2" x2="11" y2="13"/>
                 <polygon points="22 2 15 22 11 13 2 9 22 2"/>
               </svg>
-              Quick Enquiry
+              Get Export Quote
             </button>
           </div>
         )}

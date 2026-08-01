@@ -102,21 +102,6 @@ export function Catalogue({ onEnquire }: { onEnquire: (p: Product) => void }) {
         </p>
       </div>
 
-      {/* Stats strip */}
-      <div className="reveal mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3">
-        {[
-          { value: "25+",              label: "Countries Served" },
-          { value: `${products.length}+`, label: "Export Products" },
-          { value: "48 hr",            label: "Order Dispatch" },
-          { value: "2 hr",             label: "Response Time" },
-        ].map((s) => (
-          <div key={s.label} className="flex flex-col items-center justify-center rounded-2xl border border-[var(--border)] bg-white dark:bg-[var(--surface)] py-5 px-3 text-center shadow-sm">
-            <div className="font-display text-2xl font-bold gradient-text">{s.value}</div>
-            <div className="mt-1 text-[10px] font-medium uppercase tracking-wider text-muted">{s.label}</div>
-          </div>
-        ))}
-      </div>
-
       {/* Filter row */}
       <div className="reveal mt-8 flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap gap-2">

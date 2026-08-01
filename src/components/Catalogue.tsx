@@ -103,7 +103,7 @@ export function Catalogue({ onEnquire }: { onEnquire: (p: Product) => void }) {
       </div>
 
       {/* Filter row */}
-      <div className="reveal mt-8 flex flex-wrap items-center justify-between gap-3">
+      <div className="reveal mt-4 flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap gap-2">
           {(["Featured", ...BRANDS] as FilterTab[]).map((tab) => {
             const isActive = activeTab === tab;

@@ -22,41 +22,6 @@ const brandColor: Record<Brand, string> = {
   Kamagra:   "#10b981",
 };
 
-/* ── Minimal SVG brand icons ── */
-const BrandIcons: Record<Brand, (props: { color: string; size?: number }) => JSX.Element> = {
-  Vidalista: ({ color, size = 12 }) => (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-      <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5"/><circle cx="12" cy="12" r="3"/>
-    </svg>
-  ),
-  Fildena: ({ color, size = 12 }) => (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-    </svg>
-  ),
-  Vilitra: ({ color, size = 12 }) => (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
-    </svg>
-  ),
-  Cenforce: ({ color, size = 12 }) => (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-    </svg>
-  ),
-  Kamagra: ({ color, size = 12 }) => (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
-    </svg>
-  ),
-};
-
-/* Wrapper so JSX can render a dynamically-chosen icon */
-function BrandIcon({ brand, color, size = 12 }: { brand: Brand; color: string; size?: number }) {
-  const Icon = BrandIcons[brand];
-  return <Icon color={color} size={size} />;
-}
-
 function SunIcon() {
   return (
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -102,7 +67,6 @@ function AllDropdown({ onClose }: { onClose: () => void }) {
             <div key={brand} className="flex flex-col gap-0.5">
               {/* Brand header */}
               <div className="mb-2 flex items-center gap-1.5 px-2">
-                <BrandIcon brand={brand} color={color} size={11} />
                 <span className="text-[9px] font-bold uppercase tracking-[0.2em]" style={{ color }}>
                   {brand}
                 </span>
@@ -163,7 +127,6 @@ function BrandDropdown({ brand, onClose }: { brand: Brand; onClose: () => void }
     <div className="dropdown-enter absolute left-1/2 top-full mt-3 z-50 w-56 -translate-x-1/2 rounded-2xl border border-[var(--border)] bg-white/98 dark:bg-[#0d1525]/98 backdrop-blur-xl shadow-2xl shadow-black/10 dark:shadow-black/40 overflow-hidden">
       {/* Brand header */}
       <div className="flex items-center gap-2 border-b border-[var(--border)] px-4 py-3">
-        <BrandIcon brand={brand} color={color} size={13} />
         <span className="text-[10px] font-bold uppercase tracking-[0.18em]" style={{ color }}>
           {brand}
         </span>
@@ -240,7 +203,7 @@ function CatalogueBanner() {
             <span className="text-muted hidden md:inline">·</span>
             <span className="hidden text-muted md:inline">{p.strengths.join(" / ")}</span>
             <span className="ml-2 rounded-full bg-teal-500/12 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-teal-700 dark:text-teal-300">
-              ✈️ Export Ready
+              Export Ready
             </span>
             <span className="ml-4 text-teal-400/40">◆</span>
           </div>
@@ -288,10 +251,10 @@ export function Navbar({
       <CatalogueBanner />
 
       <header className="fixed inset-x-0 top-9 z-40 flex justify-center px-3 pt-3">
-        <nav className={`flex w-full max-w-6xl items-center justify-between rounded-2xl px-4 py-2.5 transition-all duration-500 ${
+        <nav className={`flex w-full max-w-6xl items-center justify-between rounded-2xl px-6 py-3 transition-all duration-500 ${
           scrolled
-            ? "bg-white/96 dark:bg-[#0e1526]/96 border border-[var(--border)] shadow-lg shadow-black/5 backdrop-blur-xl"
-            : "bg-white/85 dark:bg-[#0e1526]/75 border border-[var(--border)] backdrop-blur-md"
+            ? "bg-white/97 dark:bg-[#0e1526]/97 border border-[var(--border)] shadow-lg shadow-black/6 backdrop-blur-xl"
+            : "bg-white/90 dark:bg-[#0e1526]/80 border border-[var(--border)] backdrop-blur-md"
         }`}>
 
           {/* Logo — no slogan, clean */}
@@ -303,18 +266,14 @@ export function Navbar({
           </button>
 
           {/* ── Desktop nav ── */}
-          <div className="hidden items-center gap-0.5 lg:flex">
+          <div className="hidden items-center gap-1 lg:flex">
             {/* All */}
             <div className="relative" ref={allRef}>
               <button
                 onClick={toggleAll}
-                className="flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-medium transition-colors hover:text-[var(--text)]"
+                className="flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-sm font-medium transition-colors hover:text-[var(--text)]"
                 style={{ color: openAll ? "#0d9488" : "var(--muted)" }}
               >
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
-                  <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
-                </svg>
                 All
                 <ChevronIcon open={openAll} />
               </button>
@@ -322,7 +281,7 @@ export function Navbar({
             </div>
 
             {/* Per-brand */}
-            <div className="flex items-center gap-0.5" ref={brandsRef}>
+            <div className="flex items-center gap-1" ref={brandsRef}>
               {BRANDS.map((brand) => {
                 const isOpen = openBrand === brand;
                 const color  = brandColor[brand];
@@ -330,10 +289,9 @@ export function Navbar({
                   <div key={brand} className="relative">
                     <button
                       onClick={() => toggleBrand(brand)}
-                      className="flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-medium text-muted transition-colors hover:text-[var(--text)]"
+                      className="flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-sm font-medium text-muted transition-colors hover:text-[var(--text)]"
                       style={isOpen ? { color } : {}}
                     >
-                      <BrandIcon brand={brand} color={isOpen ? color : "currentColor"} size={12} />
                       {brand}
                       <ChevronIcon open={isOpen} />
                     </button>
@@ -356,11 +314,8 @@ export function Navbar({
 
             <RippleButton
               onClick={onEnquire}
-              className="hidden items-center gap-1.5 rounded-full bg-teal-600 px-4 py-2.5 text-xs font-semibold text-white shadow-md shadow-teal-600/25 transition hover:bg-teal-500 sm:flex"
+              className="hidden items-center rounded-full bg-teal-600 px-5 py-2.5 text-xs font-semibold text-white shadow-md shadow-teal-600/25 transition hover:bg-teal-500 sm:flex"
             >
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
-              </svg>
               Get Quote
             </RippleButton>
 
@@ -385,13 +340,7 @@ export function Navbar({
                 className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-sm font-medium text-muted transition hover:bg-[var(--bg-2)]"
                 style={mobileOpenAll ? { color: "#0d9488" } : {}}
               >
-                <span className="flex items-center gap-2.5">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
-                    <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
-                  </svg>
-                  All Products
-                </span>
+                <span>All Products</span>
                 <ChevronIcon open={mobileOpenAll} />
               </button>
               {mobileOpenAll && (
@@ -430,10 +379,7 @@ export function Navbar({
                     className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-sm font-medium text-muted transition hover:bg-[var(--bg-2)]"
                     style={isOpen ? { color } : {}}
                   >
-                    <span className="flex items-center gap-2.5">
-                      <BrandIcon brand={brand} color={isOpen ? color : "currentColor"} size={14} />
-                      {brand}
-                    </span>
+                    <span>{brand}</span>
                     <ChevronIcon open={isOpen} />
                   </button>
                   {isOpen && (
@@ -475,11 +421,8 @@ export function Navbar({
             {/* CTA */}
             <button
               onClick={() => { onEnquire(); setOpen(false); }}
-              className="mt-1 flex items-center justify-center gap-2 rounded-full bg-teal-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-teal-500"
+              className="mt-1 flex items-center justify-center rounded-full bg-teal-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-teal-500"
             >
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
-              </svg>
               Get Export Quote
             </button>
           </div>

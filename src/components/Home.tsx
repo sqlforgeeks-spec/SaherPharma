@@ -70,7 +70,7 @@ export function HeroCarousel({
       <div className="absolute inset-0 bg-gradient-to-t from-[#0a1628]/60 via-transparent to-transparent" />
 
       {/* Content */}
-      <div className="relative z-10 flex min-h-[60svh] sm:min-h-[80svh] flex-col items-start justify-center px-6 pt-28 pb-16 sm:px-10 lg:px-20">
+      <div className="relative z-10 flex min-h-[60svh] sm:min-h-[80svh] flex-col items-start justify-center px-6 pt-40 pb-16 sm:px-10 lg:px-20">
         <div className="max-w-2xl">
           {/* Badge */}
           <div key={idx + "b"} className="animate-fade mb-6">

@@ -205,7 +205,7 @@ function CatalogueBanner() {
             <span className="ml-2 rounded-full bg-teal-500/12 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-teal-700 dark:text-teal-300">
               Export Ready
             </span>
-            <span className="ml-4 text-teal-400/40">◆</span>
+            <span className="ml-4 text-teal-400/30">·</span>
           </div>
         ))}
       </div>
@@ -250,28 +250,28 @@ export function Navbar({
     <>
       <CatalogueBanner />
 
-      <header className="fixed inset-x-0 top-9 z-40 flex justify-center px-3 pt-3">
-        <nav className={`flex w-full max-w-6xl items-center justify-between rounded-2xl px-6 py-3 transition-all duration-500 ${
+      <header className="fixed inset-x-0 top-9 z-40 flex justify-center px-4 pt-3">
+        <nav className={`flex w-full max-w-6xl items-center justify-between rounded-2xl px-7 py-3.5 transition-all duration-500 ${
           scrolled
-            ? "bg-white/97 dark:bg-[#0e1526]/97 border border-[var(--border)] shadow-lg shadow-black/6 backdrop-blur-xl"
-            : "bg-white/90 dark:bg-[#0e1526]/80 border border-[var(--border)] backdrop-blur-md"
+            ? "bg-white/98 dark:bg-[#0e1526]/98 border border-[var(--border)] shadow-xl shadow-black/8 backdrop-blur-2xl"
+            : "bg-white/92 dark:bg-[#0e1526]/82 border border-[var(--border)] backdrop-blur-lg"
         }`}>
 
-          {/* Logo — no slogan, clean */}
-          <button onClick={() => onNav("top")} className="flex items-center gap-2.5 shrink-0">
+          {/* Logo */}
+          <button onClick={() => onNav("top")} className="flex items-center gap-3 shrink-0">
             <Logo className="h-8 w-8" />
-            <span className="font-display text-base font-bold tracking-tight text-[var(--text)]">
+            <span className="font-display text-[15px] font-bold tracking-tight text-[var(--text)]">
               Saher<span className="gradient-text">Pharma</span>
             </span>
           </button>
 
           {/* ── Desktop nav ── */}
-          <div className="hidden items-center gap-1 lg:flex">
+          <div className="hidden items-center gap-0.5 lg:flex">
             {/* All */}
             <div className="relative" ref={allRef}>
               <button
                 onClick={toggleAll}
-                className="flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-sm font-medium transition-colors hover:text-[var(--text)]"
+                className="flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-[13px] font-medium transition-colors hover:text-[var(--text)] hover:bg-[var(--bg-2)]"
                 style={{ color: openAll ? "#0d9488" : "var(--muted)" }}
               >
                 All
@@ -280,8 +280,11 @@ export function Navbar({
               {openAll && <AllDropdown onClose={() => setOpenAll(false)} />}
             </div>
 
+            {/* Divider */}
+            <span className="mx-1 h-4 w-px bg-[var(--border)]" />
+
             {/* Per-brand */}
-            <div className="flex items-center gap-1" ref={brandsRef}>
+            <div className="flex items-center gap-0.5" ref={brandsRef}>
               {BRANDS.map((brand) => {
                 const isOpen = openBrand === brand;
                 const color  = brandColor[brand];
@@ -289,7 +292,7 @@ export function Navbar({
                   <div key={brand} className="relative">
                     <button
                       onClick={() => toggleBrand(brand)}
-                      className="flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-sm font-medium text-muted transition-colors hover:text-[var(--text)]"
+                      className="flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-[13px] font-medium text-muted transition-colors hover:text-[var(--text)] hover:bg-[var(--bg-2)]"
                       style={isOpen ? { color } : {}}
                     >
                       {brand}
@@ -303,7 +306,7 @@ export function Navbar({
           </div>
 
           {/* Right controls */}
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             <button
               onClick={() => setDarkMode(!darkMode)}
               aria-label="Toggle theme"
@@ -314,7 +317,7 @@ export function Navbar({
 
             <RippleButton
               onClick={onEnquire}
-              className="hidden items-center rounded-full bg-teal-600 px-5 py-2.5 text-xs font-semibold text-white shadow-md shadow-teal-600/25 transition hover:bg-teal-500 sm:flex"
+              className="hidden items-center rounded-full bg-teal-600 px-5 py-2.5 text-[13px] font-semibold text-white shadow-md shadow-teal-600/25 transition hover:bg-teal-500 sm:flex"
             >
               Get Quote
             </RippleButton>
